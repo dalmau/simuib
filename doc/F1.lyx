@@ -1,0 +1,151 @@
+#LyX 1.5.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 276
+\begin_document
+\begin_header
+\textclass article
+\begin_preamble
+
+\end_preamble
+\language spanish
+\inputencoding auto
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\paperfontsize default
+\spacing single
+\papersize default
+\use_geometry true
+\use_amsmath 1
+\use_esint 1
+\cite_engine basic
+\use_bibtopic false
+\paperorientation portrait
+\leftmargin 3cm
+\topmargin 3cm
+\rightmargin 3cm
+\bottommargin 3cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\author "" 
+\author "" 
+\end_header
+
+\begin_body
+
+\begin_layout Title
+F1 – Diseño Modular del Simulador de Eventos Discretos y Resultados
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Standard
+$LastChangedDate$ 
+\end_layout
+
+\begin_layout Standard
+$LastChangedRevision$
+\end_layout
+
+\begin_layout Standard
+$LastChangedBy$
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lyxline
+
+\end_layout
+
+\begin_layout Subsection*
+
+\bar under
+Contestar a las siguientes preguntas
+\end_layout
+
+\begin_layout Standard
+(Contestar exclusivamente lo que pregunta.
+ Utilizar las líneas que sean necesarias para contestar, pero recordar los
+ criterios de brevedad y claridad especificados en el enunciado de la práctica).
+\end_layout
+
+\begin_layout Enumerate
+¿De qué tipo de simulación se trata (horizonte finito o infinito)?
+\end_layout
+
+\begin_layout Enumerate
+¿Qué metodo habeis utilizado para construir el intervalo de confianza?
+\end_layout
+
+\begin_layout Enumerate
+¿Cómo habeis tratado el problema del transitorio?
+\end_layout
+
+\begin_layout Enumerate
+\noindent
+¿Qué método habeis utilizado para ajustar el intervalo de confianza a los
+ criterios de precisión?
+\newline
+
+\newline
+Los apartados 5, 6 y 7 deben contestarse en el supuesto
+ de programación clásica o estructurada, aunque finalmente se haya utilizado
+ programación orientada a objetos.
+\end_layout
+
+\begin_layout Enumerate
+Especifica y describe mínimamente (una frase) cada uno de los eventos que
+ habeis definido en vuestro simulador.
+\end_layout
+
+\begin_layout Enumerate
+Especifica y describe mínimamente (una frase) cada una de las variabes de
+ estado que habeis definido en vuestro simulador.
+\end_layout
+
+\begin_layout Enumerate
+Especifica y describe mínimamente (una frase) cada uno de los contadores
+ estadísticos que habeis definido en vuestro simulador.
+\end_layout
+
+\begin_layout Enumerate
+Pseudo-código de todo el simulador.
+ Se trata de especificar en forma de pseudo-códi el contenido de todo el
+ simulador, de forma que responda al modelo de la Figura 4 de la lección
+ L11.
+ Esto quiere decir, por lo que respecta al bloque de simulación de trazas
+ individuales: especificar todas las rutinas de eventos, las otras rutinas
+ y las relaciones entre todas ellas (en forma de llamadas); por otra parte,
+ este bloque de simulación de trazas individuales se tiene que conectar
+ convenientemente con el bloque de control estadístico, el contenido del
+ cual también se tiene que especificar.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Mostrar la curva de tiempo de respuesta solicitada.
+ Comentar los resultados obtenidos.
+\end_layout
+
+\end_body
+\end_document
