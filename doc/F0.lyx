@@ -2,7 +2,7 @@
 \lyxformat 276
 \begin_document
 \begin_header
-\textclass report
+\textclass article
 \begin_preamble
 
 \end_preamble
@@ -52,7 +52,7 @@ F0 – Identificación del Grupo/Configuración de la Red
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Standard
 $LastChangedDate$ 
@@ -71,13 +71,22 @@ $LastChangedBy$
 
 \end_layout
 
+\begin_layout Standard
+
+\lyxline
+
+\end_layout
+
 \begin_layout Subsection*
 
 \bar under
 Identificación de los Miembros del Grupo
+\newline
+
 \end_layout
 
 \begin_layout Standard
+\noindent
 NOMBRE: Vicente Juan Ferrer Dalmau
 \newline
 E-MAIL: vicente@jdalmau.es
@@ -101,9 +110,12 @@ TELÉFONO (opcional):
 
 \bar under
 Configuración de la Red de Colas
+\newline
+
 \end_layout
 
 \begin_layout Standard
+\noindent
 Rellenar la siguiente tabla:
 \newline
 
