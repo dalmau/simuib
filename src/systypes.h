@@ -11,19 +11,7 @@
 
 // Tiempo
 typedef float TIME;
+#define NULLTIME -1.0
 
-// Tiempos de llegada
-// nodos de la lista
-struct NODEAL{
-	TIME t;
-	struct NODEAL *next;
-};
-typedef struct NODEAL NODEAL;
-
-// lista de tiempos de llegada
-typedef struct ARRIVALSLIST {
-	NODEAL *first;
-	NODEAL *last;
-}ARRIVALSLIST;
 
 #endif // _SYSTYPES_H_

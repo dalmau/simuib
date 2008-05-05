@@ -9,6 +9,18 @@
 
 // implementacion
 
+// nodos de la lista
+struct NODEAL{
+	TIME t;
+	struct NODEAL *next;
+};
+typedef struct NODEAL NODEAL;
+
+// lista de tiempos de llegada
+typedef struct ARRIVALSLIST {
+	NODEAL *first;
+	NODEAL *last;
+}ARRIVALSLIST;
 
 
 // operaciones
