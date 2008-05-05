@@ -14,13 +14,14 @@ typedef float TIME;
 
 // Tiempos de llegada
 // nodos de la lista
-struct _NODEAL;
-typedef struct _NODEAL{
+struct NODEAL{
 	TIME t;
 	struct NODEAL *next;
-}NODEAL;
+};
+typedef struct NODEAL NODEAL;
+
 // lista de tiempos de llegada
-typedef struct _ARRIVALSLIST {
+typedef struct ARRIVALSLIST {
 	NODEAL *first;
 	NODEAL *last;
 }ARRIVALSLIST;
