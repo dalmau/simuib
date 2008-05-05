@@ -100,7 +100,7 @@ long urandgt (int stream)
 
 // Devuelve un valor perteneciente a una distribución exponencial de parametro
 // lambda
-double exponencial(double lambda)
+double exponential(double lambda)
 {
         float u;
 

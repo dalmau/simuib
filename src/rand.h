@@ -10,7 +10,7 @@
 float urand(int stream);
 void urandst(long zset, int stream);
 long urandgt(int stream);
-double exponencial(double lambda);
+double exponential(double lambda);
 
 #endif // RAND_H_
 
