@@ -10,12 +10,11 @@
 #include <stdbool.h>
 
 // Debug
-bool DEBUG; 
+bool DEBUG;
 
 // Tiempo
-typedef float TIME;
+typedef double TIME;
 #define NULLTIME -1.0
 #define INITIALTIME 0.0
-
 
 #endif // _SYSTYPES_H_

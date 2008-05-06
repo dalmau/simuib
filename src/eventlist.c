@@ -51,30 +51,15 @@ void setArrivalEventEL (EVENTLIST l, EVENT e, TIME t) {
 //
 void setDepartureEventEL (EVENTLIST l, EVENT e, TIME a, TIME d) {
 
-	int s;
-	//if ((s=getFreeServerEL(l, e)) == -1) {
-	//	printf("eventlist.setDepartureEventEL(): ERROR, all the servers are busy.\n");
-	//	exit(EXIT_FAILURE);
-	//}
-	/*
-	if (e == DC1) {
-		// instante de salida
-		l[2+s-1] = d;
-		// almacenar el instante de llegada del cliente
-		arrivalsS1[s-1] = a;
-	}
-	else {
-		// instante de salida
-		l[SERVERSC1+2+s-1] = d;
-		// almacenar el instante de llegada del cliente
-		arrivalsS2[s-1] = a;
-	}
-	*/
+	// instante de salida
+	l[e] = d;
+	// almacenar el instante de llegada del cliente
+	// TODO
 }
 
 // Retorna la posicion cuyo instante temporal es mas proximo al valor actual del reloj del simulador.
 //
-POSITIONEL getClosestEventEL (EVENTLIST l) {
+EVENT getClosestEventEL (EVENTLIST l) {
 
 	if (emptyEL(l)) {
 		printf("eventlist.getClosestEventEL(): ERROR, the event list is empty\n");
@@ -90,56 +75,53 @@ POSITIONEL getClosestEventEL (EVENTLIST l) {
 		e++;
 	}
 	
-	//if (DEBUG)
-	//	printf("eventlist.getClosestEventEL(): position chosen <%i> with time <%3.2f>\n", chosen, l[chosen]);
+	if (DEBUG)
+		printf("eventlist.getClosestEventEL(): position chosen <%i> with time <%3.2f>\n", chosen, l[chosen]);
 
 	return chosen;
 }
 
-// Retorna el instante temporal asociado a la posicion p en la lista de eventos l.
+// Retorna el instante temporal asociado al evento e en la lista de eventos l.
 //
-TIME getTimeEL (EVENTLIST l, POSITIONEL p) {
+TIME getTimeEL (EVENTLIST l, EVENT e) {
 
-	return l[p];
+	return l[e];
 }
 
-// Retorna el evento asociado a la posicion p en la lista de eventos l.
-//
-EVENT getEventEL (EVENTLIST l, POSITIONEL p) {
+char *eventToString (EVENT e) {
 
-	switch (p) {
-		case 0:
-			return A1;
+	switch (e) {
+		case A1:
+			return "A1";
 			break;
-		case 1:
-			return A2;
+		case A2:
+			return "A2";
 			break;
-		case 2:
-			return A3;
+		case A3:
+			return "A3";
 			break;
-		case 3:
-			return D1;
+		case D1:
+			return "D1";
 			break;
-		case 4:
-			return D2;
+		case D2:
+			return "D2";
 			break;
-		case 5:
-			return D3;
+		case D3:
+			return "D3";
 			break;			
-	}
+	}	
 }
-
 // Muestra el contenido de una lista de eventos.
 //
 void showEL (EVENTLIST l) {
-	/*
-	printf("eventlist.showEL(): AC1 <%f>\n", l[0]);	
-	printf("eventlist.showEL(): AC2 <%f>\n", l[1]);
-	for (int i=0; i < SERVERSC1; i++)
-		printf("eventlist.showEL(): DC1 <%f>\n", l[2+i]);
-	for (int i=0; i < SERVERSC2; i++)
-		printf("eventlist.showEL(): DC2 <%f>\n", l[2+SERVERSC1+i]);
-
-	*/
+	
+	int i;
+	for (i = 0; i < EVENTLISTSIZE; i++) {
+		printf("eventlist.showEL(): %s ", eventToString(i));	
+		if (l[i] == NULLTIME)
+			printf("<EMPTY>\n");
+		else
+			printf("<%f>\n", l[i]);
+	}
 }
 

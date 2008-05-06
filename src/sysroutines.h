@@ -7,7 +7,12 @@
 
 #include "eventlist.h"
 
-void simulatorInit (float theLambda);
+void simulatorInit (double theLambda, double maxReplicationTime);
 void replicationInit (void);
+void replicate (void);
+EVENT timer (void);
+// eventos
+void arrival1 (void);
+void departure1 (void);
 
 #endif // _SYSROUTINES_H_

@@ -27,9 +27,8 @@ void initEL (EVENTLIST l);
 bool emptyEL (EVENTLIST l);
 void setArrivalEventEL (EVENTLIST l, EVENT e, TIME t);
 void setDepartureEventEL (EVENTLIST l, EVENT e, TIME a, TIME d);
-POSITIONEL getClosestEventEL (EVENTLIST l);
-TIME getTimeEL (EVENTLIST l, POSITIONEL p);
-EVENT getEventEL (EVENTLIST l, POSITIONEL p);
+EVENT getClosestEventEL (EVENTLIST l);
+TIME getTimeEL (EVENTLIST l, EVENT e);
 void showEL (EVENTLIST l);
 
 #endif // _EVENTLIST_H_

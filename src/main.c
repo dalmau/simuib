@@ -13,17 +13,15 @@
 
 int main(int argc, char *argv[]) {
 	
-	if (argc != 3) {
-		printf("main.main(): ERROR there's at least one missing parameter");
-		printf("main.main(): Usage: simulator lambda_value debug(0/1)");
+	if (argc != 4) {
+		printf("main.main(): ERROR there's at least one missing parameter\n");
+		printf("main.main(): Usage: simulator lambda_value replication_time debug(0/1)\n");
 		exit(EXIT_FAILURE);
 	}
-	DEBUG = (strcmp(argv[2], "1")==0)?true:false;
+	DEBUG = (strcmp(argv[3], "1")==0)?true:false;
 	
-	float l = (float)atof(argv[1]);
-	printf("%s\n", argv[1]);
-	printf("%f\n", l);
-	simulatorInit(0.006f);  	
+	simulatorInit(atof(argv[1]), atof(argv[2]));
+	replicate();
 
 	//system("PAUSE");	
 	return 0;
