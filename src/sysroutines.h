@@ -14,5 +14,9 @@ EVENT timer (void);
 // eventos
 void arrival1 (void);
 void departure1 (void);
+void arrival2 (void);
+void departure2 (void);
+void arrival3 (void);
+void departure3 (void);
 
 #endif // _SYSROUTINES_H_

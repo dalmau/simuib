@@ -24,6 +24,12 @@ double mu1 	= 0.1;	// Tiempo medio servicio nodo 1 = 10 ms
 double mu2 	= 0.06;	// Tiempo medio servicio nodo 2 = 15 ms
 double mu3	= 0.05;	// Tiempo medio servicio nodo 3 = 20 ms
 
+// probabilidades de ramificacion y salida del sistema
+float p12 	= 0.3;
+float p13	= 0.7;
+float p30	= 0.4;
+float p31	= 0.6;
+
 // Variables de estado del sistema
 TIME clock;
 EVENTLIST eventList;		// lista de eventos del sistema
@@ -103,14 +109,18 @@ void replicate (void) {
 			case D1:
 				departure1();
 				break;
-			/*
-			case AC2:
-				arrivalC2();
+			case A2:
+				arrival2();
 				break;
-			case DC2:
-				departureC2(getArrivalEL(eventList, p), getServerEL(eventList, p));
+			case D2:
+				departure2();
 				break;
-			*/
+			case A3:
+				arrival3();
+				break;
+			case D3:
+				departure3();
+				break;
 			default:
 				break;
 		}			
@@ -208,29 +218,184 @@ void departure1 (void) {
 		// eliminarlo de la cola de espera
 		delArrivalAL(&arrivals1);
 	}
-/*
-	// determinar si el cliente sale del sistema o vuelve a solicitar servicio
-	if (urand(SEG) >= pOutC1) {
+
+	// encaminar el cliente hacia la estacion 2 o la estacion 3
+	if (urand(SEG) < p12) {
 		if (DEBUG)
-			printf("sysroutines.departureC1(): The client will enter the system again.\n");	
-		activeC1++;
+			printf("sysroutines.departure1(): The client will go to station 2.\n");
+		
 		// servidor libre
-		if (busyS1 < SERVERSC1) {
-			busyS1++;
+		if (!serverBusy2) {
+			serverBusy2 = true;
 			// marcar su instante de salida
-			setDepartureEventEL(eventList, DC1, clock, clock + exponencial(muC1));
+			setDepartureEventEL(eventList, D2, clock, clock + exponential(mu2));
 		}
 		// poner el cliente nuevamente en cola
-		// los contadores estadisticos ya fueron actualizados para el nuevo valor de clock
 		else {
-			addArrivalAL(&queueC1, clock);
-		}
+			addArrivalAL(&arrivals2, clock);
+		}		
 	}
-*/	
+	else {
+		if (DEBUG)
+			printf("sysroutines.departure1(): The client will go to station 3.\n");	
+
+		// servidor libre
+		if (!serverBusy3) {
+			serverBusy3 = true;
+			// marcar su instante de salida
+			setDepartureEventEL(eventList, D3, clock, clock + exponential(mu3));
+		}
+		// poner el cliente nuevamente en cola
+		else {
+			addArrivalAL(&arrivals3, clock);
+		}		
+	}
+	
 	lastEvent = clock;
 
-	//if (DEBUG)
-	//	printf("sysroutines.departureC1(): Busy servers C1: <%i> of %i\n", busyS1, SERVERSC1);	
+	if (DEBUG)
+		showEL(eventList);		
+}
+
+// Llegada de un cliente al nodo 2.
+//
+void arrival2 (void) {
+
+	if (DEBUG)
+		printf("sysroutines.arrival2(): \t<%3.2f> One client arrived.\n", clock);
+
+	// actualizar contadores estadisticos
+	//areaBS1 += (clock - lastEvent) * (float)busyS1;	
+	
+	// el servidor esta desocupado
+	if (!serverBusy2) {
+		serverBusy2 = true;
+		// marcar su instante de salida
+		setDepartureEventEL(eventList, D2, clock, clock + exponential(mu2));
+	}
+	// poner el cliente en cola
+	else {
+		addArrivalAL(&arrivals2, clock);
+	}
+	
+	// actualizar contadores estadisticos
+	//areaNC1 += (clock - lastEvent) * (float)activeC1;
+	//activeC1++;
+	lastEvent = clock;
+
+	if (DEBUG)
+		showEL(eventList);
+}
+
+// Salida de un cliente del nodo 2.
+//
+void departure2 (void) {
+
+	if (DEBUG)
+		printf("sysroutines.departure2(): \t<%3.2f> One client left.\n", clock);
+
+	setDepartureEventEL(eventList, D2, NULLTIME, NULLTIME);
+	if (emptyAL(&arrivals2)) {
+		serverBusy2 = false;		
+	}
+	else {
+		// seleccionar el siguiente de la cola para entrar al servidor
+		setDepartureEventEL(eventList, D2, getArrivalAL(&arrivals2), clock + exponential(mu2));
+		// eliminarlo de la cola de espera
+		delArrivalAL(&arrivals2);
+	}
+
+	// encaminar el cliente hacia la estacion 1
+	if (DEBUG)
+		printf("sysroutines.departure2(): The client goes now to station 1.\n");
+		
+		// servidor libre
+		if (!serverBusy1) {
+			serverBusy1 = true;
+			// marcar su instante de salida
+			setDepartureEventEL(eventList, D1, clock, clock + exponential(mu1));
+		}
+		// poner el cliente nuevamente en cola
+		else {
+			addArrivalAL(&arrivals1, clock);
+		}		
+	
+	lastEvent = clock;
+
+	if (DEBUG)
+		showEL(eventList);	
+}
+
+// Llegada de un cliente al nodo 3.
+//
+void arrival3 (void) {
+
+	if (DEBUG)
+		printf("sysroutines.arrival3(): \t<%3.2f> One client arrived.\n", clock);
+
+	// actualizar contadores estadisticos
+	//areaBS1 += (clock - lastEvent) * (float)busyS1;	
+	
+	// el servidor esta desocupado
+	if (!serverBusy3) {
+		serverBusy3 = true;
+		// marcar su instante de salida
+		setDepartureEventEL(eventList, D3, clock, clock + exponential(mu3));
+	}
+	// poner el cliente en cola
+	else {
+		addArrivalAL(&arrivals3, clock);
+	}
+	
+	// actualizar contadores estadisticos
+	//areaNC1 += (clock - lastEvent) * (float)activeC1;
+	//activeC1++;
+	lastEvent = clock;
+
+	if (DEBUG)
+		showEL(eventList);	
+}
+
+// Salida de un cliente del nodo 3.
+//
+void departure3 (void) {
+
+	if (DEBUG)
+		printf("sysroutines.departure3(): \t<%3.2f> One client left.\n", clock);
+
+	setDepartureEventEL(eventList, D3, NULLTIME, NULLTIME);
+	if (emptyAL(&arrivals3)) {
+		serverBusy3 = false;		
+	}
+	else {
+		// seleccionar el siguiente de la cola para entrar al servidor
+		setDepartureEventEL(eventList, D3, getArrivalAL(&arrivals3), clock + exponential(mu3));
+		// eliminarlo de la cola de espera
+		delArrivalAL(&arrivals3);
+	}
+
+	// encaminar el cliente hacia la estacion 1 o hacia afuera del sistema
+	if (urand(SEG) < p30) {
+		if (DEBUG)
+			printf("sysroutines.departure3(): The client will go out of the system.\n");		
+	}
+	else {
+		if (DEBUG)
+			printf("sysroutines.departure3(): The client will go to station 1.\n");	
+
+		// servidor libre
+		if (!serverBusy1) {
+			serverBusy1 = true;
+			// marcar su instante de salida
+			setDepartureEventEL(eventList, D1, clock, clock + exponential(mu1));
+		}
+		// poner el cliente nuevamente en cola
+		else {
+			addArrivalAL(&arrivals1, clock);
+		}		
+	}
+	
+	lastEvent = clock;
 
 	if (DEBUG)
 		showEL(eventList);		
