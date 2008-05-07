@@ -29,6 +29,7 @@ void setArrivalEventEL (EVENTLIST l, EVENT e, TIME t);
 void setDepartureEventEL (EVENTLIST l, EVENT e, TIME a, TIME d);
 EVENT getClosestEventEL (EVENTLIST l);
 TIME getTimeEL (EVENTLIST l, EVENT e);
+TIME getArrivalEL (EVENTLIST l, EVENT e);
 void showEL (EVENTLIST l);
 
 #endif // _EVENTLIST_H_

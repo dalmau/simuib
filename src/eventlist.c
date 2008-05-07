@@ -12,8 +12,7 @@
 // Implementacion de la lista de eventos a usar en el simulador
 
 // variables para almacenar los tiempos de llegada de los clientes que estan usando los servidores
-//TIME arrivalsS1[SERVERSC1];
-//TIME arrivalsS2[SERVERSC2];
+TIME arrivals[3];
 
 // Inicializa la lista de eventos estableciendo un valor temporal nulo para todos los eventos considerados.
 //
@@ -22,6 +21,8 @@ void initEL (EVENTLIST l) {
 	int i;
 	for (i=0; i<EVENTLISTSIZE; i++)
 		l[i] = NULLTIME;
+	for (i=0; i<3; i++)
+		arrivals[i] = NULLTIME;
 }
 
 // Determina si una lista de eventos esta vacia o no
@@ -46,15 +47,14 @@ void setArrivalEventEL (EVENTLIST l, EVENT e, TIME t) {
 }
 
 // Establece el valor temporal d para el evento de salida e en la lista de eventos l.
-// Se buscara un servidor disponible segun el tipo de evento y se anotara el instante de llegada a del cliente
-// al sistema.
+// Se anotara ademas el instante de llegada a del cliente al sistema.
 //
 void setDepartureEventEL (EVENTLIST l, EVENT e, TIME a, TIME d) {
 
 	// instante de salida
 	l[e] = d;
 	// almacenar el instante de llegada del cliente
-	// TODO
+	arrivals[e%3] = a;
 }
 
 // Retorna la posicion cuyo instante temporal es mas proximo al valor actual del reloj del simulador.
@@ -86,6 +86,13 @@ EVENT getClosestEventEL (EVENTLIST l) {
 TIME getTimeEL (EVENTLIST l, EVENT e) {
 
 	return l[e];
+}
+
+// Retorna el instante temporal en que llego el cliente que ocupaba el servidor asociado al evento e
+//
+TIME getArrivalEL (EVENTLIST l, EVENT e) {
+
+	return arrivals[e%3];
 }
 
 char *eventToString (EVENT e) {

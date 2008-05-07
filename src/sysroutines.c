@@ -125,6 +125,18 @@ void replicate (void) {
 				break;
 		}			
 	}
+
+//	if (DEBUG) {
+		printf("sysroutines.replicate(): Replication <%5i> - Served Station 1: <%5i>\n", REPS, served1);
+		printf("sysroutines.replicate(): Replication <%5i> - Served Station 2: <%5i>\n", REPS, served2);
+		printf("sysroutines.replicate(): Replication <%5i> - Served Station 3: <%5i>\n", REPS, served3);
+		printf("sysroutines.replicate(): Replication <%5i> - Served System:    <%5i>\n", REPS, served);
+		printf("sysroutines.replicate(): Replication <%5i> - RT Station 1: <%3.5f>\n", REPS, rTSum1/served1);
+		printf("sysroutines.replicate(): Replication <%5i> - RT Station 2: <%3.5f>\n", REPS, rTSum2/served2);
+		printf("sysroutines.replicate(): Replication <%5i> - RT Station 3: <%3.5f>\n", REPS, rTSum3/served3);
+		printf("sysroutines.replicate(): Replication <%5i> - RT System   : <%3.5f>\n", REPS, (rTSum1+rTSum2+rTSum3)/served);		
+//	}
+
 	/*
 	// acumular los contadores estadisticos
 	
@@ -164,9 +176,6 @@ void arrival1 (void) {
 	
 	if (DEBUG)
 		printf("sysroutines.arrival1(): \t<%3.2f> One client arrived.\n", clock);
-
-	// actualizar contadores estadisticos
-	//areaBS1 += (clock - lastEvent) * (float)busyS1;	
 	
 	// el servidor esta desocupado
 	if (!serverBusy1) {
@@ -180,9 +189,7 @@ void arrival1 (void) {
 	}
 	// siguiente llegada
 	setArrivalEventEL(eventList, A1, clock + exponential(lambda));
-	// actualizar contadores estadisticos
-	//areaNC1 += (clock - lastEvent) * (float)activeC1;
-	//activeC1++;
+
 	lastEvent = clock;
 
 	if (DEBUG)
@@ -196,17 +203,9 @@ void departure1 (void) {
 	if (DEBUG)
 		printf("sysroutines.departure1(): \t<%3.2f> One client left.\n", clock);
 
-	// actualizar contadores estadisticos (tiempo de respuesta acumulado)
-	//accumulatedRTC1 += clock - arrival;
-	//if (DEBUG)
-	//	printf("sysroutines.departureC1(): Response time: <%3.5f>\n", clock - arrival);
-
-	//delArrivalAL(&queueC1);
-	//servedC1++;
-	// funcion B y funcion N
-	//areaBS1 += (clock - lastEvent) * (float)busyS1;
-	//areaNC1 += (clock - lastEvent) * (float)activeC1;
-	//activeC1--;
+	// actualizar contadores estadisticos (tiempo de servicio)
+	rTSum1 += clock - getArrivalEL(eventList, D1);
+	served1++;
 
 	setDepartureEventEL(eventList, D1, NULLTIME, NULLTIME);
 	if (emptyAL(&arrivals1)) {
@@ -214,7 +213,9 @@ void departure1 (void) {
 	}
 	else {
 		// seleccionar el siguiente de la cola para entrar al servidor
-		setDepartureEventEL(eventList, D1, getArrivalAL(&arrivals1), clock + exponential(mu1));
+		setDepartureEventEL(eventList, D1, clock, clock + exponential(mu1));
+		// actualizar contadores estadisticos (tiempo de espera)
+		rTSum1 += clock - getArrivalAL(&arrivals1);
 		// eliminarlo de la cola de espera
 		delArrivalAL(&arrivals1);
 	}
@@ -263,9 +264,6 @@ void arrival2 (void) {
 
 	if (DEBUG)
 		printf("sysroutines.arrival2(): \t<%3.2f> One client arrived.\n", clock);
-
-	// actualizar contadores estadisticos
-	//areaBS1 += (clock - lastEvent) * (float)busyS1;	
 	
 	// el servidor esta desocupado
 	if (!serverBusy2) {
@@ -278,9 +276,6 @@ void arrival2 (void) {
 		addArrivalAL(&arrivals2, clock);
 	}
 	
-	// actualizar contadores estadisticos
-	//areaNC1 += (clock - lastEvent) * (float)activeC1;
-	//activeC1++;
 	lastEvent = clock;
 
 	if (DEBUG)
@@ -294,13 +289,19 @@ void departure2 (void) {
 	if (DEBUG)
 		printf("sysroutines.departure2(): \t<%3.2f> One client left.\n", clock);
 
+	// actualizar contadores estadisticos (tiempo de servicio)
+	rTSum2 += clock - getArrivalEL(eventList, D2);
+	served2++;
+
 	setDepartureEventEL(eventList, D2, NULLTIME, NULLTIME);
 	if (emptyAL(&arrivals2)) {
 		serverBusy2 = false;		
 	}
 	else {
 		// seleccionar el siguiente de la cola para entrar al servidor
-		setDepartureEventEL(eventList, D2, getArrivalAL(&arrivals2), clock + exponential(mu2));
+		setDepartureEventEL(eventList, D2, clock, clock + exponential(mu2));
+		// actualizar contadores estadisticos (tiempo de espera)
+		rTSum2 += clock - getArrivalAL(&arrivals2);		
 		// eliminarlo de la cola de espera
 		delArrivalAL(&arrivals2);
 	}
@@ -309,16 +310,16 @@ void departure2 (void) {
 	if (DEBUG)
 		printf("sysroutines.departure2(): The client goes now to station 1.\n");
 		
-		// servidor libre
-		if (!serverBusy1) {
-			serverBusy1 = true;
-			// marcar su instante de salida
-			setDepartureEventEL(eventList, D1, clock, clock + exponential(mu1));
-		}
-		// poner el cliente nuevamente en cola
-		else {
-			addArrivalAL(&arrivals1, clock);
-		}		
+	// servidor libre
+	if (!serverBusy1) {
+		serverBusy1 = true;
+		// marcar su instante de salida
+		setDepartureEventEL(eventList, D1, clock, clock + exponential(mu1));
+	}
+	// poner el cliente nuevamente en cola
+	else {
+		addArrivalAL(&arrivals1, clock);
+	}		
 	
 	lastEvent = clock;
 
@@ -332,9 +333,6 @@ void arrival3 (void) {
 
 	if (DEBUG)
 		printf("sysroutines.arrival3(): \t<%3.2f> One client arrived.\n", clock);
-
-	// actualizar contadores estadisticos
-	//areaBS1 += (clock - lastEvent) * (float)busyS1;	
 	
 	// el servidor esta desocupado
 	if (!serverBusy3) {
@@ -347,9 +345,6 @@ void arrival3 (void) {
 		addArrivalAL(&arrivals3, clock);
 	}
 	
-	// actualizar contadores estadisticos
-	//areaNC1 += (clock - lastEvent) * (float)activeC1;
-	//activeC1++;
 	lastEvent = clock;
 
 	if (DEBUG)
@@ -363,13 +358,19 @@ void departure3 (void) {
 	if (DEBUG)
 		printf("sysroutines.departure3(): \t<%3.2f> One client left.\n", clock);
 
+	// actualizar contadores estadisticos (tiempo de servicio)
+	rTSum3 += clock - getArrivalEL(eventList, D3);
+	served3++;
+
 	setDepartureEventEL(eventList, D3, NULLTIME, NULLTIME);
 	if (emptyAL(&arrivals3)) {
 		serverBusy3 = false;		
 	}
 	else {
 		// seleccionar el siguiente de la cola para entrar al servidor
-		setDepartureEventEL(eventList, D3, getArrivalAL(&arrivals3), clock + exponential(mu3));
+		setDepartureEventEL(eventList, D3, clock, clock + exponential(mu3));
+		// actualizar contadores estadisticos (tiempo de espera)
+		rTSum3 += clock - getArrivalAL(&arrivals3);		
 		// eliminarlo de la cola de espera
 		delArrivalAL(&arrivals3);
 	}
@@ -377,7 +378,10 @@ void departure3 (void) {
 	// encaminar el cliente hacia la estacion 1 o hacia afuera del sistema
 	if (urand(SEG) < p30) {
 		if (DEBUG)
-			printf("sysroutines.departure3(): The client will go out of the system.\n");		
+			printf("sysroutines.departure3(): The client will go out of the system.\n");
+
+		// actualizar contadores estadisticos		
+		served++;
 	}
 	else {
 		if (DEBUG)
