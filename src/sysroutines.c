@@ -42,12 +42,19 @@ int served1, served2, served3;	// numero de clientes que han recibido servicio e
 int served;			// numero de clientes que han recibido servicio en el sistema (han salido)
 TIME rTSum1, rTSum2, rTSum3;	// tiempo de respuesta acumulado para los clientes en cada estacion
 
+// Acumuladores para calcular la varianza muestral
+TIME RT1, RT2, RT3;			// tiempo de respuesta de cada estacion
+TIME SQRTRT1, SQRTRT2, SQRTRT3;		// sumatorio con el cuadrado de los tiempos de respuesta de cada estacion
+
 // Prepara el simulador para ejecutar una nueva simulacion.
 //
 void simulatorInit (double theLambda, double maxReplicationTime) {
 	
 	lambda = theLambda;
 	MAXREPLICATIONTIME = maxReplicationTime;
+
+	RT1 = RT2 = RT3 = INITIALTIME;
+	SQRTRT1 = SQRTRT2 = SQRTRT3 = NULLTIME;
 
 	if (DEBUG) {
 		printf("sysroutines.simulatorInit(): Lambda equals to <%f>\n", lambda);
@@ -126,7 +133,7 @@ void replicate (void) {
 		}			
 	}
 
-//	if (DEBUG) {
+	if (DEBUG) {
 		printf("sysroutines.replicate(): Replication <%5i> - Served Station 1: <%5i>\n", REPS, served1);
 		printf("sysroutines.replicate(): Replication <%5i> - Served Station 2: <%5i>\n", REPS, served2);
 		printf("sysroutines.replicate(): Replication <%5i> - Served Station 3: <%5i>\n", REPS, served3);
@@ -135,37 +142,16 @@ void replicate (void) {
 		printf("sysroutines.replicate(): Replication <%5i> - RT Station 2: <%3.5f>\n", REPS, rTSum2/served2);
 		printf("sysroutines.replicate(): Replication <%5i> - RT Station 3: <%3.5f>\n", REPS, rTSum3/served3);
 		printf("sysroutines.replicate(): Replication <%5i> - RT System   : <%3.5f>\n", REPS, (rTSum1+rTSum2+rTSum3)/served);		
-//	}
-
-	/*
-	// acumular los contadores estadisticos
-	
-	if (DEBUG) {
-		printf("sysroutines.replicate(): Replication <%5i> - Response Time C1: <%3.5f>\n", REPS, accumulatedRTC1/servedC1);
-		printf("sysroutines.replicate(): Replication <%5i> - Response Time C2: <%3.5f>\n", REPS, accumulatedRTC2/servedC2);
-		printf("sysroutines.replicate(): Replication <%5i> - Utilization S1: <%3.5f>\n", REPS, areaBS1/(clock*SERVERSC1));
-		printf("sysroutines.replicate(): Replication <%5i> - Utilization S2: <%3.5f>\n", REPS, areaBS2/(clock*SERVERSC2));
 	}
 
-	RTC1 += accumulatedRTC1/(float)servedC1;
-	RTC2 += accumulatedRTC2/(float)servedC2;
-	RTC  += (accumulatedRTC1+accumulatedRTC2)/(float)(servedC1+servedC2);
-	MCNC1 += areaNC1/clock;
-	MCNC2 += areaNC2/clock;
-	MCN   += (areaNC1+areaNC2)/clock;
-	MUS1 += areaBS1/(clock*SERVERSC1);
-	MUS2 += areaBS2/(clock*SERVERSC2);
-	MUS  += (areaBS1+areaBS2)/(clock*(SERVERSC1+SERVERSC2));
-	SQRTRTC1 += pow(accumulatedRTC1/(float)servedC1, 2);
-	SQRTRTC2 += pow(accumulatedRTC2/(float)servedC2, 2);
-	SQRTRTC  += pow((accumulatedRTC1+accumulatedRTC2)/(float)(servedC1+servedC2), 2);
-	SQRTMCNC1 += pow(areaNC1/clock, 2);
-	SQRTMCNC2 += pow(areaNC2/clock, 2);
-	SQRTMCN   += pow((areaNC1+areaNC2)/clock, 2);
-	SQRTMUS1 += pow(areaBS1/(clock*SERVERSC1), 2);
-	SQRTMUS2 += pow(areaBS2/(clock*SERVERSC2), 2);
-	SQRTMUS  += pow((areaBS1+areaBS2)/(clock*(SERVERSC1+SERVERSC2)), 2);
-	*/
+	// acumular los contadores estadisticos
+
+	RT1 += rTSum1/(double)served1;
+	//RT2 += accumulatedRTC2/(float)servedC2;
+	//RTC  += (accumulatedRTC1+accumulatedRTC2)/(float)(servedC1+servedC2);
+	SQRTRT1 += pow(rTSum1/(double)served1, 2);
+	//SQRTRTC2 += pow(accumulatedRTC2/(float)servedC2, 2);
+	//SQRTRTC  += pow((accumulatedRTC1+accumulatedRTC2)/(float)(servedC1+servedC2), 2);
 }
 
 // Rutinas para procesar los eventos de la red

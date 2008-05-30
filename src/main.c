@@ -20,8 +20,23 @@ int main(int argc, char *argv[]) {
 	}
 	DEBUG = (strcmp(argv[3], "1")==0)?true:false;
 	
+	// inicializacion del simulador
 	simulatorInit(atof(argv[1]), atof(argv[2]));
-	replicate();
+
+	// Aplicacion del metodo secuencial con error relativo
+	// ejecucion de las replicas iniciales
+	int i;
+	for (i=0; i<MINREPLICATIONS; i++)
+		replicate();
+	
+	int n = 0;
+	while (largeRelativeError(MINREPLICATIONS + n)) {
+		replicate();
+		n++;
+	}
+	
+
+//	showResults();	
 
 	//system("PAUSE");	
 	return 0;
