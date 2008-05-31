@@ -35,13 +35,13 @@ double t_0975[] =
 //
 double sampleVariance (int n, TIME samples, TIME mean) {
 
-	//if (DEBUG) {
+	if (DEBUG) {
 		printf("report.sampleVariance(): samples: %f\n", samples);
 		printf("report.sampleVariance(): mean: %f\n", (n * pow(mean, 2)));
 		printf("report.sampleVariance(): substract: %f\n", (samples - (n * pow(mean, 2))));
 		printf("report.sampleVariance(): variance: %f\n", (samples - (n * pow(mean, 2))) / (n - 1));
 		
-	//}	
+	}	
 	return (samples - (n * pow(mean, 2))) / (n - 1);
 }
 
@@ -50,11 +50,11 @@ double sampleVariance (int n, TIME samples, TIME mean) {
 //
 double confidenceInterval (int n, TIME samples, TIME mean) {
 
-	//if (DEBUG) {
+	if (DEBUG) {
 		printf("report.confidenceInterval(): tstudent: %f\n", tstudent(n-1));
 		printf("report.confidenceInterval(): sample variance: %f\n", sampleVariance(n, samples, mean));
 		printf("report.confidenceInterval(): square root: %f\n", sqrt(sampleVariance(n, samples, mean) / n));		
-	//}
+	}
 	return tstudent(n - 1) * sqrt(sampleVariance(n, samples, mean) / n);
 }
 
@@ -100,11 +100,11 @@ bool largeRelativeError (int n) {
 	double meanRT1 	= RT1 / (float)n;
 	double ciRT1 	= confidenceInterval(n, SQRTRT1, meanRT1);
 	//if (DEBUG) {
-		printf("report.largeRelativeError(): Response Time 1, accumulated: %e\n", SQRTRT1);
-		printf("report.largeRelativeError(): Response Time 1, confidence interval: %e\n", ciRT1);
-		printf("report.largeRelativeError(): Response Time 1, sample mean: %e\n", meanRT1);
-		printf("report.largeRelativeError(): Response Time 1, quotient: %e\n", ciRT1 / meanRT1);
-		printf("report.largeRelativeError(): Relative error: %e\n", RELATIVEERROR);
+		printf("report.largeRelativeError(): Response Time 1, accumulated: %f\n", SQRTRT1);
+		printf("report.largeRelativeError(): Response Time 1, confidence interval: %f\n", ciRT1);
+		printf("report.largeRelativeError(): Response Time 1, sample mean: %f\n", meanRT1);
+		printf("report.largeRelativeError(): Response Time 1, quotient: %f\n", ciRT1 / meanRT1);
+		printf("report.largeRelativeError(): Relative error: %f\n", RELATIVEERROR);
 	//}
 	if ((ciRT1 / meanRT1) > RELATIVEERROR) {
 		//printf("entro\n");

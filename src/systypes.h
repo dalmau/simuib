@@ -20,7 +20,7 @@ typedef double TIME;
 // Error relativo
 #define ERRORLEVEL 0.1 					// por defecto del 10%
 #define RELATIVEERROR ERRORLEVEL / (1.0 + ERRORLEVEL)	// error corregido
-#define MINREPLICATIONS 10				// numero minimo inicial 
+#define MINREPLICATIONS 1				// numero minimo inicial 
 							//para el metodo secuencial
 
 #endif // _SYSTYPES_H_
