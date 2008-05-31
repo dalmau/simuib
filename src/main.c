@@ -37,9 +37,9 @@ int main(int argc, char *argv[]) {
 	
 	//printf("Varianza: %f\n", sampleVariance(10, SQRTRT1, RT1/10));
     
+	//replicate();
 	replicate();
-	replicate();
-	int n = 2;
+	int n = 1;
 	while (largeRelativeError(n)) {
 		replicate();
 		n++;

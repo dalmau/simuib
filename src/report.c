@@ -90,92 +90,59 @@ double tstudent (int dof) {
 //
 bool largeRelativeError (int n) {
 	
-	system("PAUSE");
-	printf("report.largeRelativeError(): Replications: %i\n", n);
+	//system("PAUSE");
+	//printf("report.largeRelativeError(): Replications: %i\n", n);
 
 	if (DEBUG)
 		printf("report.largeRelativeError(): Executed replications: %i\n", n);
 
 	// tiempo de respuesta nodo 1
-	double meanRT1 	= RT1 / (float)n;
-	double ciRT1 	= confidenceInterval(n, SQRTRT1, meanRT1);
-	//if (DEBUG) {
+	TIME meanRT1 	= RT1 / n;
+	TIME ciRT1 	    = confidenceInterval(n, SQRTRT1, meanRT1);
+	if (DEBUG) {
 		printf("report.largeRelativeError(): Response Time 1, accumulated: %f\n", SQRTRT1);
 		printf("report.largeRelativeError(): Response Time 1, confidence interval: %f\n", ciRT1);
 		printf("report.largeRelativeError(): Response Time 1, sample mean: %f\n", meanRT1);
 		printf("report.largeRelativeError(): Response Time 1, quotient: %f\n", ciRT1 / meanRT1);
 		printf("report.largeRelativeError(): Relative error: %f\n", RELATIVEERROR);
-	//}
+	}
 	if ((ciRT1 / meanRT1) > RELATIVEERROR) {
 		//printf("entro\n");
 		return true;
 	}
-/*
-	// tiempo de respuesta clase 2
-	float meanRTC2 	= RTC2 / (float)n;  
-	float ciRTC2 	= confidenceInterval(n, SQRTRTC2, meanRTC2);
+
+	// tiempo de respuesta nodo 2
+	TIME meanRT2 	= RT2 / n;  
+	TIME ciRT2 	= confidenceInterval(n, SQRTRT2, meanRT2);
 	if (DEBUG)
-		printf("report.largeRelativeError(): Response Time 2, quotient: %f\n", ciRTC2 / meanRTC2);
-	if ((ciRTC2 / meanRTC2) > RELATIVEERROR)
+		printf("report.largeRelativeError(): Response Time 2, quotient: %f\n", ciRT2 / meanRT2);
+	if ((ciRT2 / meanRT2) > RELATIVEERROR)
 		return true;
-	// tiempo de respuesta clase 1 + clase 2
-	float meanRTC 	= RTC / (float)n;  
-	float ciRTC 	= confidenceInterval(n, SQRTRTC, meanRTC);
+
+	// tiempo de respuesta nodo 3
+	TIME meanRT3 	= RT3 / n;  
+	TIME ciRT3 	= confidenceInterval(n, SQRTRT3, meanRT3);
 	if (DEBUG)
-		printf("report.largeRelativeError(): Response Time 1+2, quotient: %f\n", ciRTC / meanRTC);
-	if ((ciRTC / meanRTC) > RELATIVEERROR)
-		return true;
-	// numero medio de clientes clase 1
-	float meanCNC1 	= MCNC1 / (float)n;  
-	float ciCNC1 	= confidenceInterval(n, SQRTMCNC1, meanCNC1);
-	if (DEBUG)
-		printf("report.largeRelativeError(): Mean clients number 1, quotient: %f\n", ciCNC1 / meanCNC1);
-	if ((ciCNC1 / meanCNC1) > RELATIVEERROR)
-		return true;
-	// numero medio de clientes clase 2
-	float meanCNC2 	= MCNC2 / (float)n;  
-	float ciCNC2 	= confidenceInterval(n, SQRTMCNC2, meanCNC2);
-	if (DEBUG)
-		printf("report.largeRelativeError(): Mean clients number 2, quotient: %f\n", ciCNC2 / meanCNC2);
-	if ((ciCNC2 / meanCNC2) > RELATIVEERROR)
-		return true;
-	// numero medio de clientes clase 1 + clase 2
-	float meanCN 	= MCN / (float)n;  
-	float ciCN 	= confidenceInterval(n, SQRTMCN, meanCN);
-	if (DEBUG)
-		printf("report.largeRelativeError(): Mean clients number 1+2, quotient: %f\n", ciCN / meanCN);
-	if ((ciCN / meanCN) > RELATIVEERROR)
+		printf("report.largeRelativeError(): Response Time 3, quotient: %f\n", ciRT3 / meanRT3);
+	if ((ciRT3 / meanRT3) > RELATIVEERROR)
 		return true;	
-	// utilizacion media servidor de clase 1
-	float meanUS1 	= MUS1 / ((float)n);
-	float ciUS1	= confidenceInterval(n, SQRTMUS1, meanUS1);
-	if (DEBUG)
-		printf("report.largeRelativeError(): Utilization server 1, quotient: %f\n", ciUS1 / meanUS1);
-	if ((ciUS1 / meanUS1) > RELATIVEERROR)
-		return true;	
-	// utilizacion media servidor de clase 2
-	float meanUS2 	= MUS2 / ((float)n);
-	float ciUS2	= confidenceInterval(n, SQRTMUS2, meanUS2);
-	if (DEBUG)
-		printf("report.largeRelativeError(): Utilization server 2, quotient: %f\n", ciUS2 / meanUS2);
-	if ((ciUS2 / meanUS2) > RELATIVEERROR)
-		return true;
-	// utilizacion media servidor de clase 1 + clase 2
-	float meanUS 	= MUS / ((float)n);
-	float ciUS	= confidenceInterval(n, SQRTMUS, meanUS);
-	if (DEBUG)
-		printf("report.largeRelativeError(): Utilization server 1+2, quotient: %f\n", ciUS / meanUS);
-	if ((ciUS / meanUS) > RELATIVEERROR)
-		return true;	
-*/	
+
 	// el error relativo ya no es demasiado grande
 	
 	// mostrar los intervalos de confianza obtenidos
-	printf("report.largeRelativeError(): 	Confidence Intervals:\n");
+	printf("report.largeRelativeError():    Mean Values:\n");
+	printf("report.largeRelativeError():    ------------\n");
+	printf("report.largeRelativeError():    Response Time Station 1:\t%f\n", meanRT1);
+	printf("report.largeRelativeError():    Response Time Station 2:\t%f\n", meanRT2);
+	printf("report.largeRelativeError():    Response Time Station 3:\t%f\n", meanRT3);   	
+	printf("\n");
+    printf("report.largeRelativeError(): 	Confidence Intervals:\n");
 	printf("report.largeRelativeError(): 	---------------------\n");
-	printf("report.largeRelativeError(): 	Executed Replications: 		%i\n", n);
-	printf("report.largeRelativeError(): 	Confidence Level:		95%%\n");
-	printf("report.largeRelativeError(): 	Response Time Station 1: 	%f\n", ciRT1);
+	printf("report.largeRelativeError(): 	Executed Replications:\t\t%i\n", n);
+	printf("report.largeRelativeError(): 	Confidence Level:\t\t95%%\n");
+	printf("report.largeRelativeError(): 	Response Time Station 1:\t%f\n", ciRT1);
+	printf("report.largeRelativeError(): 	Response Time Station 2:\t%f\n", ciRT2);
+	printf("report.largeRelativeError(): 	Response Time Station 3:\t%f\n", ciRT3);
 //	printf("report.largeRelativeError(): 	Response Time C2: 		%f\n", ciRTC2);
 //	printf("report.largeRelativeError(): 	Response Time C1&C2: 		%f\n", ciRTC);
 //	printf("report.largeRelativeError(): 	Mean Clients C1: 		%f\n", ciCNC1);

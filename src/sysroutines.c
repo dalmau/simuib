@@ -111,8 +111,7 @@ void replicate (void) {
 		switch (e) {
 			case A1:
 				arrival1();
-				break;
-				
+				break;				
 			case D1:
 				departure1();
 				break;
@@ -138,7 +137,7 @@ void replicate (void) {
 		//printf("sysroutines.replicate(): Replication <%5i> - Served Station 2: <%5i>\n", REPS, served2);
 		//printf("sysroutines.replicate(): Replication <%5i> - Served Station 3: <%5i>\n", REPS, served3);
 		//printf("sysroutines.replicate(): Replication <%5i> - Served System:    <%5i>\n", REPS, served);
-		printf("sysroutines.replicate(): Replication <%5i> - RT Station 1: <%3.5f>\n", REPS, rTSum1/served1);
+		//printf("sysroutines.replicate(): Replication <%5i> - RT Station 1: <%3.5f>\n", REPS, rTSum1/served1);
 		//printf("sysroutines.replicate(): Replication <%5i> - RT Station 2: <%3.5f>\n", REPS, rTSum2/served2);
 		//printf("sysroutines.replicate(): Replication <%5i> - RT Station 3: <%3.5f>\n", REPS, rTSum3/served3);
 		//printf("sysroutines.replicate(): Replication <%5i> - RT System   : <%3.5f>\n", REPS, (rTSum1+rTSum2+rTSum3)/served);		
@@ -147,9 +146,13 @@ void replicate (void) {
 	// acumular los contadores estadisticos
 
 	RT1 += rTSum1/served1;
+	RT2 += rTSum2/served2;
+	RT3 += rTSum3/served3;
 	//RT2 += accumulatedRTC2/(float)servedC2;
 	//RTC  += (accumulatedRTC1+accumulatedRTC2)/(float)(servedC1+servedC2);
 	SQRTRT1 += pow(rTSum1/served1, 2);
+	SQRTRT2 += pow(rTSum2/served2, 2);
+	SQRTRT3 += pow(rTSum3/served3, 2);
 	//SQRTRTC2 += pow(accumulatedRTC2/(float)servedC2, 2);
 	//SQRTRTC  += pow((accumulatedRTC1+accumulatedRTC2)/(float)(servedC1+servedC2), 2);
 }
