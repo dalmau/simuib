@@ -223,8 +223,8 @@ RTSum3: suma de los tiempos de respuesta experimentados
 
 \begin_layout Enumerate
 Pseudo-código de todo el simulador.
- Se trata de especificar en forma de pseudo-códi el contenido de todo el
- simulador, de forma que responda al modelo de la Figura 4 de la lección
+ Se trata de especificar en forma de pseudo-código el contenido de todo
+ el simulador, de forma que responda al modelo de la Figura 4 de la lección
  L11.
  Esto quiere decir, por lo que respecta al bloque de simulación de trazas
  individuales: especificar todas las rutinas de eventos, las otras rutinas
@@ -235,6 +235,1773 @@ Pseudo-código de todo el simulador.
  
 \end_layout
 
+\begin_deeper
+\begin_layout Standard
+
+\series bold
+Rutina principal
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+inicializacionSimulador()
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+// ejecutar cómo mínimo 2 réplicas para poder aplicar el método secuencial
+\end_layout
+
+\begin_layout Standard
+replicar()
+\end_layout
+
+\begin_layout Standard
+replicar()
+\end_layout
+
+\begin_layout Standard
+mientras (hayQueEjecutarOtraReplica()) {
+\end_layout
+
+\begin_layout Standard
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+replicar()
+\end_layout
+
+\begin_layout Standard
+}
+\end_layout
+
+\begin_layout Standard
+generarInformeEstadistico()
+\end_layout
+
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+Rutina principal
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Rutina de control estadístico
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+CIRT1 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ calcular intervalo de confianza para el tiempo de respuesta de la estación
+ 1
+\end_layout
+
+\begin_layout Standard
+CIRT2 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ calcular intervalo de confianza para el tiempo de respuesta de la estación
+ 2
+\end_layout
+
+\begin_layout Standard
+CIRT3 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ calcular intervalo de confianza para el tiempo de respuesta de la estación
+ 3
+\end_layout
+
+\begin_layout Standard
+CIRTS 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ calcular intervalo de confianza para el tiempo de respuesta del sistema
+\end_layout
+
+\begin_layout Standard
+MEANRT1 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ calcular el tiempo de respuesta medio de la estación 1 según las réplicas
+ ejecutadas
+\end_layout
+
+\begin_layout Standard
+MEANRT2 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ calcular el tiempo de respuesta medio de la estación 2 según las réplicas
+ ejecutadas
+\end_layout
+
+\begin_layout Standard
+MEANRT3 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ calcular el tiempo de respuesta medio de la estación 3 según las réplicas
+ ejecutadas
+\end_layout
+
+\begin_layout Standard
+MEANRTS 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ calcular el tiempo de respuesta medio del sistema según las réplicas ejecutadas
+\end_layout
+
+\begin_layout Standard
+si (CIRT1/MEANRT1 > RELATIVEERROR)
+\end_layout
+
+\begin_layout Standard
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+retornar verdadero
+\end_layout
+
+\begin_layout Standard
+si (CIRT2/MEANRT2 > RELATIVEERROR)
+\end_layout
+
+\begin_layout Standard
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+retornar verdadero
+\end_layout
+
+\begin_layout Standard
+si (CIRT3/MEANRT3 > RELATIVEERROR)
+\end_layout
+
+\begin_layout Standard
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+retornar verdadero
+\end_layout
+
+\begin_layout Standard
+si (CIRTS/MEANRTS > RELATIVEERROR)
+\end_layout
+
+\begin_layout Standard
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+retornar verdadero
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+// si se cumplen los criterios de error relativo no hay que ejecutar más
+ réplicas
+\end_layout
+
+\begin_layout Standard
+retornar falso
+\end_layout
+
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+Rutina de control estadístico
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Rutina generadora del informe estadístico
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+mostrar valores medios por estaciones y del sistema
+\end_layout
+
+\begin_layout Standard
+mostrar intervalos de confianza de las estimaciones anteriores
+\end_layout
+
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+Rutina generadora del informe estadístico
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Rutina de inicialización del simulador
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+
+\emph on
+// iniciar variables necesarias para el control estadístico
+\end_layout
+
+\begin_layout Standard
+RT1 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ 0
+\end_layout
+
+\begin_layout Standard
+RT2 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ 0
+\end_layout
+
+\begin_layout Standard
+RT3 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ 0
+\end_layout
+
+\begin_layout Standard
+RTS 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ 0
+\end_layout
+
+\begin_layout Standard
+SQRTRT1 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ 0
+\end_layout
+
+\begin_layout Standard
+SQRTRT2 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ 0
+\end_layout
+
+\begin_layout Standard
+SQRTRT3 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ 0
+\end_layout
+
+\begin_layout Standard
+SQRTRTS 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ 0
+\end_layout
+
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+Inicialización del simulador
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Rutina de inicialización de la réplica
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+
+\emph on
+// inicializar reloj y lista de eventos
+\end_layout
+
+\begin_layout Standard
+CLOCK 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ 0
+\end_layout
+
+\begin_layout Standard
+EVENTSLIST 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ lista vacía
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+// inicializar contadores estadísticos
+\end_layout
+
+\begin_layout Standard
+SERVERBUSY1 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ falso
+\end_layout
+
+\begin_layout Standard
+SERVERBUSY2 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ falso
+\end_layout
+
+\begin_layout Standard
+SERVERBUSY3 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ falso
+\end_layout
+
+\begin_layout Standard
+SERVED1 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ 0
+\end_layout
+
+\begin_layout Standard
+SERVED2 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ 0
+\end_layout
+
+\begin_layout Standard
+SERVED3 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ 0
+\end_layout
+
+\begin_layout Standard
+SERVED 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ 0
+\end_layout
+
+\begin_layout Standard
+RTSUM1 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ 0
+\end_layout
+
+\begin_layout Standard
+RTSUM2 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ 0
+\end_layout
+
+\begin_layout Standard
+RTSUM3 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ 0
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+// inicializar las colas de cada estación
+\end_layout
+
+\begin_layout Standard
+ARRIVALS1 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ cola vacía
+\end_layout
+
+\begin_layout Standard
+ARRIVALS2 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ cola vacía
+\end_layout
+
+\begin_layout Standard
+ARRIVALS3 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ cola vacía
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+// configurar la primera llegada de un cliente a la estación 1
+\end_layout
+
+\begin_layout Standard
+EVENTSLIST 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ ARRIVAL1
+\end_layout
+
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+Inicialización de la réplica
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Rutina de temporización
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+EVENTO 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+
+\emph on
+ 
+\emph default
+eventoMasProximo(EVENTSLIST)
+\end_layout
+
+\begin_layout Standard
+CLOCK 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ InstanteDe(EVENTO)
+\end_layout
+
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+Rutina de temporización
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Rutina de simulación de réplicas
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Standard
+REPLICAS 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ REPLICAS + 1
+\end_layout
+
+\begin_layout Standard
+inicializacionReplica()
+\end_layout
+
+\begin_layout Standard
+mientras (CLOCK < MAXREPLICATIONTIME) {
+\end_layout
+
+\begin_layout Standard
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+EVENTO 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ determinar siguiente evento a procesar
+\end_layout
+
+\begin_layout Standard
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+llamada a la rutina de eventos correspondiente
+\end_layout
+
+\begin_layout Standard
+}
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+// acumular contadores estadísticos
+\end_layout
+
+\begin_layout Standard
+RT1 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ RT1 + (RTSUM1/SERVED1)
+\end_layout
+
+\begin_layout Standard
+RT2 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ RT2 + (RTSUM2/SERVED2)
+\end_layout
+
+\begin_layout Standard
+RT3 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ RT3 + (RTSUM3/SERVED3)
+\end_layout
+
+\begin_layout Standard
+RTS 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ RTS + ((RTSUM1+RTSUM2+RTSUM3)/SERVED)
+\end_layout
+
+\begin_layout Standard
+SQRTRT1 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ SQRTRT1 + (
+\begin_inset Formula $RTSUM1/SERVED1){}^{2}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+SQRTTR2 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ SQRTRT2 + (
+\begin_inset Formula $RTSUM2/SERVED2){}^{2}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+SQRTRT3 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ SQRTRT3 + (
+\begin_inset Formula $RTSUM3/SERVED3){}^{2}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+SQRTRTS 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ SQRTRTS + (
+\begin_inset Formula $(RTSUM1+RTSUM2+RTSUM3)/SERVED){}^{2}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+Rutina de simulación de trazas individuales
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Rutina de eventos
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+si (!SERVERBUSY1) {
+\end_layout
+
+\begin_layout Standard
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+SERVERBUSY1 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ verdadero
+\end_layout
+
+\begin_layout Standard
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+EVENTLIST 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ marcar instante de salida del cliente
+\end_layout
+
+\begin_layout Standard
+} sino {
+\end_layout
+
+\begin_layout Standard
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+ARRIVALS1 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ poner el cliente en cola
+\end_layout
+
+\begin_layout Standard
+}
+\end_layout
+
+\begin_layout Standard
+EVENTSLIST 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+añadir próximo evento Arrival1
+\end_layout
+
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+Rutina de eventos.
+ Llegada de un cliente a la estación 1
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+RTSUM1 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ añadir tiempo de respuesta experimentado por el cliente
+\end_layout
+
+\begin_layout Standard
+SERVED1 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+SERVED1 + 1
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+// determinar si otro cliente entra en el servidor
+\end_layout
+
+\begin_layout Standard
+si (vacia(ARRIVALS1)) {
+\end_layout
+
+\begin_layout Standard
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+SERVERBUSY1 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ falso
+\end_layout
+
+\begin_layout Standard
+} sino {
+\end_layout
+
+\begin_layout Standard
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+EVENTSLIST 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ añadir próximo evento Departure1
+\end_layout
+
+\begin_layout Standard
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+RTSUM1 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ añadir tiempo de espera (cola)
+\end_layout
+
+\begin_layout Standard
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+ARRIVALS1 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ eliminar cliente de la cola
+\end_layout
+
+\begin_layout Standard
+}
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+// encaminar el cliente hacia la siguiente estación (2 ó 3)
+\end_layout
+
+\begin_layout Standard
+ESTACION 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ determinar estación de destino (probabilidades de ramificación)
+\end_layout
+
+\begin_layout Standard
+si (ESTACION == 2) {
+\end_layout
+
+\begin_layout Standard
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+si (!SERVERBUSY2) {
+\end_layout
+
+\begin_layout Standard
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+SERVERBUSY2 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ verdadero
+\end_layout
+
+\begin_layout Standard
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+EVENTSLIST 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ añadir próximo evento Departure2
+\end_layout
+
+\begin_layout Standard
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+} sino {
+\end_layout
+
+\begin_layout Standard
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+ARRIVALS2 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ añadir cliente a la cola
+\end_layout
+
+\begin_layout Standard
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+}
+\end_layout
+
+\begin_layout Standard
+} sino {
+\end_layout
+
+\begin_layout Standard
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+si (!SERVERBUSY3) {
+\end_layout
+
+\begin_layout Standard
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+SERVERBUSY3 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ verdadero
+\end_layout
+
+\begin_layout Standard
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+EVENTSLIST 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ añadir próximo evento Departure3
+\end_layout
+
+\begin_layout Standard
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+} sino {
+\end_layout
+
+\begin_layout Standard
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+ARRIVALS3 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ añadir cliente a la cola
+\end_layout
+
+\begin_layout Standard
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+}
+\end_layout
+
+\begin_layout Standard
+}
+\end_layout
+
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+Rutina de eventos.
+ Salida de un cliente de la estación 1
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+si (!SERVERBUSY2) {
+\end_layout
+
+\begin_layout Standard
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+SERVERBUSY2 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ verdadero
+\end_layout
+
+\begin_layout Standard
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+EVENTSLIST 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ marcar instante de salida del cliente
+\end_layout
+
+\begin_layout Standard
+} sino {
+\end_layout
+
+\begin_layout Standard
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+ARRIVALS2 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ poner el cliente en cola
+\end_layout
+
+\begin_layout Standard
+}
+\end_layout
+
+\begin_layout Standard
+EVENTSLIST 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+añadir próximo evento Arrival2
+\end_layout
+
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+Rutina de eventos.
+ Llegada de un cliente a la estación 2
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+RTSUM2 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ añadir tiempo de respuesta experimentado por el cliente
+\end_layout
+
+\begin_layout Standard
+SERVED2 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+SERVED2 + 1
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+// determinar si otro cliente entra en el servidor
+\end_layout
+
+\begin_layout Standard
+si (vacia(ARRIVALS2)) {
+\end_layout
+
+\begin_layout Standard
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+SERVERBUSY2 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ falso
+\end_layout
+
+\begin_layout Standard
+} sino {
+\end_layout
+
+\begin_layout Standard
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+EVENTSLIST 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ añadir próximo evento Departure2
+\end_layout
+
+\begin_layout Standard
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+RTSUM2 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ añadir tiempo de espera (cola)
+\end_layout
+
+\begin_layout Standard
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+ARRIVALS2 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ eliminar cliente de la cola
+\end_layout
+
+\begin_layout Standard
+}
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+// encaminar el cliente hacia la estación 1
+\end_layout
+
+\begin_layout Standard
+si (!SERVERBUSY1) {
+\end_layout
+
+\begin_layout Standard
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+SERVERBUSY2 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ verdadero
+\end_layout
+
+\begin_layout Standard
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+EVENTSLIST 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ marcar instante de salida del cliente
+\end_layout
+
+\begin_layout Standard
+} sino {
+\end_layout
+
+\begin_layout Standard
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+ARRIVALS1 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ poner el cliente en cola
+\end_layout
+
+\begin_layout Standard
+}
+\end_layout
+
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+Rutina de eventos.
+ Salida de un cliente de la estación 2
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+si (!SERVERBUSY3) {
+\end_layout
+
+\begin_layout Standard
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+SERVERBUSY3 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ verdadero
+\end_layout
+
+\begin_layout Standard
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+EVENTSLIST 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ marcar instante de salida del cliente
+\end_layout
+
+\begin_layout Standard
+} sino {
+\end_layout
+
+\begin_layout Standard
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+ARRIVALS3 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ poner el cliente en cola
+\end_layout
+
+\begin_layout Standard
+}
+\end_layout
+
+\begin_layout Standard
+EVENTSLIST 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+añadir próximo evento Arrival3
+\end_layout
+
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+Rutina de eventos.
+ Llegada de un cliente a la estación 3
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+RTSUM3 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ añadir tiempo de respuesta experimentado por el cliente
+\end_layout
+
+\begin_layout Standard
+SERVED3 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+SERVED3 + 1
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+// determinar si otro cliente entra en el servidor
+\end_layout
+
+\begin_layout Standard
+si (vacia(ARRIVALS3)) {
+\end_layout
+
+\begin_layout Standard
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+SERVERBUSY3 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ falso
+\end_layout
+
+\begin_layout Standard
+} sino {
+\end_layout
+
+\begin_layout Standard
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+EVENTSLIST 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ añadir próximo evento Departure3
+\end_layout
+
+\begin_layout Standard
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+RTSUM3 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ añadir tiempo de espera (cola)
+\end_layout
+
+\begin_layout Standard
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+ARRIVALS3 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ eliminar cliente de la cola
+\end_layout
+
+\begin_layout Standard
+}
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+// encaminar el cliente hacia la siguiente estación (1) o hacia fuera del
+ sistema
+\end_layout
+
+\begin_layout Standard
+ESTACION 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ determinar estación de destino (probabilidades de ramificación)
+\end_layout
+
+\begin_layout Standard
+si (ESTACION == OUT) {
+\end_layout
+
+\begin_layout Standard
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+SERVED 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ SERVED + 1
+\end_layout
+
+\begin_layout Standard
+} sino {
+\end_layout
+
+\begin_layout Standard
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+si (!SERVERBUSY1) {
+\end_layout
+
+\begin_layout Standard
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+SERVERBUSY1 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ verdadero
+\end_layout
+
+\begin_layout Standard
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+EVENTSLIST 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ añadir próximo evento Departure1
+\end_layout
+
+\begin_layout Standard
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+} sino {
+\end_layout
+
+\begin_layout Standard
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+ARRIVALS1 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ añadir cliente a la cola
+\end_layout
+
+\begin_layout Standard
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+\InsetSpace ~
+}
+\end_layout
+
+\begin_layout Standard
+}
+\end_layout
+
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+Rutina de eventos.
+ Salida de un cliente de la estación 3
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
 \begin_layout Enumerate
 Mostrar la curva de tiempo de respuesta solicitada.
  Comentar los resultados obtenidos.

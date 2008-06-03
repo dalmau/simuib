@@ -55,8 +55,8 @@ void simulatorInit (double theLambda, double maxReplicationTime) {
 	lambda = theLambda;
 	MAXREPLICATIONTIME = maxReplicationTime;
 
-	RT1 = RT2 = RT3 = INITIALTIME;
-	SQRTRT1 = SQRTRT2 = SQRTRT3 = INITIALTIME;
+	RT1 = RT2 = RT3 = RTS = INITIALTIME;
+	SQRTRT1 = SQRTRT2 = SQRTRT3 = SQRTRTS = INITIALTIME;
 
 	if (DEBUG) {
 		printf("sysroutines.simulatorInit(): Lambda equals to <%f>\n", lambda);
