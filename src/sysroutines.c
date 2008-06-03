@@ -44,7 +44,9 @@ TIME rTSum1, rTSum2, rTSum3;	// tiempo de respuesta acumulado para los clientes 
 
 // Acumuladores para calcular la varianza muestral
 TIME RT1, RT2, RT3;			// tiempo de respuesta de cada estacion
+TIME RTS;                   // tiempo de respuesta del sistema
 TIME SQRTRT1, SQRTRT2, SQRTRT3;		// sumatorio con el cuadrado de los tiempos de respuesta de cada estacion
+TIME SQRTRTS;                       // sumatorio con el cuadrado de los tiempos de respuesta del sistema
 
 // Prepara el simulador para ejecutar una nueva simulacion.
 //
@@ -71,10 +73,7 @@ void replicationInit (void) {
 
 	// configurar la lista de eventos
 	initEL(eventList);
-	setArrivalEventEL(eventList, A1, exponential(lambda));
-	
-	if (DEBUG)
-       		showEL(eventList);
+	setArrivalEventEL(eventList, A1, exponential(lambda));	
 
 	serverBusy1 = serverBusy2 = serverBusy3 = false;
 	initAL(&arrivals1);
@@ -82,7 +81,7 @@ void replicationInit (void) {
 	initAL(&arrivals3);
 
 	// contadores estadisticos
-	served1 = served2 = served3 = 0;
+	served1 = served2 = served3 = served = 0;
 	rTSum1 = rTSum2 = rTSum3 = INITIALTIME;
 	
 	if (DEBUG)
@@ -149,10 +148,12 @@ void replicate (void) {
 	RT1 += rTSum1/served1;
 	RT2 += rTSum2/served2;
 	RT3 += rTSum3/served3;
+	RTS += (rTSum1+rTSum2+rTSum3)/served;
 
 	SQRTRT1 += pow(rTSum1/served1, 2);
 	SQRTRT2 += pow(rTSum2/served2, 2);
 	SQRTRT3 += pow(rTSum3/served3, 2);
+	SQRTRTS += pow((rTSum1+rTSum2+rTSum3)/served, 2);
 }
 
 // Rutinas para procesar los eventos de la red

@@ -13,11 +13,13 @@
 
 // Acceso a las variables externas de <sysroutines> para el calculo del error relativo.
 extern TIME RT1, RT2, RT3;			// tiempo de respuesta de cada estacion
+extern TIME RTS;                   // tiempo de respuesta del sistema
 extern TIME SQRTRT1, SQRTRT2, SQRTRT3;		// sumatorio con el cuadrado de los tiempos de respuesta de cada estacion
+extern TIME SQRTRTS;                       // sumatorio con el cuadrado de los tiempos de respuesta del sistema
 
 // Variables para mostrar los resultados de la simulacion
-TIME MRT1, MRT2, MRT3;
-TIME CIRT1, CIRT2, CIRT3;
+TIME MRT1, MRT2, MRT3, MRTS;
+TIME CIRT1, CIRT2, CIRT3, CIRTS;
 
 // Percentiles 0.975 de la distribucion t de student para distintos grados de
 // libertad
@@ -101,15 +103,24 @@ bool largeRelativeError (int n) {
 	TIME ciRT3 	= confidenceInterval(n, SQRTRT3, meanRT3);
 
 	if ((ciRT3 / meanRT3) > RELATIVEERROR)
-		return true;		
+		return true;
+        
+    // tiempo de respuesta del sistema
+    TIME meanRTS = RTS / n;
+    TIME ciRTS = confidenceInterval(n, SQRTRTS, meanRTS);
+    
+	if ((ciRTS / meanRTS) > RELATIVEERROR)
+		return true;    		
 
 	// el error relativo ya no es demasiado grande
 	MRT1 = meanRT1;
 	MRT2 = meanRT2;
 	MRT3 = meanRT3;
+	MRTS = meanRTS;
 	CIRT1 = ciRT1;
 	CIRT2 = ciRT2;
 	CIRT3 = ciRT3;
+	CIRTS = ciRTS;
 
 	return false;
 }
@@ -124,6 +135,7 @@ void showResults (int n) {
 	printf("report.showResults():   Response Time Station 1:\t%f\n", MRT1);
 	printf("report.showResults():   Response Time Station 2:\t%f\n", MRT2);
 	printf("report.showResults():   Response Time Station 3:\t%f\n", MRT3);   	
+	printf("report.showResults():   Response Time SYSTEM   :\t%f\n", MRTS);	
 	printf("\n");
     printf("report.showResults(): 	Confidence Intervals:\n");
 	printf("report.showResults(): 	---------------------\n");
@@ -132,4 +144,5 @@ void showResults (int n) {
 	printf("report.showResults(): 	Response Time Station 1:\t%f\n", CIRT1);
 	printf("report.showResults(): 	Response Time Station 2:\t%f\n", CIRT2);
 	printf("report.showResults(): 	Response Time Station 3:\t%f\n", CIRT3);    
+	printf("report.showResults(): 	Response Time SYSTEM   :\t%f\n", CIRTS);	
 }
