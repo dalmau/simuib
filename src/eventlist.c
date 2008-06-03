@@ -74,9 +74,6 @@ EVENT getClosestEventEL (EVENTLIST l) {
 			chosen = e;
 		e++;
 	}
-	
-	if (DEBUG)
-		printf("eventlist.getClosestEventEL(): position chosen <%i> with time <%3.2f>\n", chosen, l[chosen]);
 
 	return chosen;
 }

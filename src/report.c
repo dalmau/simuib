@@ -15,6 +15,10 @@
 extern TIME RT1, RT2, RT3;			// tiempo de respuesta de cada estacion
 extern TIME SQRTRT1, SQRTRT2, SQRTRT3;		// sumatorio con el cuadrado de los tiempos de respuesta de cada estacion
 
+// Variables para mostrar los resultados de la simulacion
+TIME MRT1, MRT2, MRT3;
+TIME CIRT1, CIRT2, CIRT3;
+
 // Percentiles 0.975 de la distribucion t de student para distintos grados de
 // libertad
 //
@@ -34,14 +38,7 @@ double t_0975[] =
 // de los cuadrados de las muestras y mean como la media muestral de las mismas muestras.
 //
 double sampleVariance (int n, TIME samples, TIME mean) {
-
-	if (DEBUG) {
-		printf("report.sampleVariance(): samples: %f\n", samples);
-		printf("report.sampleVariance(): mean: %f\n", (n * pow(mean, 2)));
-		printf("report.sampleVariance(): substract: %f\n", (samples - (n * pow(mean, 2))));
-		printf("report.sampleVariance(): variance: %f\n", (samples - (n * pow(mean, 2))) / (n - 1));
-		
-	}	
+	
 	return (samples - (n * pow(mean, 2))) / (n - 1);
 }
 
@@ -50,11 +47,6 @@ double sampleVariance (int n, TIME samples, TIME mean) {
 //
 double confidenceInterval (int n, TIME samples, TIME mean) {
 
-	if (DEBUG) {
-		printf("report.confidenceInterval(): tstudent: %f\n", tstudent(n-1));
-		printf("report.confidenceInterval(): sample variance: %f\n", sampleVariance(n, samples, mean));
-		printf("report.confidenceInterval(): square root: %f\n", sqrt(sampleVariance(n, samples, mean) / n));		
-	}
 	return tstudent(n - 1) * sqrt(sampleVariance(n, samples, mean) / n);
 }
 
@@ -88,70 +80,56 @@ double tstudent (int dof) {
 // Devuelve un valor falso si los cocientes de todos los intervalos de confianza y las medias muestrales son un valor menor 
 // o igual a la cota de error (corregido) manejado por el simulador.
 //
-bool largeRelativeError (int n) {
-	
-	//system("PAUSE");
-	//printf("report.largeRelativeError(): Replications: %i\n", n);
-
-	if (DEBUG)
-		printf("report.largeRelativeError(): Executed replications: %i\n", n);
+bool largeRelativeError (int n) {	
 
 	// tiempo de respuesta nodo 1
 	TIME meanRT1 	= RT1 / n;
 	TIME ciRT1 	    = confidenceInterval(n, SQRTRT1, meanRT1);
-	if (DEBUG) {
-		printf("report.largeRelativeError(): Response Time 1, accumulated: %f\n", SQRTRT1);
-		printf("report.largeRelativeError(): Response Time 1, confidence interval: %f\n", ciRT1);
-		printf("report.largeRelativeError(): Response Time 1, sample mean: %f\n", meanRT1);
-		printf("report.largeRelativeError(): Response Time 1, quotient: %f\n", ciRT1 / meanRT1);
-		printf("report.largeRelativeError(): Relative error: %f\n", RELATIVEERROR);
-	}
-	if ((ciRT1 / meanRT1) > RELATIVEERROR) {
-		//printf("entro\n");
+
+	if ((ciRT1 / meanRT1) > RELATIVEERROR)
 		return true;
-	}
 
 	// tiempo de respuesta nodo 2
 	TIME meanRT2 	= RT2 / n;  
 	TIME ciRT2 	= confidenceInterval(n, SQRTRT2, meanRT2);
-	if (DEBUG)
-		printf("report.largeRelativeError(): Response Time 2, quotient: %f\n", ciRT2 / meanRT2);
+
 	if ((ciRT2 / meanRT2) > RELATIVEERROR)
 		return true;
 
 	// tiempo de respuesta nodo 3
 	TIME meanRT3 	= RT3 / n;  
 	TIME ciRT3 	= confidenceInterval(n, SQRTRT3, meanRT3);
-	if (DEBUG)
-		printf("report.largeRelativeError(): Response Time 3, quotient: %f\n", ciRT3 / meanRT3);
+
 	if ((ciRT3 / meanRT3) > RELATIVEERROR)
-		return true;	
+		return true;		
 
 	// el error relativo ya no es demasiado grande
-	
-	// mostrar los intervalos de confianza obtenidos
-	printf("report.largeRelativeError():    Mean Values:\n");
-	printf("report.largeRelativeError():    ------------\n");
-	printf("report.largeRelativeError():    Response Time Station 1:\t%f\n", meanRT1);
-	printf("report.largeRelativeError():    Response Time Station 2:\t%f\n", meanRT2);
-	printf("report.largeRelativeError():    Response Time Station 3:\t%f\n", meanRT3);   	
-	printf("\n");
-    printf("report.largeRelativeError(): 	Confidence Intervals:\n");
-	printf("report.largeRelativeError(): 	---------------------\n");
-	printf("report.largeRelativeError(): 	Executed Replications:\t\t%i\n", n);
-	printf("report.largeRelativeError(): 	Confidence Level:\t\t95%%\n");
-	printf("report.largeRelativeError(): 	Response Time Station 1:\t%f\n", ciRT1);
-	printf("report.largeRelativeError(): 	Response Time Station 2:\t%f\n", ciRT2);
-	printf("report.largeRelativeError(): 	Response Time Station 3:\t%f\n", ciRT3);
-//	printf("report.largeRelativeError(): 	Response Time C2: 		%f\n", ciRTC2);
-//	printf("report.largeRelativeError(): 	Response Time C1&C2: 		%f\n", ciRTC);
-//	printf("report.largeRelativeError(): 	Mean Clients C1: 		%f\n", ciCNC1);
-//	printf("report.largeRelativeError(): 	Mean Clients C2: 		%f\n", ciCNC2);
-//	printf("report.largeRelativeError(): 	Mean Clients C1&C2: 		%f\n", ciCN);
-//	printf("report.largeRelativeError(): 	Utilization Servers C1: 	%f\n", ciUS1);
-//	printf("report.largeRelativeError(): 	Utilization Servers C2: 	%f\n", ciUS2);
-//	printf("report.largeRelativeError(): 	Utilization Servers C1&C2: 	%f\n", ciUS);
+	MRT1 = meanRT1;
+	MRT2 = meanRT2;
+	MRT3 = meanRT3;
+	CIRT1 = ciRT1;
+	CIRT2 = ciRT2;
+	CIRT3 = ciRT3;
 
 	return false;
 }
 
+// Muestra los resultados obtenidos en la simulacion
+// El parametro n es el numero de replicas ejecutadas
+//
+void showResults (int n) {
+
+	printf("\nreport.showResults():   Mean Values:\n");
+	printf("report.showResults():   ------------\n");
+	printf("report.showResults():   Response Time Station 1:\t%f\n", MRT1);
+	printf("report.showResults():   Response Time Station 2:\t%f\n", MRT2);
+	printf("report.showResults():   Response Time Station 3:\t%f\n", MRT3);   	
+	printf("\n");
+    printf("report.showResults(): 	Confidence Intervals:\n");
+	printf("report.showResults(): 	---------------------\n");
+	printf("report.showResults(): 	Executed Replications:\t\t%i\n", n);
+	printf("report.showResults(): 	Confidence Level:\t\t95%%\n");
+	printf("report.showResults(): 	Response Time Station 1:\t%f\n", CIRT1);
+	printf("report.showResults(): 	Response Time Station 2:\t%f\n", CIRT2);
+	printf("report.showResults(): 	Response Time Station 3:\t%f\n", CIRT3);    
+}

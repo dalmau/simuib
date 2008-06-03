@@ -5,16 +5,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-//
-#include "systypes.h"
-#include "arrivalslist.h"
-#include "eventlist.h"
+#include "sysroutines.h"
 #include "report.h"
-//
-
-// Acceso a las variables externas de <sysroutines> para el calculo del error relativo.
-extern TIME RT1, RT2, RT3;			// tiempo de respuesta de cada estacion
-extern TIME SQRTRT1, SQRTRT2, SQRTRT3;		// sumatorio con el cuadrado de los tiempos de respuesta de cada estacion
 
 int main(int argc, char *argv[]) {
 	
@@ -28,26 +20,20 @@ int main(int argc, char *argv[]) {
 	// inicializacion del simulador
 	simulatorInit(atof(argv[1]), atof(argv[2]));
 
-	// Aplicacion del metodo secuencial con error relativo
-	// ejecucion de las replicas iniciales
-	//int i;
-	//for (i=0; i<MINREPLICATIONS; i++)
-	//for (i=0; i<10; i++)
-	//	replicate();	
-	
-	//printf("Varianza: %f\n", sampleVariance(10, SQRTRT1, RT1/10));
+	// Aplicacion del metodo secuencial con error relativo		
     
-	//replicate();
+    // Como minimo ejecutamos dos replicas
 	replicate();
-	int n = 1;
+	replicate();
+	int n = 2;
+	
 	while (largeRelativeError(n)) {
 		replicate();
 		n++;
-	}	
-	
+	}		
 
-//	showResults();	
+    // mostrar los resultados
+	showResults(n);	
 
-	//system("PAUSE");	
 	return 0;
 }

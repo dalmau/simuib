@@ -83,7 +83,10 @@ void replicationInit (void) {
 
 	// contadores estadisticos
 	served1 = served2 = served3 = 0;
-	rTSum1 = rTSum2 = rTSum3 = INITIALTIME; 
+	rTSum1 = rTSum2 = rTSum3 = INITIALTIME;
+	
+	if (DEBUG)
+		printf("sysroutines.replicationInit(): Ready for a new replication\n", clock);
 }
 
 // Rutina del temporizador que se encargara de determinar el siguiente evento a procesar, retorna
@@ -93,9 +96,7 @@ EVENT timer (void) {
 
 	EVENT e = getClosestEventEL(eventList);
 	clock = getTimeEL(eventList, e);
-
-	if (DEBUG)
-		printf("sysroutines.timer(): Event chosen will happen at <%3.2f>\n", clock);
+	
 	return e;	
 }
 
@@ -132,29 +133,26 @@ void replicate (void) {
 		}			
 	}
 
-	//if (DEBUG) {
-		//printf("sysroutines.replicate(): Replication <%5i> - Served Station 1: <%5i>\n", REPS, served1);
-		//printf("sysroutines.replicate(): Replication <%5i> - Served Station 2: <%5i>\n", REPS, served2);
-		//printf("sysroutines.replicate(): Replication <%5i> - Served Station 3: <%5i>\n", REPS, served3);
-		//printf("sysroutines.replicate(): Replication <%5i> - Served System:    <%5i>\n", REPS, served);
-		//printf("sysroutines.replicate(): Replication <%5i> - RT Station 1: <%3.5f>\n", REPS, rTSum1/served1);
-		//printf("sysroutines.replicate(): Replication <%5i> - RT Station 2: <%3.5f>\n", REPS, rTSum2/served2);
-		//printf("sysroutines.replicate(): Replication <%5i> - RT Station 3: <%3.5f>\n", REPS, rTSum3/served3);
-		//printf("sysroutines.replicate(): Replication <%5i> - RT System   : <%3.5f>\n", REPS, (rTSum1+rTSum2+rTSum3)/served);		
-	//}
+	if (DEBUG) {
+		printf("sysroutines.replicate(): Replication <%5i> - Served Station 1: <%5i>\n", REPS, served1);
+		printf("sysroutines.replicate(): Replication <%5i> - Served Station 2: <%5i>\n", REPS, served2);
+		printf("sysroutines.replicate(): Replication <%5i> - Served Station 3: <%5i>\n", REPS, served3);
+		printf("sysroutines.replicate(): Replication <%5i> - Served System:    <%5i>\n", REPS, served);
+		printf("sysroutines.replicate(): Replication <%5i> - RT Station 1: <%3.5f>\n", REPS, rTSum1/served1);
+		printf("sysroutines.replicate(): Replication <%5i> - RT Station 2: <%3.5f>\n", REPS, rTSum2/served2);
+		printf("sysroutines.replicate(): Replication <%5i> - RT Station 3: <%3.5f>\n", REPS, rTSum3/served3);
+		printf("sysroutines.replicate(): Replication <%5i> - RT System   : <%3.5f>\n", REPS, (rTSum1+rTSum2+rTSum3)/served);		
+	}
 
 	// acumular los contadores estadisticos
 
 	RT1 += rTSum1/served1;
 	RT2 += rTSum2/served2;
 	RT3 += rTSum3/served3;
-	//RT2 += accumulatedRTC2/(float)servedC2;
-	//RTC  += (accumulatedRTC1+accumulatedRTC2)/(float)(servedC1+servedC2);
+
 	SQRTRT1 += pow(rTSum1/served1, 2);
 	SQRTRT2 += pow(rTSum2/served2, 2);
 	SQRTRT3 += pow(rTSum3/served3, 2);
-	//SQRTRTC2 += pow(accumulatedRTC2/(float)servedC2, 2);
-	//SQRTRTC  += pow((accumulatedRTC1+accumulatedRTC2)/(float)(servedC1+servedC2), 2);
 }
 
 // Rutinas para procesar los eventos de la red
@@ -180,9 +178,6 @@ void arrival1 (void) {
 	setArrivalEventEL(eventList, A1, clock + exponential(lambda));
 
 	lastEvent = clock;
-
-	if (DEBUG)
-		showEL(eventList);
 }
 
 // Salida de un cliente del nodo 1
@@ -241,10 +236,7 @@ void departure1 (void) {
 		}		
 	}
 	
-	lastEvent = clock;
-
-	if (DEBUG)
-		showEL(eventList);		
+	lastEvent = clock;	
 }
 
 // Llegada de un cliente al nodo 2.
@@ -266,9 +258,6 @@ void arrival2 (void) {
 	}
 	
 	lastEvent = clock;
-
-	if (DEBUG)
-		showEL(eventList);
 }
 
 // Salida de un cliente del nodo 2.
@@ -296,8 +285,6 @@ void departure2 (void) {
 	}
 
 	// encaminar el cliente hacia la estacion 1
-	if (DEBUG)
-		printf("sysroutines.departure2(): The client goes now to station 1.\n");
 		
 	// servidor libre
 	if (!serverBusy1) {
@@ -311,9 +298,6 @@ void departure2 (void) {
 	}		
 	
 	lastEvent = clock;
-
-	if (DEBUG)
-		showEL(eventList);	
 }
 
 // Llegada de un cliente al nodo 3.
@@ -334,10 +318,7 @@ void arrival3 (void) {
 		addArrivalAL(&arrivals3, clock);
 	}
 	
-	lastEvent = clock;
-
-	if (DEBUG)
-		showEL(eventList);	
+	lastEvent = clock;	
 }
 
 // Salida de un cliente del nodo 3.
@@ -388,9 +369,5 @@ void departure3 (void) {
 		}		
 	}
 	
-	lastEvent = clock;
-
-	if (DEBUG)
-		showEL(eventList);		
+	lastEvent = clock;		
 }
-
