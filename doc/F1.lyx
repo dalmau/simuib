@@ -91,14 +91,32 @@ Contestar a las siguientes preguntas
 
 \begin_layout Enumerate
 ¿De qué tipo de simulación se trata (horizonte finito o infinito)?
+\newline
+
+\newline
+La simulación
+ es de horizonte no finito.
+ Buscamos estimar la evolución del tiempo medio de respuesta de todo el
+ sistema y no existe ningún acontecimiento que marque el fin de cada una
+ de las experiencias a realizar sobre el modelo matemático.
 \end_layout
 
 \begin_layout Enumerate
 ¿Qué metodo habeis utilizado para construir el intervalo de confianza?
+\newline
+
+\newline
+?
 \end_layout
 
 \begin_layout Enumerate
 ¿Cómo habeis tratado el problema del transitorio?
+\newline
+
+\newline
+Hemos utilizado la misma
+ técnica que QNAP2, utilizar longitudes de réplica muy grandes de modo que
+ el peso del transitorio es muy reducido.
 \end_layout
 
 \begin_layout Enumerate
@@ -108,24 +126,99 @@ Contestar a las siguientes preguntas
 \newline
 
 \newline
-Los apartados 5, 6 y 7 deben contestarse en el supuesto
- de programación clásica o estructurada, aunque finalmente se haya utilizado
- programación orientada a objetos.
+Dada la precisión especificada en el enunciado en
+ forma de error relativo hemos hecho uso del método secuencial para realizar
+ las suficientes réplicas cómo para poder dar la estimación final con ese
+ nivel de confianza y error relativo.
+\newline
+
+\newline
+
+\emph on
+Los apartados 5, 6 y 7 deben contestarse en el supuesto de programación
+ clásica o estructurada, aunque finalmente se haya utilizado programación
+ orientada a objetos.
 \end_layout
 
 \begin_layout Enumerate
 Especifica y describe mínimamente (una frase) cada uno de los eventos que
  habeis definido en vuestro simulador.
+\newline
+
+\newline
+Arrival1: llegada de un cliente a la
+ estación número 1.
+\newline
+Arrival2: llegada de un cliente a la estación número 2.
+\newline
+Arrival3
+: llegada de un cliente a la estación número 3.
+\newline
+Departure1: salida de un cliente
+ de la estación número 1.
+\newline
+Departure2: salida de un cliente de la estación
+ número 2.
+\newline
+Departure3: salida de un cliente de la estación número 3.
 \end_layout
 
 \begin_layout Enumerate
-Especifica y describe mínimamente (una frase) cada una de las variabes de
- estado que habeis definido en vuestro simulador.
+Especifica y describe mínimamente (una frase) cada una de las variables
+ de estado que habeis definido en vuestro simulador.
+\newline
+
+\newline
+Clock: reloj del sistema.
+\newline
+Event
+sList: lista de eventos del sistema.
+\newline
+Arrivals1: cola de instantes de llegada
+ a la estación número 1.
+\newline
+Arrivals2: cola de instantes de llegada a la estación
+ número 2.
+\newline
+Arrivals3: cola de instantes de llegada a la estación número 3.
+\newline
+ServerBus
+y1: ocupación del servidor de la estación número 1.
+\newline
+ServerBusy2: ocupación
+ del servidor de la estación número 2.
+\newline
+ServerBusy3: ocupación del servidor
+ de la estación número 3.
 \end_layout
 
 \begin_layout Enumerate
 Especifica y describe mínimamente (una frase) cada uno de los contadores
  estadísticos que habeis definido en vuestro simulador.
+\newline
+
+\newline
+Served1: número de
+ clientes que han recibido servicio en la estación número 1.
+\newline
+Served2: número
+ de clientes que han recibido servicio en la estación número 2.
+\newline
+Served3: número
+ de clientes que han recibido servicio en la estación número 3.
+\newline
+Served: número
+ de clientes que han recibido servicio en el sistema.
+\newline
+RTSum1: suma de los
+ tiempos de respuesta experimentados por los clientes en la estación número
+ 1.
+\newline
+RTSum2: suma de los tiempos de respuesta experimentados por los clientes
+ en la estación número 2.
+\newline
+RTSum3: suma de los tiempos de respuesta experimentados
+ por los clientes en la estación número 3.
 \end_layout
 
 \begin_layout Enumerate
