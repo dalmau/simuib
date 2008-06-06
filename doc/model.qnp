@@ -3,7 +3,8 @@
 & $LastChangedBy$
 
 /DECLARE/ 	QUEUE SOURCE1;
-		QUEUE STATION1, STATION2, STATION3;
+		QUEUE STATION1, STATION2, STATION3, RT;
+		& la cola RT nos permitira determinar el IC global
 
 		& probabilidades de ramificacion		
 		REAL P12 = 0.3;
@@ -15,16 +16,31 @@
 /STATION/	NAME = STATION1;
 		SERVICE = EXP(10); & tiempos medios de servicio
 		TRANSIT = STATION2, P12, STATION3;
+
 /STATION/	NAME = STATION2;
 		SERVICE = EXP(15);
 		TRANSIT = STATION1;
+
 /STATION/	NAME = STATION3;
-		SERVICE = EXP(20);
-		TRANSIT = STATION1, P31, OUT;
+		SERVICE = BEGIN
+				EXP(20);
+				T := RANDU;
+				IF T < P31 THEN TRANSIT(STATION1);
+                        	& salimos del sistema
+                        	C := RT.FIRST;
+                        	WHILE C.FATHER <> CUSTOMER DO C := C.NEXT;
+                        	TRANSIT(C, OUT);                        
+                        	TRANSIT(OUT);				
+			  END;
+
 /STATION/	NAME = SOURCE1;
 		TYPE = SOURCE;
-		SERVICE = EXP(1.0/LAMBDA);
-		TRANSIT = STATION1;
+		SERVICE = BEGIN
+				EXP(1.0/LAMBDA);
+				C := NEW(CUSTOMER);
+                    		TRANSIT(C, RT);
+                    		TRANSIT(STATION1);
+			  END;
 
 /CONTROL/	CLASS = ALL QUEUE;
 		ACCURACY = ALL QUEUE;
