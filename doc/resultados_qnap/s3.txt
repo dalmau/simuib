@@ -1,0 +1,99 @@
+ 
+  SIMULOG   ***  QNAP2  ***  ( 15-09-2000  ) V 9.4   
+  (C)  COPYRIGHT BY CII HONEYWELL BULL AND INRIA, 1986
+ 
+ 
+      1 & $LastChangedDate$
+      2 & $LastChangedRevision$
+      3 & $LastChangedBy$
+      4  
+      5 /DECLARE/ 	QUEUE SOURCE1;
+      6 		QUEUE STATION1, STATION2, STATION3, RT;
+      7 		& la cola RT nos permitira determinar el IC global
+      8  
+      9 		& probabilidades de ramificacion
+     10 		REAL P12 = 0.3;
+     11 		REAL P13 = 0.7;
+     12 		REAL P31 = 0.6;
+     13 	
+     14 		INTEGER I;
+     15 		REAL T;
+     16 		REAL LAMBDA = 0.006;
+     17 		REF CUSTOMER C;
+     18  
+     19 /STATION/	NAME = STATION1;
+     20 		SERVICE = EXP(10); & tiempos medios de servicio
+     21 		TRANSIT = STATION2, P12, STATION3, P13;
+     22  
+     23 /STATION/	NAME = STATION2;
+     24 		SERVICE = EXP(15);
+     25 		TRANSIT = STATION1;
+     26  
+     27 /STATION/	NAME = STATION3;
+     28 		SERVICE = BEGIN
+     29 				EXP(20);
+     30 				T := RANDU;
+     31 				IF T < P31 THEN TRANSIT(STATION1);
+     32                         	& salimos del sistema
+     33                         	C := RT.FIRST;
+     34                         	WHILE C.FATHER <> CUSTOMER DO C := C.NEXT;
+     35                         	TRANSIT(C, OUT);
+     36                         	TRANSIT(OUT);
+     37 			  END;
+     38  
+     39 /STATION/	NAME = SOURCE1;
+     40 		TYPE = SOURCE;
+     41 		SERVICE = BEGIN
+     42 				EXP(1.0/LAMBDA);
+     43 				C := NEW(CUSTOMER);
+     44                     		TRANSIT(C, RT);
+     45                     		TRANSIT(STATION1);
+     46 			  END;
+     47  
+     48 /CONTROL/	TMAX = 10000000;
+     49 		CLASS = ALL QUEUE;
+     50 		ACCURACY = ALL QUEUE;
+     51  
+     52 /EXEC/		BEGIN
+     53 			 & FOR I:=1 STEP 1 UNTIL 10 DO
+     54 			 & BEGIN
+     55 				& IF I=10 THEN LAMBDA := 0.019;
+     56 				& ELSE LAMBDA := 0.002 * I;
+     57 				PRINT;
+     58 				& PRINT("LAMBDA =",LAMBDA);
+     59 				SIMUL;
+     60 			 & END;
+     61 		END;
+ 
+1
+ 
+ ***SIMULATION WITH SPECTRAL METHOD ***
+ ... TIME =     10000000.00 , NB SAMPLES =    512 , CONF. LEVEL = 0.95
+ (0I0A03)  ==>WARNING (OUTPUT) : SOME CONFIDENCE INTERVALS ARE NOT AVAILABLE
+                                 FOR QUEUE ... RT       . 0 ASSUMED THEN
+ *******************************************************************
+ *   NAME   *  SERVICE * BUSY PCT *  CUST NB * RESPONSE *  SERV NB *
+ *******************************************************************
+ *          *          *          *          *          *          *
+ *SOURCE1   * 167.6    * 1.000    * 1.000    * 167.6    *     59656*
+ *   +/-    * 1.414    *0.0000E+00*0.0000E+00* 1.414    *          *
+ *          *          *          *          *          *          *
+ *STATION1  * 10.04    *0.2157    *0.2749    * 12.80    *    214716*
+ *   +/-    *0.4541E-01*0.2381E-02*0.4194E-02*0.1084    *          *
+ *          *          *          *          *          *          *
+ *STATION2  * 14.98    *0.9657E-01*0.1066    * 16.54    *     64447*
+ *   +/-    *0.1414    *0.1931E-02*0.2375E-02*0.1768    *          *
+ *          *          *          *          *          *          *
+ *STATION3  * 20.08    *0.3017    *0.4302    * 28.63    *    150268*
+ *   +/-    *0.1339    *0.3295E-02*0.7462E-02*0.3437    *          *
+ *          *          *          *          *          *          *
+ *RT        *0.0000E+00*0.0000E+00*0.8117    * 136.1    *     59655*
+ *   +/-    *----------*0.0000E+00*0.1228E-01* 1.664    *          *
+ *          *          *          *          *          *          *
+ *******************************************************************
+ ... END OF SIMULATION ...
+ 
+ 
+              MEMORY USED:       9315 WORDS OF 4 BYTES
+               (  0.06  % OF TOTAL MEMORY)
+     62 /END/

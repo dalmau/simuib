@@ -84,7 +84,5503 @@ Adjuntar el código fuente del simulador diseñado con un lenguaje de propósito
 \end_layout
 
 \begin_deeper
+\begin_layout Subsection*
+Arrivals.h / Arrivals.c
+\end_layout
+
 \begin_layout Standard
+\begin_inset listings
+lstparams "breaklines=true,language=C,numbers=left"
+inline false
+status collapsed
+
+\begin_layout Standard
+
+// $LastChangedDate$
+\end_layout
+
+\begin_layout Standard
+
+// $LastChangedRevision$
+\end_layout
+
+\begin_layout Standard
+
+// $LastChangedBy$
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+#ifndef _ARRIVALSLIST_H_
+\end_layout
+
+\begin_layout Standard
+
+#define _ARRIVALSLIST_H_
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+#include "systypes.h"
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+// implementacion
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+// nodos de la lista
+\end_layout
+
+\begin_layout Standard
+
+struct NODEAL{
+\end_layout
+
+\begin_layout Standard
+
+        TIME t;
+\end_layout
+
+\begin_layout Standard
+
+        struct NODEAL *next;
+\end_layout
+
+\begin_layout Standard
+
+};
+\end_layout
+
+\begin_layout Standard
+
+typedef struct NODEAL NODEAL;
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+// lista de tiempos de llegada
+\end_layout
+
+\begin_layout Standard
+
+typedef struct ARRIVALSLIST {
+\end_layout
+
+\begin_layout Standard
+
+        NODEAL *first;
+\end_layout
+
+\begin_layout Standard
+
+        NODEAL *last;
+\end_layout
+
+\begin_layout Standard
+
+}ARRIVALSLIST;
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+// operaciones
+\end_layout
+
+\begin_layout Standard
+
+void initAL (ARRIVALSLIST *l);
+\end_layout
+
+\begin_layout Standard
+
+bool emptyAL (ARRIVALSLIST *l);
+\end_layout
+
+\begin_layout Standard
+
+void addArrivalAL (ARRIVALSLIST *l, TIME t);
+\end_layout
+
+\begin_layout Standard
+
+void delArrivalAL (ARRIVALSLIST *l);
+\end_layout
+
+\begin_layout Standard
+
+TIME getArrivalAL (ARRIVALSLIST *l);
+\end_layout
+
+\begin_layout Standard
+
+void showAL (ARRIVALSLIST *l);
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+#endif // _ARRIVALSLIST_H_
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+\begin_inset listings
+lstparams "breaklines=true,language=C,numbers=left"
+inline false
+status collapsed
+
+\begin_layout Standard
+
+// $LastChangedDate$
+\end_layout
+
+\begin_layout Standard
+
+// $LastChangedRevision$
+\end_layout
+
+\begin_layout Standard
+
+// $LastChangedBy$
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+#include <stdio.h>
+\end_layout
+
+\begin_layout Standard
+
+#include <stdlib.h>
+\end_layout
+
+\begin_layout Standard
+
+#include "arrivalslist.h"
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+// Implementacion dinamica de las listas de instantes de llegadas
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+// Inicializa la lista de llegadas transformandola en una lista vacia
+\end_layout
+
+\begin_layout Standard
+
+//
+\end_layout
+
+\begin_layout Standard
+
+void initAL (ARRIVALSLIST *l) {
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        l->first = NULL;
+\end_layout
+
+\begin_layout Standard
+
+        l->last = NULL; 
+\end_layout
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+// Comprueba si la lista de llegadas esta vacia
+\end_layout
+
+\begin_layout Standard
+
+//
+\end_layout
+
+\begin_layout Standard
+
+bool emptyAL (ARRIVALSLIST *l) {
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        if (l->first == NULL)
+\end_layout
+
+\begin_layout Standard
+
+                return true;
+\end_layout
+
+\begin_layout Standard
+
+        return false;
+\end_layout
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+// Añade un nuevo tiempo de llegadas a la lista al final de la misma
+\end_layout
+
+\begin_layout Standard
+
+//
+\end_layout
+
+\begin_layout Standard
+
+void addArrivalAL (ARRIVALSLIST *l, TIME t) {
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        // lista vacia
+\end_layout
+
+\begin_layout Standard
+
+        if (l->first == NULL) {
+\end_layout
+
+\begin_layout Standard
+
+                l->first = (NODEAL *)malloc(sizeof(NODEAL));
+\end_layout
+
+\begin_layout Standard
+
+                (l->first)->t = t;
+\end_layout
+
+\begin_layout Standard
+
+                (l->first)->next = NULL;
+\end_layout
+
+\begin_layout Standard
+
+                l->last = l->first;
+\end_layout
+
+\begin_layout Standard
+
+        }
+\end_layout
+
+\begin_layout Standard
+
+        // ya tenia elementos
+\end_layout
+
+\begin_layout Standard
+
+        else {
+\end_layout
+
+\begin_layout Standard
+
+                (l->last)->next = (NODEAL *)malloc(sizeof(NODEAL));
+\end_layout
+
+\begin_layout Standard
+
+                ((l->last)->next)->t = t;
+\end_layout
+
+\begin_layout Standard
+
+                ((l->last)->next)->next = NULL;
+\end_layout
+
+\begin_layout Standard
+
+                l->last = (l->last)->next;
+\end_layout
+
+\begin_layout Standard
+
+        }
+\end_layout
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+// Elimina el primer elemento de la lista si la lista no esta vacia
+\end_layout
+
+\begin_layout Standard
+
+//
+\end_layout
+
+\begin_layout Standard
+
+void delArrivalAL (ARRIVALSLIST *l) {
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        if (l->first == NULL) {
+\end_layout
+
+\begin_layout Standard
+
+                printf("arrivalslist.delArrivalAL(): ERROR, the list is empty
+\backslash
+n");
+\end_layout
+
+\begin_layout Standard
+
+                exit(EXIT_FAILURE);
+\end_layout
+
+\begin_layout Standard
+
+        }
+\end_layout
+
+\begin_layout Standard
+
+        
+\end_layout
+
+\begin_layout Standard
+
+        // la lista solo tiene un elemento
+\end_layout
+
+\begin_layout Standard
+
+        if (l->first == l->last) {
+\end_layout
+
+\begin_layout Standard
+
+                free(l->first);
+\end_layout
+
+\begin_layout Standard
+
+                l->first = NULL;
+\end_layout
+
+\begin_layout Standard
+
+                l->last = NULL;
+\end_layout
+
+\begin_layout Standard
+
+        }
+\end_layout
+
+\begin_layout Standard
+
+        // hay mas de un elemento
+\end_layout
+
+\begin_layout Standard
+
+        else {
+\end_layout
+
+\begin_layout Standard
+
+                NODEAL *n = l->first;
+\end_layout
+
+\begin_layout Standard
+
+                l->first = (l->first)->next;
+\end_layout
+
+\begin_layout Standard
+
+                free(n);
+\end_layout
+
+\begin_layout Standard
+
+        }
+\end_layout
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+// Obtiene el tiempo de llegada del cliente que ocupa la primera posicion
+ de la cola
+\end_layout
+
+\begin_layout Standard
+
+//
+\end_layout
+
+\begin_layout Standard
+
+TIME getArrivalAL (ARRIVALSLIST *l) {
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        if (l->first == NULL) {
+\end_layout
+
+\begin_layout Standard
+
+                printf("arrivalslist.getArrivalAL(): ERROR, the list is empty
+\backslash
+n");
+\end_layout
+
+\begin_layout Standard
+
+                exit(EXIT_FAILURE);
+\end_layout
+
+\begin_layout Standard
+
+        }
+\end_layout
+
+\begin_layout Standard
+
+        
+\end_layout
+
+\begin_layout Standard
+
+        return (l->first)->t;
+\end_layout
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+// Muestra el contenido de la lista de llegadas
+\end_layout
+
+\begin_layout Standard
+
+//
+\end_layout
+
+\begin_layout Standard
+
+void showAL (ARRIVALSLIST *l) {
+\end_layout
+
+\begin_layout Standard
+
+        
+\end_layout
+
+\begin_layout Standard
+
+        if (!emptyAL(l)) {
+\end_layout
+
+\begin_layout Standard
+
+                NODEAL *p = l->first;
+\end_layout
+
+\begin_layout Standard
+
+                while (p != NULL) {
+\end_layout
+
+\begin_layout Standard
+
+                        printf("arrivalslist.showAL(): <%f>
+\backslash
+n", p->t);
+\end_layout
+
+\begin_layout Standard
+
+                        p = p->next;    
+\end_layout
+
+\begin_layout Standard
+
+                }
+\end_layout
+
+\begin_layout Standard
+
+        }
+\end_layout
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+Eventlist.h / Eventlist.c
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "breaklines=true,language=C,numbers=left"
+inline false
+status collapsed
+
+\begin_layout Standard
+
+// $LastChangedDate$
+\end_layout
+
+\begin_layout Standard
+
+// $LastChangedRevision$
+\end_layout
+
+\begin_layout Standard
+
+// $LastChangedBy$
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+#ifndef _EVENTLIST_H_
+\end_layout
+
+\begin_layout Standard
+
+#define _EVENTLIST_H_
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+#include "systypes.h"
+\end_layout
+
+\begin_layout Standard
+
+// Eventos
+\end_layout
+
+\begin_layout Standard
+
+#define A1 0    // llegada de un cliente al nodo 1
+\end_layout
+
+\begin_layout Standard
+
+#define A2 1    // llegada de un cliente al nodo 2
+\end_layout
+
+\begin_layout Standard
+
+#define A3 2    // llegada de un cliente al nodo 3
+\end_layout
+
+\begin_layout Standard
+
+#define D1 3    // salida de un cliente del nodo 1
+\end_layout
+
+\begin_layout Standard
+
+#define D2 4    // salida de un cliente del nodo 2
+\end_layout
+
+\begin_layout Standard
+
+#define D3 5    // salida de un cliente del nodo 3
+\end_layout
+
+\begin_layout Standard
+
+#define EVENTLISTSIZE 6
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+// implementacion
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+typedef int EVENT;
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+typedef TIME EVENTLIST[EVENTLISTSIZE];
+\end_layout
+
+\begin_layout Standard
+
+typedef int POSITIONEL;
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+// operaciones
+\end_layout
+
+\begin_layout Standard
+
+void initEL (EVENTLIST l);
+\end_layout
+
+\begin_layout Standard
+
+bool emptyEL (EVENTLIST l);
+\end_layout
+
+\begin_layout Standard
+
+void setArrivalEventEL (EVENTLIST l, EVENT e, TIME t);
+\end_layout
+
+\begin_layout Standard
+
+void setDepartureEventEL (EVENTLIST l, EVENT e, TIME a, TIME d);
+\end_layout
+
+\begin_layout Standard
+
+EVENT getClosestEventEL (EVENTLIST l);
+\end_layout
+
+\begin_layout Standard
+
+TIME getTimeEL (EVENTLIST l, EVENT e);
+\end_layout
+
+\begin_layout Standard
+
+TIME getArrivalEL (EVENTLIST l, EVENT e);
+\end_layout
+
+\begin_layout Standard
+
+void showEL (EVENTLIST l);
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+#endif // _EVENTLIST_H_
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+\begin_inset listings
+lstparams "breaklines=true,language=C,numbers=left"
+inline false
+status collapsed
+
+\begin_layout Standard
+
+// $LastChangedDate$
+\end_layout
+
+\begin_layout Standard
+
+// $LastChangedRevision$
+\end_layout
+
+\begin_layout Standard
+
+// $LastChangedBy$
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+#include <stdio.h>
+\end_layout
+
+\begin_layout Standard
+
+#include <stdlib.h>
+\end_layout
+
+\begin_layout Standard
+
+#include <strings.h>
+\end_layout
+
+\begin_layout Standard
+
+#include "eventlist.h"
+\end_layout
+
+\begin_layout Standard
+
+#include "systypes.h"
+\end_layout
+
+\begin_layout Standard
+
+#include "sysroutines.h"
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+// Implementacion de la lista de eventos a usar en el simulador
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+// variables para almacenar los tiempos de llegada de los clientes que estan
+ usando los servidores
+\end_layout
+
+\begin_layout Standard
+
+TIME arrivals[3];
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+// Inicializa la lista de eventos estableciendo un valor temporal nulo para
+ todos los eventos considerados.
+\end_layout
+
+\begin_layout Standard
+
+//
+\end_layout
+
+\begin_layout Standard
+
+void initEL (EVENTLIST l) {
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        int i;
+\end_layout
+
+\begin_layout Standard
+
+        for (i=0; i<EVENTLISTSIZE; i++)
+\end_layout
+
+\begin_layout Standard
+
+                l[i] = NULLTIME;
+\end_layout
+
+\begin_layout Standard
+
+        for (i=0; i<3; i++)
+\end_layout
+
+\begin_layout Standard
+
+                arrivals[i] = NULLTIME;
+\end_layout
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+// Determina si una lista de eventos esta vacia o no
+\end_layout
+
+\begin_layout Standard
+
+//
+\end_layout
+
+\begin_layout Standard
+
+bool emptyEL (EVENTLIST l) {
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        int i = 0;
+\end_layout
+
+\begin_layout Standard
+
+        while (i < EVENTLISTSIZE) {
+\end_layout
+
+\begin_layout Standard
+
+                if (l[i] != NULLTIME)
+\end_layout
+
+\begin_layout Standard
+
+                        return false;
+\end_layout
+
+\begin_layout Standard
+
+                i++;
+\end_layout
+
+\begin_layout Standard
+
+        }
+\end_layout
+
+\begin_layout Standard
+
+        return true;
+\end_layout
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+// Establece el valor temporal t para el evento de llegada e en la lista
+ de eventos l.
+\end_layout
+
+\begin_layout Standard
+
+// El evento podra ser la llegada de un cliente a uno de los 3 nodos de
+ la red.
+\end_layout
+
+\begin_layout Standard
+
+//
+\end_layout
+
+\begin_layout Standard
+
+void setArrivalEventEL (EVENTLIST l, EVENT e, TIME t) {
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        l[e] = t;
+\end_layout
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+// Establece el valor temporal d para el evento de salida e en la lista
+ de eventos l.
+\end_layout
+
+\begin_layout Standard
+
+// Se anotara ademas el instante de llegada a del cliente al sistema.
+\end_layout
+
+\begin_layout Standard
+
+//
+\end_layout
+
+\begin_layout Standard
+
+void setDepartureEventEL (EVENTLIST l, EVENT e, TIME a, TIME d) {
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        // instante de salida
+\end_layout
+
+\begin_layout Standard
+
+        l[e] = d;
+\end_layout
+
+\begin_layout Standard
+
+        // almacenar el instante de llegada del cliente
+\end_layout
+
+\begin_layout Standard
+
+        arrivals[e%3] = a;
+\end_layout
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+// Retorna la posicion cuyo instante temporal es mas proximo al valor actual
+ del reloj del simulador.
+\end_layout
+
+\begin_layout Standard
+
+//
+\end_layout
+
+\begin_layout Standard
+
+EVENT getClosestEventEL (EVENTLIST l) {
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        if (emptyEL(l)) {
+\end_layout
+
+\begin_layout Standard
+
+                printf("eventlist.getClosestEventEL(): ERROR, the event list
+ is empty
+\backslash
+n");
+\end_layout
+
+\begin_layout Standard
+
+                exit(EXIT_FAILURE);
+\end_layout
+
+\begin_layout Standard
+
+        }
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        int e = 1;
+\end_layout
+
+\begin_layout Standard
+
+        int chosen = 0;
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        while (e < EVENTLISTSIZE) {
+\end_layout
+
+\begin_layout Standard
+
+                if (((l[e] != NULLTIME)&&(l[e] < l[chosen]))||(l[chosen]
+ == NULLTIME))
+\end_layout
+
+\begin_layout Standard
+
+                        chosen = e;
+\end_layout
+
+\begin_layout Standard
+
+                e++;
+\end_layout
+
+\begin_layout Standard
+
+        }
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        return chosen;
+\end_layout
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+// Retorna el instante temporal asociado al evento e en la lista de eventos
+ l.
+\end_layout
+
+\begin_layout Standard
+
+//
+\end_layout
+
+\begin_layout Standard
+
+TIME getTimeEL (EVENTLIST l, EVENT e) {
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        return l[e];
+\end_layout
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+// Retorna el instante temporal en que llego el cliente que ocupaba el servidor
+ asociado al evento e
+\end_layout
+
+\begin_layout Standard
+
+//
+\end_layout
+
+\begin_layout Standard
+
+TIME getArrivalEL (EVENTLIST l, EVENT e) {
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        return arrivals[e%3];
+\end_layout
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+char *eventToString (EVENT e) {
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        switch (e) {
+\end_layout
+
+\begin_layout Standard
+
+                case A1:
+\end_layout
+
+\begin_layout Standard
+
+                        return "A1";
+\end_layout
+
+\begin_layout Standard
+
+                        break;
+\end_layout
+
+\begin_layout Standard
+
+                case A2:
+\end_layout
+
+\begin_layout Standard
+
+                        return "A2";
+\end_layout
+
+\begin_layout Standard
+
+                        break;
+\end_layout
+
+\begin_layout Standard
+
+                case A3:
+\end_layout
+
+\begin_layout Standard
+
+                        return "A3";
+\end_layout
+
+\begin_layout Standard
+
+                        break;
+\end_layout
+
+\begin_layout Standard
+
+                case D1:
+\end_layout
+
+\begin_layout Standard
+
+                        return "D1";
+\end_layout
+
+\begin_layout Standard
+
+                        break;
+\end_layout
+
+\begin_layout Standard
+
+                case D2:
+\end_layout
+
+\begin_layout Standard
+
+                        return "D2";
+\end_layout
+
+\begin_layout Standard
+
+                        break;
+\end_layout
+
+\begin_layout Standard
+
+                case D3:
+\end_layout
+
+\begin_layout Standard
+
+                        return "D3";
+\end_layout
+
+\begin_layout Standard
+
+                        break;                  
+\end_layout
+
+\begin_layout Standard
+
+        }       
+\end_layout
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\begin_layout Standard
+
+// Muestra el contenido de una lista de eventos.
+\end_layout
+
+\begin_layout Standard
+
+//
+\end_layout
+
+\begin_layout Standard
+
+void showEL (EVENTLIST l) {
+\end_layout
+
+\begin_layout Standard
+
+        
+\end_layout
+
+\begin_layout Standard
+
+        int i;
+\end_layout
+
+\begin_layout Standard
+
+        for (i = 0; i < EVENTLISTSIZE; i++) {
+\end_layout
+
+\begin_layout Standard
+
+                printf("eventlist.showEL(): %s ", eventToString(i));    
+\end_layout
+
+\begin_layout Standard
+
+                if (l[i] == NULLTIME)
+\end_layout
+
+\begin_layout Standard
+
+                        printf("<EMPTY>
+\backslash
+n");
+\end_layout
+
+\begin_layout Standard
+
+                else
+\end_layout
+
+\begin_layout Standard
+
+                        printf("<%f>
+\backslash
+n", l[i]);
+\end_layout
+
+\begin_layout Standard
+
+        }
+\end_layout
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+Main.c
+\end_layout
+
+\begin_layout Subsection*
+\begin_inset listings
+lstparams "breaklines=true,language=C,numbers=left"
+inline false
+status collapsed
+
+\begin_layout Standard
+
+// $LastChangedDate$
+\end_layout
+
+\begin_layout Standard
+
+// $LastChangedRevision$
+\end_layout
+
+\begin_layout Standard
+
+// $LastChangedBy$
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+#include <stdio.h>
+\end_layout
+
+\begin_layout Standard
+
+#include <stdlib.h>
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+#include "sysroutines.h"
+\end_layout
+
+\begin_layout Standard
+
+#include "report.h"
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+int main(int argc, char *argv[]) {
+\end_layout
+
+\begin_layout Standard
+
+        
+\end_layout
+
+\begin_layout Standard
+
+        if (argc != 5) {
+\end_layout
+
+\begin_layout Standard
+
+                printf("main.main(): ERROR there's at least one missing parameter
+\backslash
+n");
+\end_layout
+
+\begin_layout Standard
+
+                printf("main.main(): Usage: simulator lambda_value replication_ti
+me min_reps_number debug(0/1)
+\backslash
+n");
+\end_layout
+
+\begin_layout Standard
+
+                exit(EXIT_FAILURE);
+\end_layout
+
+\begin_layout Standard
+
+        }
+\end_layout
+
+\begin_layout Standard
+
+        DEBUG = (strcmp(argv[4], "1")==0)?true:false;
+\end_layout
+
+\begin_layout Standard
+
+        
+\end_layout
+
+\begin_layout Standard
+
+        // inicializacion del simulador
+\end_layout
+
+\begin_layout Standard
+
+        simulatorInit(atof(argv[1]), atof(argv[2]));
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        // Aplicacion del metodo secuencial con error relativo         
+ 
+\end_layout
+
+\begin_layout Standard
+
+    
+\end_layout
+
+\begin_layout Standard
+
+    // Numero minimo de replicas que ejecutamos
+\end_layout
+
+\begin_layout Standard
+
+    int i;
+\end_layout
+
+\begin_layout Standard
+
+    for (i=0; i<atoi(argv[3]); i++)
+\end_layout
+
+\begin_layout Standard
+
+        replicate();
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        int n = atoi(argv[3]);
+\end_layout
+
+\begin_layout Standard
+
+        
+\end_layout
+
+\begin_layout Standard
+
+        while (largeRelativeError(n)) {
+\end_layout
+
+\begin_layout Standard
+
+                replicate();
+\end_layout
+
+\begin_layout Standard
+
+                n++;
+\end_layout
+
+\begin_layout Standard
+
+        }               
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+    // mostrar los resultados
+\end_layout
+
+\begin_layout Standard
+
+        showResults(n); 
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        return 0;
+\end_layout
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+Rand.h / Rand.c
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "breaklines=true,language=C,numbers=left"
+inline false
+status collapsed
+
+\begin_layout Standard
+
+// $LastChangedDate$
+\end_layout
+
+\begin_layout Standard
+
+// $LastChangedRevision$
+\end_layout
+
+\begin_layout Standard
+
+// $LastChangedBy$
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+#ifndef RAND_H_
+\end_layout
+
+\begin_layout Standard
+
+#define RAND_H_
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+#define SEG 7        // segmento usado
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+float urand(int stream);
+\end_layout
+
+\begin_layout Standard
+
+void urandst(long zset, int stream);
+\end_layout
+
+\begin_layout Standard
+
+long urandgt(int stream);
+\end_layout
+
+\begin_layout Standard
+
+double exponential(double lambda);
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+#endif // RAND_H_
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+\begin_inset listings
+lstparams "breaklines=true,language=C,numbers=left"
+inline false
+status collapsed
+
+\begin_layout Standard
+
+// $LastChangedDate$
+\end_layout
+
+\begin_layout Standard
+
+// $LastChangedRevision$
+\end_layout
+
+\begin_layout Standard
+
+// $LastChangedBy$
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+/* Prime modulus multiplicative linear congruential generator
+\end_layout
+
+\begin_layout Standard
+
+Z[i] = (630360016 * Z[i-1]) (mod(pow(2,31) - 1)), based on Marse and Roberts'
+\end_layout
+
+\begin_layout Standard
+
+portable FORTRAN random-number generator UNIRAN.
+  Multiple (100) streams are
+\end_layout
+
+\begin_layout Standard
+
+supported, with seeds spaced 100,000 apart.
+  Throughout, input argument
+\end_layout
+
+\begin_layout Standard
+
+"stream" must be an int giving the desired stream number.
+  The header file
+\end_layout
+
+\begin_layout Standard
+
+rand.h must be included in the calling program (#include "rand.h")
+\end_layout
+
+\begin_layout Standard
+
+before using these functions.
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+Usage: (Three functions)
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+1.
+ To obtain the next U(0,1) random number from stream "stream," execute
+\end_layout
+
+\begin_layout Standard
+
+       u = urand(stream);
+\end_layout
+
+\begin_layout Standard
+
+   where urand is a float function.
+  The float variable u will contain the
+\end_layout
+
+\begin_layout Standard
+
+   next random number.
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+2.
+ To set the seed for stream "stream" to a desired value zset, execute
+\end_layout
+
+\begin_layout Standard
+
+       urandst(zset, stream);
+\end_layout
+
+\begin_layout Standard
+
+   where urandst is a void function and zset must be a long set to the
+\end_layout
+
+\begin_layout Standard
+
+   desired seed, a number between 1 and 2147483646 (inclusive).
+  Default
+\end_layout
+
+\begin_layout Standard
+
+   seeds for all 100 streams are given in the code.
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+3.
+ To get the current (most recently used) integer in the sequence being
+\end_layout
+
+\begin_layout Standard
+
+   generated for stream "stream" into the long variable zget, execute
+\end_layout
+
+\begin_layout Standard
+
+       zget = urandgt(stream);
+\end_layout
+
+\begin_layout Standard
+
+   where urandgt is a long function.
+ */
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+#include <stdio.h>
+\end_layout
+
+\begin_layout Standard
+
+//#include <stdlib.h>
+\end_layout
+
+\begin_layout Standard
+
+#include <math.h>
+\end_layout
+
+\begin_layout Standard
+
+#include "rand.h"
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+/* Define the constants.
+ */
+\end_layout
+
+\begin_layout Standard
+
+#define MODLUS 2147483647
+\end_layout
+
+\begin_layout Standard
+
+#define MULT1 24112
+\end_layout
+
+\begin_layout Standard
+
+#define MULT2 26143
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+/* Set the default seeds for all 100 streams.
+ */
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+static long zrng[] =
+\end_layout
+
+\begin_layout Standard
+
+{
+\end_layout
+
+\begin_layout Standard
+
+        0,
+\end_layout
+
+\begin_layout Standard
+
+        1973272912, 281629770, 20006270, 1280689831, 2096730329, 1933576050,
+ 
+\end_layout
+
+\begin_layout Standard
+
+        913566091, 246780520, 1363774876, 604901985, 1511192140, 1259851944,
+ 
+\end_layout
+
+\begin_layout Standard
+
+        824064364, 150493284, 242708531, 75253171, 1964472944, 1202299975,
+ 
+\end_layout
+
+\begin_layout Standard
+
+        233217322, 1911216000, 726370533, 403498145, 993232223, 1103205531,
+ 
+\end_layout
+
+\begin_layout Standard
+
+        762430696, 1922803170, 1385516923, 76271663, 413682397, 726466604,
+ 
+\end_layout
+
+\begin_layout Standard
+
+        336157058, 1432650381, 1120463904, 595778810, 877722890, 1046574445,
+ 
+\end_layout
+
+\begin_layout Standard
+
+        68911991, 2088367019, 748545416, 622401386, 2122378830, 640690903,
+ 
+\end_layout
+
+\begin_layout Standard
+
+        1774806513, 2132545692, 2079249579, 78130110, 852776735, 1187867272,
+ 
+\end_layout
+
+\begin_layout Standard
+
+        1351423507, 1645973084, 1997049139, 922510944, 2045512870, 898585771,
+ 
+\end_layout
+
+\begin_layout Standard
+
+        243649545, 1004818771, 773686062, 403188473, 372279877, 1901633463,
+ 
+\end_layout
+
+\begin_layout Standard
+
+        498067494, 2087759558, 493157915, 597104727, 1530940798, 1814496276,
+ 
+\end_layout
+
+\begin_layout Standard
+
+        536444882, 1663153658, 855503735, 67784357, 1432404475, 619691088,
+ 
+\end_layout
+
+\begin_layout Standard
+
+        119025595, 880802310, 176192644, 1116780070, 277854671, 1366580350,
+ 
+\end_layout
+
+\begin_layout Standard
+
+        1142483975, 2026948561, 1053920743, 786262391, 1792203830, 1494667770,
+ 
+\end_layout
+
+\begin_layout Standard
+
+        1923011392, 1433700034, 1244184613, 1147297105, 539712780, 1545929719,
+ 
+\end_layout
+
+\begin_layout Standard
+
+        190641742, 1645390429, 264907697, 620389253, 1502074852, 927711160,
+ 
+\end_layout
+
+\begin_layout Standard
+
+        364849192, 2049576050, 638580085, 547070247
+\end_layout
+
+\begin_layout Standard
+
+};
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+/* Generate the next random number.
+ */
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+float urand(int stream)
+\end_layout
+
+\begin_layout Standard
+
+{
+\end_layout
+
+\begin_layout Standard
+
+        long zi, lowprd, hi31;
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        zi = zrng[stream];
+\end_layout
+
+\begin_layout Standard
+
+        lowprd = (zi & 65535) * MULT1;
+\end_layout
+
+\begin_layout Standard
+
+        hi31 = (zi >> 16) * MULT1 + (lowprd >> 16);
+\end_layout
+
+\begin_layout Standard
+
+        zi = ((lowprd & 65535) - MODLUS) +
+\end_layout
+
+\begin_layout Standard
+
+             ((hi31 & 32767) << 16) + (hi31 >> 15);
+\end_layout
+
+\begin_layout Standard
+
+        if (zi < 0) zi += MODLUS;
+\end_layout
+
+\begin_layout Standard
+
+        lowprd = (zi & 65535) * MULT2;
+\end_layout
+
+\begin_layout Standard
+
+        hi31 = (zi >> 16) * MULT2 + (lowprd >> 16);
+\end_layout
+
+\begin_layout Standard
+
+        zi = ((lowprd & 65535) - MODLUS) + ((hi31 & 32767) << 16) + (hi31
+ >>15);
+\end_layout
+
+\begin_layout Standard
+
+        if (zi < 0) zi += MODLUS;
+\end_layout
+
+\begin_layout Standard
+
+        zrng[stream] = zi;
+\end_layout
+
+\begin_layout Standard
+
+        return ((zi >> 7 | 1) + 1) / (float)16777216.0;
+\end_layout
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+/* set the current zrng for stream "stream" to zset */
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+void urandst (long zset, int stream)
+\end_layout
+
+\begin_layout Standard
+
+{
+\end_layout
+
+\begin_layout Standard
+
+        zrng[stream] = zset;
+\end_layout
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+/* Return the current zrng for stream "stream" */
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+long urandgt (int stream)
+\end_layout
+
+\begin_layout Standard
+
+{
+\end_layout
+
+\begin_layout Standard
+
+        return zrng[stream];
+\end_layout
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+// Devuelve un valor perteneciente a una distribución exponencial de parametro
+\end_layout
+
+\begin_layout Standard
+
+// lambda
+\end_layout
+
+\begin_layout Standard
+
+double exponential(double lambda)
+\end_layout
+
+\begin_layout Standard
+
+{
+\end_layout
+
+\begin_layout Standard
+
+        float u;
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        // Generamos un numero aleatorio dentro de U(0, 1)
+\end_layout
+
+\begin_layout Standard
+
+        u = (float) urand(SEG);        // u pertenece a U(0, 1)
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        // Aplicamos el metodo de la transformada inversa para convertir
+ la u
+\end_layout
+
+\begin_layout Standard
+
+        // que acabamos de calcular a un valor perteneciente a Exp(lambda)
+\end_layout
+
+\begin_layout Standard
+
+        return (-(log(u)/lambda));
+\end_layout
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+Report.h / Report.c
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "breaklines=true,language=C,numbers=left"
+inline false
+status collapsed
+
+\begin_layout Standard
+
+// $LastChangedDate$
+\end_layout
+
+\begin_layout Standard
+
+// $LastChangedRevision$
+\end_layout
+
+\begin_layout Standard
+
+// $LastChangedBy$
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+#ifndef _REPORT_H_
+\end_layout
+
+\begin_layout Standard
+
+#define _REPORT_H_
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+#include "systypes.h"
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+double sampleVariance (int n, TIME samples, TIME mean);
+\end_layout
+
+\begin_layout Standard
+
+double confidenceInterval (int n, TIME samples, TIME mean);
+\end_layout
+
+\begin_layout Standard
+
+double tstudent (int dof);
+\end_layout
+
+\begin_layout Standard
+
+bool largeRelativeError (int n);
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+#endif // _REPORT_H_
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+\begin_inset listings
+lstparams "breaklines=true,language=C,numbers=left"
+inline false
+status collapsed
+
+\begin_layout Standard
+
+// $LastChangedDate$
+\end_layout
+
+\begin_layout Standard
+
+// $LastChangedRevision$
+\end_layout
+
+\begin_layout Standard
+
+// $LastChangedBy$
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+#include "report.h"
+\end_layout
+
+\begin_layout Standard
+
+#include "systypes.h"
+\end_layout
+
+\begin_layout Standard
+
+#include <math.h>
+\end_layout
+
+\begin_layout Standard
+
+#include <stdio.h>
+\end_layout
+
+\begin_layout Standard
+
+#include <stdlib.h>
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+// Libreria de soporte a la presentacion del informe estadistico.
+ Contiene todas las funciones auxiliares necesarias
+\end_layout
+
+\begin_layout Standard
+
+// para poder presentar al usuario los resultados obtenidos en terminos
+ del intervalo de confianza.
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+// Acceso a las variables externas de <sysroutines> para el calculo del
+ error relativo.
+\end_layout
+
+\begin_layout Standard
+
+extern TIME RT1, RT2, RT3;                      // tiempo de respuesta de
+ cada estacion
+\end_layout
+
+\begin_layout Standard
+
+extern TIME RTS;                   // tiempo de respuesta del sistema
+\end_layout
+
+\begin_layout Standard
+
+extern TIME SQRTRT1, SQRTRT2, SQRTRT3;          // sumatorio con el cuadrado
+ de los tiempos de respuesta de cada estacion
+\end_layout
+
+\begin_layout Standard
+
+extern TIME SQRTRTS;                       // sumatorio con el cuadrado
+ de los tiempos de respuesta del sistema
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+// Variables para mostrar los resultados de la simulacion
+\end_layout
+
+\begin_layout Standard
+
+TIME MRT1, MRT2, MRT3, MRTS;
+\end_layout
+
+\begin_layout Standard
+
+TIME CIRT1, CIRT2, CIRT3, CIRTS;
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+// Percentiles 0.975 de la distribucion t de student para distintos grados
+ de
+\end_layout
+
+\begin_layout Standard
+
+// libertad
+\end_layout
+
+\begin_layout Standard
+
+//
+\end_layout
+
+\begin_layout Standard
+
+double t_0975[] =
+\end_layout
+
+\begin_layout Standard
+
+{
+\end_layout
+
+\begin_layout Standard
+
+        12.71, 4.30, 3.18, 2.78, 2.57, 2.45, 2.36, 2.31, 2.26, 2.23,            //
+ dof = 1..30
+\end_layout
+
+\begin_layout Standard
+
+        2.20, 2.18, 2.16, 2.14, 2.13, 2.12, 2.11, 2.10, 2.09, 2.09, 
+\end_layout
+
+\begin_layout Standard
+
+        2.08, 2.07, 2.07, 2.06, 2.06, 2.06, 2.05, 2.05, 2.04, 2.04,
+\end_layout
+
+\begin_layout Standard
+
+        2.02,                                                           
+        // dof = 40
+\end_layout
+
+\begin_layout Standard
+
+        2.01,                                                           
+        // dof = 50
+\end_layout
+
+\begin_layout Standard
+
+        2.00,                                                           
+        // dof = 60
+\end_layout
+
+\begin_layout Standard
+
+        1.98,                                                           
+        // dof = 120
+\end_layout
+
+\begin_layout Standard
+
+        1.96                                                            
+        // dof = infinite
+\end_layout
+
+\begin_layout Standard
+
+};
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+// Calcula la varianza muestral aplicando tomando para ello n como el numero
+ de muestras, samples como el sumatorio
+\end_layout
+
+\begin_layout Standard
+
+// de los cuadrados de las muestras y mean como la media muestral de las
+ mismas muestras.
+\end_layout
+
+\begin_layout Standard
+
+//
+\end_layout
+
+\begin_layout Standard
+
+double sampleVariance (int n, TIME samples, TIME mean) {
+\end_layout
+
+\begin_layout Standard
+
+        
+\end_layout
+
+\begin_layout Standard
+
+        return (samples - (n * pow(mean, 2))) / (n - 1);
+\end_layout
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+// Calcula el intervalo de confianza teniendo en cuenta que n es el numero
+ de muestras, samples el sumatorio
+\end_layout
+
+\begin_layout Standard
+
+// de los cuadrados de las muestras y mean la media muestral de las mismas
+ muestras.
+\end_layout
+
+\begin_layout Standard
+
+//
+\end_layout
+
+\begin_layout Standard
+
+double confidenceInterval (int n, TIME samples, TIME mean) {
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        return tstudent(n - 1) * sqrt(sampleVariance(n, samples, mean) /
+ n);
+\end_layout
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+// Retorna el valor percentil de la distribucion t de student para n grados
+ de libertad.
+\end_layout
+
+\begin_layout Standard
+
+//
+\end_layout
+
+\begin_layout Standard
+
+double tstudent (int dof) {
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        double t;
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        if (0 < dof && dof <= 30) {
+\end_layout
+
+\begin_layout Standard
+
+                t = t_0975[dof - 1];
+\end_layout
+
+\begin_layout Standard
+
+        } else if (dof <= 40) {
+\end_layout
+
+\begin_layout Standard
+
+                t = t_0975[30];
+\end_layout
+
+\begin_layout Standard
+
+        } else if (dof <= 50) {
+\end_layout
+
+\begin_layout Standard
+
+                t = t_0975[31];
+\end_layout
+
+\begin_layout Standard
+
+        } else if (dof <= 60) {
+\end_layout
+
+\begin_layout Standard
+
+                t = t_0975[32];
+\end_layout
+
+\begin_layout Standard
+
+        } else if (dof <= 120) {
+\end_layout
+
+\begin_layout Standard
+
+                t = t_0975[33];
+\end_layout
+
+\begin_layout Standard
+
+        } else if (dof > 120) {
+\end_layout
+
+\begin_layout Standard
+
+                t = t_0975[34];
+\end_layout
+
+\begin_layout Standard
+
+        } else {
+\end_layout
+
+\begin_layout Standard
+
+                printf("report.tstudent(): Invalid value for the degrees
+ of freedom.");
+\end_layout
+
+\begin_layout Standard
+
+                exit(EXIT_FAILURE);
+\end_layout
+
+\begin_layout Standard
+
+        }
+\end_layout
+
+\begin_layout Standard
+
+        return t;
+\end_layout
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+// Comprueba si el error relativo es adecuado  para todos los parametros
+ que se manejan en la simulacion, tiempo de respuesta,
+\end_layout
+
+\begin_layout Standard
+
+// numero medio de clientes y utilizacion en funcion del valor n que representa
+ el numero de replicas.
+\end_layout
+
+\begin_layout Standard
+
+// Devuelve un valor falso si los cocientes de todos los intervalos de confianza
+ y las medias muestrales son un valor menor 
+\end_layout
+
+\begin_layout Standard
+
+// o igual a la cota de error (corregido) manejado por el simulador.
+\end_layout
+
+\begin_layout Standard
+
+//
+\end_layout
+
+\begin_layout Standard
+
+bool largeRelativeError (int n) {       
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        // tiempo de respuesta nodo 1
+\end_layout
+
+\begin_layout Standard
+
+        TIME meanRT1    = RT1 / n;
+\end_layout
+
+\begin_layout Standard
+
+        TIME ciRT1          = confidenceInterval(n, SQRTRT1, meanRT1);
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        if ((ciRT1 / meanRT1) > RELATIVEERROR)
+\end_layout
+
+\begin_layout Standard
+
+                return true;
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        // tiempo de respuesta nodo 2
+\end_layout
+
+\begin_layout Standard
+
+        TIME meanRT2    = RT2 / n;  
+\end_layout
+
+\begin_layout Standard
+
+        TIME ciRT2      = confidenceInterval(n, SQRTRT2, meanRT2);
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        if ((ciRT2 / meanRT2) > RELATIVEERROR)
+\end_layout
+
+\begin_layout Standard
+
+                return true;
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        // tiempo de respuesta nodo 3
+\end_layout
+
+\begin_layout Standard
+
+        TIME meanRT3    = RT3 / n;  
+\end_layout
+
+\begin_layout Standard
+
+        TIME ciRT3      = confidenceInterval(n, SQRTRT3, meanRT3);
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        if ((ciRT3 / meanRT3) > RELATIVEERROR)
+\end_layout
+
+\begin_layout Standard
+
+                return true;
+\end_layout
+
+\begin_layout Standard
+
+        
+\end_layout
+
+\begin_layout Standard
+
+    // tiempo de respuesta del sistema
+\end_layout
+
+\begin_layout Standard
+
+    TIME meanRTS = RTS / n;
+\end_layout
+
+\begin_layout Standard
+
+    TIME ciRTS = confidenceInterval(n, SQRTRTS, meanRTS);
+\end_layout
+
+\begin_layout Standard
+
+    
+\end_layout
+
+\begin_layout Standard
+
+        if ((ciRTS / meanRTS) > RELATIVEERROR)
+\end_layout
+
+\begin_layout Standard
+
+                return true;                    
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        // el error relativo ya no es demasiado grande
+\end_layout
+
+\begin_layout Standard
+
+        MRT1 = meanRT1;
+\end_layout
+
+\begin_layout Standard
+
+        MRT2 = meanRT2;
+\end_layout
+
+\begin_layout Standard
+
+        MRT3 = meanRT3;
+\end_layout
+
+\begin_layout Standard
+
+        MRTS = meanRTS;
+\end_layout
+
+\begin_layout Standard
+
+        CIRT1 = ciRT1;
+\end_layout
+
+\begin_layout Standard
+
+        CIRT2 = ciRT2;
+\end_layout
+
+\begin_layout Standard
+
+        CIRT3 = ciRT3;
+\end_layout
+
+\begin_layout Standard
+
+        CIRTS = ciRTS;
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        return false;
+\end_layout
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+// Muestra los resultados obtenidos en la simulacion
+\end_layout
+
+\begin_layout Standard
+
+// El parametro n es el numero de replicas ejecutadas
+\end_layout
+
+\begin_layout Standard
+
+//
+\end_layout
+
+\begin_layout Standard
+
+void showResults (int n) {
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        printf("
+\backslash
+nreport.showResults():   Mean Values:
+\backslash
+n");
+\end_layout
+
+\begin_layout Standard
+
+        printf("report.showResults():   ------------
+\backslash
+n");
+\end_layout
+
+\begin_layout Standard
+
+        printf("report.showResults():   Response Time Station 1:
+\backslash
+t%f
+\backslash
+n", MRT1);
+\end_layout
+
+\begin_layout Standard
+
+        printf("report.showResults():   Response Time Station 2:
+\backslash
+t%f
+\backslash
+n", MRT2);
+\end_layout
+
+\begin_layout Standard
+
+        printf("report.showResults():   Response Time Station 3:
+\backslash
+t%f
+\backslash
+n", MRT3);         
+\end_layout
+
+\begin_layout Standard
+
+        printf("report.showResults():   Response Time SYSTEM   :
+\backslash
+t%f
+\backslash
+n", MRTS); 
+\end_layout
+
+\begin_layout Standard
+
+        printf("
+\backslash
+n");
+\end_layout
+
+\begin_layout Standard
+
+    printf("report.showResults():       Confidence Intervals:
+\backslash
+n");
+\end_layout
+
+\begin_layout Standard
+
+        printf("report.showResults():   ---------------------
+\backslash
+n");
+\end_layout
+
+\begin_layout Standard
+
+        printf("report.showResults():   Executed Replications:
+\backslash
+t
+\backslash
+t%i
+\backslash
+n", n);
+\end_layout
+
+\begin_layout Standard
+
+        printf("report.showResults():   Confidence Level:
+\backslash
+t
+\backslash
+t95%%
+\backslash
+n");
+\end_layout
+
+\begin_layout Standard
+
+        printf("report.showResults():   Response Time Station 1:
+\backslash
+t%f
+\backslash
+n", CIRT1);
+\end_layout
+
+\begin_layout Standard
+
+        printf("report.showResults():   Response Time Station 2:
+\backslash
+t%f
+\backslash
+n", CIRT2);
+\end_layout
+
+\begin_layout Standard
+
+        printf("report.showResults():   Response Time Station 3:
+\backslash
+t%f
+\backslash
+n", CIRT3);    
+\end_layout
+
+\begin_layout Standard
+
+        printf("report.showResults():   Response Time SYSTEM   :
+\backslash
+t%f
+\backslash
+n", CIRTS);        
+\end_layout
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+Sysroutines.h / Sysroutines.c
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "breaklines=true,language=C,numbers=left"
+inline false
+status collapsed
+
+\begin_layout Standard
+
+// $LastChangedDate$
+\end_layout
+
+\begin_layout Standard
+
+// $LastChangedRevision$
+\end_layout
+
+\begin_layout Standard
+
+// $LastChangedBy$
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+#ifndef _SYSROUTINES_H_
+\end_layout
+
+\begin_layout Standard
+
+#define _SYSROUTINES_H_
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+#include "eventlist.h"
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+void simulatorInit (double theLambda, double maxReplicationTime);
+\end_layout
+
+\begin_layout Standard
+
+void replicationInit (void);
+\end_layout
+
+\begin_layout Standard
+
+void replicate (void);
+\end_layout
+
+\begin_layout Standard
+
+EVENT timer (void);
+\end_layout
+
+\begin_layout Standard
+
+// eventos
+\end_layout
+
+\begin_layout Standard
+
+void arrival1 (void);
+\end_layout
+
+\begin_layout Standard
+
+void departure1 (void);
+\end_layout
+
+\begin_layout Standard
+
+void arrival2 (void);
+\end_layout
+
+\begin_layout Standard
+
+void departure2 (void);
+\end_layout
+
+\begin_layout Standard
+
+void arrival3 (void);
+\end_layout
+
+\begin_layout Standard
+
+void departure3 (void);
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+#endif // _SYSROUTINES_H_
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+\begin_inset listings
+lstparams "breaklines=true,language=C,numbers=left"
+inline false
+status collapsed
+
+\begin_layout Standard
+
+// $LastChangedDate$
+\end_layout
+
+\begin_layout Standard
+
+// $LastChangedRevision$
+\end_layout
+
+\begin_layout Standard
+
+// $LastChangedBy$
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+#include <stdio.h>
+\end_layout
+
+\begin_layout Standard
+
+#include <math.h>
+\end_layout
+
+\begin_layout Standard
+
+#include "sysroutines.h"
+\end_layout
+
+\begin_layout Standard
+
+#include "systypes.h"
+\end_layout
+
+\begin_layout Standard
+
+#include "arrivalslist.h"
+\end_layout
+
+\begin_layout Standard
+
+#include "eventlist.h"
+\end_layout
+
+\begin_layout Standard
+
+#include "rand.h"
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+// rutinas para los eventos considerados en el sistema
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+// Duracion de la Replica
+\end_layout
+
+\begin_layout Standard
+
+TIME MAXREPLICATIONTIME;
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+// replicas EJECUTADAS
+\end_layout
+
+\begin_layout Standard
+
+int REPS = 0;
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+// distribuciones utilizadas
+\end_layout
+
+\begin_layout Standard
+
+double lambda;          // Con 0 < lambda < 0.02 para que la red sea estable
+\end_layout
+
+\begin_layout Standard
+
+double mu1      = 0.1;  // Tiempo medio servicio nodo 1 = 10 ms
+\end_layout
+
+\begin_layout Standard
+
+double mu2      = 0.06; // Tiempo medio servicio nodo 2 = 15 ms
+\end_layout
+
+\begin_layout Standard
+
+double mu3      = 0.05; // Tiempo medio servicio nodo 3 = 20 ms
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+// probabilidades de ramificacion y salida del sistema
+\end_layout
+
+\begin_layout Standard
+
+float p12       = 0.3;
+\end_layout
+
+\begin_layout Standard
+
+float p13       = 0.7;
+\end_layout
+
+\begin_layout Standard
+
+float p30       = 0.4;
+\end_layout
+
+\begin_layout Standard
+
+float p31       = 0.6;
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+// Variables de estado del sistema
+\end_layout
+
+\begin_layout Standard
+
+TIME clock;
+\end_layout
+
+\begin_layout Standard
+
+EVENTLIST eventList;            // lista de eventos del sistema
+\end_layout
+
+\begin_layout Standard
+
+bool serverBusy1, serverBusy2, serverBusy3;     // ocupacion servidores
+ de los 3 nodos
+\end_layout
+
+\begin_layout Standard
+
+ARRIVALSLIST arrivals1, arrivals2, arrivals3;           // colas de los
+ 3 nodos 
+\end_layout
+
+\begin_layout Standard
+
+TIME lastEvent;                 // instante en que se dio el ultimo evento
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+// Contadores estadisticos (para cada una de las replicas)
+\end_layout
+
+\begin_layout Standard
+
+int served1, served2, served3;  // numero de clientes que han recibido servicio
+ en cada estacion
+\end_layout
+
+\begin_layout Standard
+
+int served;                     // numero de clientes que han recibido servicio
+ en el sistema (han salido)
+\end_layout
+
+\begin_layout Standard
+
+TIME rTSum1, rTSum2, rTSum3;    // tiempo de respuesta acumulado para los
+ clientes en cada estacion
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+// Acumuladores para calcular la varianza muestral
+\end_layout
+
+\begin_layout Standard
+
+TIME RT1, RT2, RT3;                     // tiempo de respuesta de cada estacion
+\end_layout
+
+\begin_layout Standard
+
+TIME RTS;                   // tiempo de respuesta del sistema
+\end_layout
+
+\begin_layout Standard
+
+TIME SQRTRT1, SQRTRT2, SQRTRT3;         // sumatorio con el cuadrado de
+ los tiempos de respuesta de cada estacion
+\end_layout
+
+\begin_layout Standard
+
+TIME SQRTRTS;                       // sumatorio con el cuadrado de los
+ tiempos de respuesta del sistema
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+// Prepara el simulador para ejecutar una nueva simulacion.
+\end_layout
+
+\begin_layout Standard
+
+//
+\end_layout
+
+\begin_layout Standard
+
+void simulatorInit (double theLambda, double maxReplicationTime) {
+\end_layout
+
+\begin_layout Standard
+
+        
+\end_layout
+
+\begin_layout Standard
+
+        lambda = theLambda;
+\end_layout
+
+\begin_layout Standard
+
+        MAXREPLICATIONTIME = maxReplicationTime;
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        RT1 = RT2 = RT3 = RTS = INITIALTIME;
+\end_layout
+
+\begin_layout Standard
+
+        SQRTRT1 = SQRTRT2 = SQRTRT3 = SQRTRTS = INITIALTIME;
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        if (DEBUG) {
+\end_layout
+
+\begin_layout Standard
+
+                printf("sysroutines.simulatorInit(): Lambda equals to <%f>
+\backslash
+n", lambda);
+\end_layout
+
+\begin_layout Standard
+
+                printf("sysroutines.simulatorInit(): Time for each replication
+ <%f>
+\backslash
+n", MAXREPLICATIONTIME);
+\end_layout
+
+\begin_layout Standard
+
+        }
+\end_layout
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+// Prepara el simulador para ejecutar una nueva replica
+\end_layout
+
+\begin_layout Standard
+
+//
+\end_layout
+
+\begin_layout Standard
+
+void replicationInit (void) {
+\end_layout
+
+\begin_layout Standard
+
+        
+\end_layout
+
+\begin_layout Standard
+
+        clock = INITIALTIME;
+\end_layout
+
+\begin_layout Standard
+
+        lastEvent = INITIALTIME;
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        // configurar la lista de eventos
+\end_layout
+
+\begin_layout Standard
+
+        initEL(eventList);
+\end_layout
+
+\begin_layout Standard
+
+        setArrivalEventEL(eventList, A1, exponential(lambda));  
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        serverBusy1 = serverBusy2 = serverBusy3 = false;
+\end_layout
+
+\begin_layout Standard
+
+        initAL(&arrivals1);
+\end_layout
+
+\begin_layout Standard
+
+        initAL(&arrivals2);
+\end_layout
+
+\begin_layout Standard
+
+        initAL(&arrivals3);
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        // contadores estadisticos
+\end_layout
+
+\begin_layout Standard
+
+        served1 = served2 = served3 = served = 0;
+\end_layout
+
+\begin_layout Standard
+
+        rTSum1 = rTSum2 = rTSum3 = INITIALTIME;
+\end_layout
+
+\begin_layout Standard
+
+        
+\end_layout
+
+\begin_layout Standard
+
+        if (DEBUG)
+\end_layout
+
+\begin_layout Standard
+
+                printf("sysroutines.replicationInit(): Ready for a new replicatio
+n
+\backslash
+n", clock);
+\end_layout
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+// Rutina del temporizador que se encargara de determinar el siguiente evento
+ a procesar, retorna
+\end_layout
+
+\begin_layout Standard
+
+// el evento.
+\end_layout
+
+\begin_layout Standard
+
+//
+\end_layout
+
+\begin_layout Standard
+
+EVENT timer (void) {
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        EVENT e = getClosestEventEL(eventList);
+\end_layout
+
+\begin_layout Standard
+
+        clock = getTimeEL(eventList, e);
+\end_layout
+
+\begin_layout Standard
+
+        
+\end_layout
+
+\begin_layout Standard
+
+        return e;       
+\end_layout
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+// Ejecuta una replica en el simulador
+\end_layout
+
+\begin_layout Standard
+
+//
+\end_layout
+
+\begin_layout Standard
+
+void replicate (void) {
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        REPS++;
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        replicationInit();
+\end_layout
+
+\begin_layout Standard
+
+        while (clock < MAXREPLICATIONTIME) {
+\end_layout
+
+\begin_layout Standard
+
+                EVENT e = timer();
+\end_layout
+
+\begin_layout Standard
+
+                switch (e) {
+\end_layout
+
+\begin_layout Standard
+
+                        case A1:
+\end_layout
+
+\begin_layout Standard
+
+                                arrival1();
+\end_layout
+
+\begin_layout Standard
+
+                                break;                          
+\end_layout
+
+\begin_layout Standard
+
+                        case D1:
+\end_layout
+
+\begin_layout Standard
+
+                                departure1();
+\end_layout
+
+\begin_layout Standard
+
+                                break;
+\end_layout
+
+\begin_layout Standard
+
+                        case A2:
+\end_layout
+
+\begin_layout Standard
+
+                                arrival2();
+\end_layout
+
+\begin_layout Standard
+
+                                break;
+\end_layout
+
+\begin_layout Standard
+
+                        case D2:
+\end_layout
+
+\begin_layout Standard
+
+                                departure2();
+\end_layout
+
+\begin_layout Standard
+
+                                break;
+\end_layout
+
+\begin_layout Standard
+
+                        case A3:
+\end_layout
+
+\begin_layout Standard
+
+                                arrival3();
+\end_layout
+
+\begin_layout Standard
+
+                                break;
+\end_layout
+
+\begin_layout Standard
+
+                        case D3:
+\end_layout
+
+\begin_layout Standard
+
+                                departure3();
+\end_layout
+
+\begin_layout Standard
+
+                                break;
+\end_layout
+
+\begin_layout Standard
+
+                        default:
+\end_layout
+
+\begin_layout Standard
+
+                                break;
+\end_layout
+
+\begin_layout Standard
+
+                }                       
+\end_layout
+
+\begin_layout Standard
+
+        }
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        if (DEBUG) {
+\end_layout
+
+\begin_layout Standard
+
+                printf("sysroutines.replicate(): Replication <%5i> - Served
+ Station 1: <%5i>
+\backslash
+n", REPS, served1);
+\end_layout
+
+\begin_layout Standard
+
+                printf("sysroutines.replicate(): Replication <%5i> - Served
+ Station 2: <%5i>
+\backslash
+n", REPS, served2);
+\end_layout
+
+\begin_layout Standard
+
+                printf("sysroutines.replicate(): Replication <%5i> - Served
+ Station 3: <%5i>
+\backslash
+n", REPS, served3);
+\end_layout
+
+\begin_layout Standard
+
+                printf("sysroutines.replicate(): Replication <%5i> - Served
+ System:    <%5i>
+\backslash
+n", REPS, served);
+\end_layout
+
+\begin_layout Standard
+
+                printf("sysroutines.replicate(): Replication <%5i> - RT Station
+ 1: <%3.5f>
+\backslash
+n", REPS, rTSum1/served1);
+\end_layout
+
+\begin_layout Standard
+
+                printf("sysroutines.replicate(): Replication <%5i> - RT Station
+ 2: <%3.5f>
+\backslash
+n", REPS, rTSum2/served2);
+\end_layout
+
+\begin_layout Standard
+
+                printf("sysroutines.replicate(): Replication <%5i> - RT Station
+ 3: <%3.5f>
+\backslash
+n", REPS, rTSum3/served3);
+\end_layout
+
+\begin_layout Standard
+
+                printf("sysroutines.replicate(): Replication <%5i> - RT System
+   : <%3.5f>
+\backslash
+n", REPS, (rTSum1+rTSum2+rTSum3)/served);            
+\end_layout
+
+\begin_layout Standard
+
+        }
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        // acumular los contadores estadisticos
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        RT1 += rTSum1/served1;
+\end_layout
+
+\begin_layout Standard
+
+        RT2 += rTSum2/served2;
+\end_layout
+
+\begin_layout Standard
+
+        RT3 += rTSum3/served3;
+\end_layout
+
+\begin_layout Standard
+
+        RTS += (rTSum1+rTSum2+rTSum3)/served;
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        SQRTRT1 += pow(rTSum1/served1, 2);
+\end_layout
+
+\begin_layout Standard
+
+        SQRTRT2 += pow(rTSum2/served2, 2);
+\end_layout
+
+\begin_layout Standard
+
+        SQRTRT3 += pow(rTSum3/served3, 2);
+\end_layout
+
+\begin_layout Standard
+
+        SQRTRTS += pow((rTSum1+rTSum2+rTSum3)/served, 2);
+\end_layout
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+// Rutinas para procesar los eventos de la red
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+// Llegada de un cliente al nodo 1
+\end_layout
+
+\begin_layout Standard
+
+//
+\end_layout
+
+\begin_layout Standard
+
+void arrival1 (void) {
+\end_layout
+
+\begin_layout Standard
+
+        
+\end_layout
+
+\begin_layout Standard
+
+        if (DEBUG)
+\end_layout
+
+\begin_layout Standard
+
+                printf("sysroutines.arrival1(): 
+\backslash
+t<%3.2f> One client arrived.
+\backslash
+n", clock);
+\end_layout
+
+\begin_layout Standard
+
+        
+\end_layout
+
+\begin_layout Standard
+
+        // el servidor esta desocupado
+\end_layout
+
+\begin_layout Standard
+
+        if (!serverBusy1) {
+\end_layout
+
+\begin_layout Standard
+
+                serverBusy1 = true;
+\end_layout
+
+\begin_layout Standard
+
+                // marcar su instante de salida
+\end_layout
+
+\begin_layout Standard
+
+                setDepartureEventEL(eventList, D1, clock, clock + exponential(mu
+1));
+\end_layout
+
+\begin_layout Standard
+
+        }
+\end_layout
+
+\begin_layout Standard
+
+        // poner el cliente en cola
+\end_layout
+
+\begin_layout Standard
+
+        else {
+\end_layout
+
+\begin_layout Standard
+
+                addArrivalAL(&arrivals1, clock);
+\end_layout
+
+\begin_layout Standard
+
+        }
+\end_layout
+
+\begin_layout Standard
+
+        // siguiente llegada
+\end_layout
+
+\begin_layout Standard
+
+        setArrivalEventEL(eventList, A1, clock + exponential(lambda));
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        lastEvent = clock;
+\end_layout
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+// Salida de un cliente del nodo 1
+\end_layout
+
+\begin_layout Standard
+
+//
+\end_layout
+
+\begin_layout Standard
+
+void departure1 (void) {
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        if (DEBUG)
+\end_layout
+
+\begin_layout Standard
+
+                printf("sysroutines.departure1(): 
+\backslash
+t<%3.2f> One client left.
+\backslash
+n", clock);
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        // actualizar contadores estadisticos (tiempo de servicio)
+\end_layout
+
+\begin_layout Standard
+
+        rTSum1 += clock - getArrivalEL(eventList, D1);
+\end_layout
+
+\begin_layout Standard
+
+        served1++;
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        setDepartureEventEL(eventList, D1, NULLTIME, NULLTIME);
+\end_layout
+
+\begin_layout Standard
+
+        if (emptyAL(&arrivals1)) {
+\end_layout
+
+\begin_layout Standard
+
+                serverBusy1 = false;            
+\end_layout
+
+\begin_layout Standard
+
+        }
+\end_layout
+
+\begin_layout Standard
+
+        else {
+\end_layout
+
+\begin_layout Standard
+
+                // seleccionar el siguiente de la cola para entrar al servidor
+\end_layout
+
+\begin_layout Standard
+
+                setDepartureEventEL(eventList, D1, clock, clock + exponential(mu
+1));
+\end_layout
+
+\begin_layout Standard
+
+                // actualizar contadores estadisticos (tiempo de espera)
+\end_layout
+
+\begin_layout Standard
+
+                rTSum1 += clock - getArrivalAL(&arrivals1);
+\end_layout
+
+\begin_layout Standard
+
+                // eliminarlo de la cola de espera
+\end_layout
+
+\begin_layout Standard
+
+                delArrivalAL(&arrivals1);
+\end_layout
+
+\begin_layout Standard
+
+        }
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        // encaminar el cliente hacia la estacion 2 o la estacion 3
+\end_layout
+
+\begin_layout Standard
+
+        if (urand(SEG) < p12) {
+\end_layout
+
+\begin_layout Standard
+
+                if (DEBUG)
+\end_layout
+
+\begin_layout Standard
+
+                        printf("sysroutines.departure1(): The client will
+ go to station 2.
+\backslash
+n");
+\end_layout
+
+\begin_layout Standard
+
+                
+\end_layout
+
+\begin_layout Standard
+
+                // servidor libre
+\end_layout
+
+\begin_layout Standard
+
+                if (!serverBusy2) {
+\end_layout
+
+\begin_layout Standard
+
+                        serverBusy2 = true;
+\end_layout
+
+\begin_layout Standard
+
+                        // marcar su instante de salida
+\end_layout
+
+\begin_layout Standard
+
+                        setDepartureEventEL(eventList, D2, clock, clock
+ + exponential(mu2));
+\end_layout
+
+\begin_layout Standard
+
+                }
+\end_layout
+
+\begin_layout Standard
+
+                // poner el cliente nuevamente en cola
+\end_layout
+
+\begin_layout Standard
+
+                else {
+\end_layout
+
+\begin_layout Standard
+
+                        addArrivalAL(&arrivals2, clock);
+\end_layout
+
+\begin_layout Standard
+
+                }               
+\end_layout
+
+\begin_layout Standard
+
+        }
+\end_layout
+
+\begin_layout Standard
+
+        else {
+\end_layout
+
+\begin_layout Standard
+
+                if (DEBUG)
+\end_layout
+
+\begin_layout Standard
+
+                        printf("sysroutines.departure1(): The client will
+ go to station 3.
+\backslash
+n"); 
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+                // servidor libre
+\end_layout
+
+\begin_layout Standard
+
+                if (!serverBusy3) {
+\end_layout
+
+\begin_layout Standard
+
+                        serverBusy3 = true;
+\end_layout
+
+\begin_layout Standard
+
+                        // marcar su instante de salida
+\end_layout
+
+\begin_layout Standard
+
+                        setDepartureEventEL(eventList, D3, clock, clock
+ + exponential(mu3));
+\end_layout
+
+\begin_layout Standard
+
+                }
+\end_layout
+
+\begin_layout Standard
+
+                // poner el cliente nuevamente en cola
+\end_layout
+
+\begin_layout Standard
+
+                else {
+\end_layout
+
+\begin_layout Standard
+
+                        addArrivalAL(&arrivals3, clock);
+\end_layout
+
+\begin_layout Standard
+
+                }               
+\end_layout
+
+\begin_layout Standard
+
+        }
+\end_layout
+
+\begin_layout Standard
+
+        
+\end_layout
+
+\begin_layout Standard
+
+        lastEvent = clock;      
+\end_layout
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+// Llegada de un cliente al nodo 2.
+\end_layout
+
+\begin_layout Standard
+
+//
+\end_layout
+
+\begin_layout Standard
+
+void arrival2 (void) {
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        if (DEBUG)
+\end_layout
+
+\begin_layout Standard
+
+                printf("sysroutines.arrival2(): 
+\backslash
+t<%3.2f> One client arrived.
+\backslash
+n", clock);
+\end_layout
+
+\begin_layout Standard
+
+        
+\end_layout
+
+\begin_layout Standard
+
+        // el servidor esta desocupado
+\end_layout
+
+\begin_layout Standard
+
+        if (!serverBusy2) {
+\end_layout
+
+\begin_layout Standard
+
+                serverBusy2 = true;
+\end_layout
+
+\begin_layout Standard
+
+                // marcar su instante de salida
+\end_layout
+
+\begin_layout Standard
+
+                setDepartureEventEL(eventList, D2, clock, clock + exponential(mu
+2));
+\end_layout
+
+\begin_layout Standard
+
+        }
+\end_layout
+
+\begin_layout Standard
+
+        // poner el cliente en cola
+\end_layout
+
+\begin_layout Standard
+
+        else {
+\end_layout
+
+\begin_layout Standard
+
+                addArrivalAL(&arrivals2, clock);
+\end_layout
+
+\begin_layout Standard
+
+        }
+\end_layout
+
+\begin_layout Standard
+
+        
+\end_layout
+
+\begin_layout Standard
+
+        lastEvent = clock;
+\end_layout
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+// Salida de un cliente del nodo 2.
+\end_layout
+
+\begin_layout Standard
+
+//
+\end_layout
+
+\begin_layout Standard
+
+void departure2 (void) {
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        if (DEBUG)
+\end_layout
+
+\begin_layout Standard
+
+                printf("sysroutines.departure2(): 
+\backslash
+t<%3.2f> One client left.
+\backslash
+n", clock);
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        // actualizar contadores estadisticos (tiempo de servicio)
+\end_layout
+
+\begin_layout Standard
+
+        rTSum2 += clock - getArrivalEL(eventList, D2);
+\end_layout
+
+\begin_layout Standard
+
+        served2++;
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        setDepartureEventEL(eventList, D2, NULLTIME, NULLTIME);
+\end_layout
+
+\begin_layout Standard
+
+        if (emptyAL(&arrivals2)) {
+\end_layout
+
+\begin_layout Standard
+
+                serverBusy2 = false;            
+\end_layout
+
+\begin_layout Standard
+
+        }
+\end_layout
+
+\begin_layout Standard
+
+        else {
+\end_layout
+
+\begin_layout Standard
+
+                // seleccionar el siguiente de la cola para entrar al servidor
+\end_layout
+
+\begin_layout Standard
+
+                setDepartureEventEL(eventList, D2, clock, clock + exponential(mu
+2));
+\end_layout
+
+\begin_layout Standard
+
+                // actualizar contadores estadisticos (tiempo de espera)
+\end_layout
+
+\begin_layout Standard
+
+                rTSum2 += clock - getArrivalAL(&arrivals2);            
+ 
+\end_layout
+
+\begin_layout Standard
+
+                // eliminarlo de la cola de espera
+\end_layout
+
+\begin_layout Standard
+
+                delArrivalAL(&arrivals2);
+\end_layout
+
+\begin_layout Standard
+
+        }
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        // encaminar el cliente hacia la estacion 1
+\end_layout
+
+\begin_layout Standard
+
+                
+\end_layout
+
+\begin_layout Standard
+
+        // servidor libre
+\end_layout
+
+\begin_layout Standard
+
+        if (!serverBusy1) {
+\end_layout
+
+\begin_layout Standard
+
+                serverBusy1 = true;
+\end_layout
+
+\begin_layout Standard
+
+                // marcar su instante de salida
+\end_layout
+
+\begin_layout Standard
+
+                setDepartureEventEL(eventList, D1, clock, clock + exponential(mu
+1));
+\end_layout
+
+\begin_layout Standard
+
+        }
+\end_layout
+
+\begin_layout Standard
+
+        // poner el cliente nuevamente en cola
+\end_layout
+
+\begin_layout Standard
+
+        else {
+\end_layout
+
+\begin_layout Standard
+
+                addArrivalAL(&arrivals1, clock);
+\end_layout
+
+\begin_layout Standard
+
+        }               
+\end_layout
+
+\begin_layout Standard
+
+        
+\end_layout
+
+\begin_layout Standard
+
+        lastEvent = clock;
+\end_layout
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+// Llegada de un cliente al nodo 3.
+\end_layout
+
+\begin_layout Standard
+
+//
+\end_layout
+
+\begin_layout Standard
+
+void arrival3 (void) {
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        if (DEBUG)
+\end_layout
+
+\begin_layout Standard
+
+                printf("sysroutines.arrival3(): 
+\backslash
+t<%3.2f> One client arrived.
+\backslash
+n", clock);
+\end_layout
+
+\begin_layout Standard
+
+        
+\end_layout
+
+\begin_layout Standard
+
+        // el servidor esta desocupado
+\end_layout
+
+\begin_layout Standard
+
+        if (!serverBusy3) {
+\end_layout
+
+\begin_layout Standard
+
+                serverBusy3 = true;
+\end_layout
+
+\begin_layout Standard
+
+                // marcar su instante de salida
+\end_layout
+
+\begin_layout Standard
+
+                setDepartureEventEL(eventList, D3, clock, clock + exponential(mu
+3));
+\end_layout
+
+\begin_layout Standard
+
+        }
+\end_layout
+
+\begin_layout Standard
+
+        // poner el cliente en cola
+\end_layout
+
+\begin_layout Standard
+
+        else {
+\end_layout
+
+\begin_layout Standard
+
+                addArrivalAL(&arrivals3, clock);
+\end_layout
+
+\begin_layout Standard
+
+        }
+\end_layout
+
+\begin_layout Standard
+
+        
+\end_layout
+
+\begin_layout Standard
+
+        lastEvent = clock;      
+\end_layout
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+// Salida de un cliente del nodo 3.
+\end_layout
+
+\begin_layout Standard
+
+//
+\end_layout
+
+\begin_layout Standard
+
+void departure3 (void) {
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        if (DEBUG)
+\end_layout
+
+\begin_layout Standard
+
+                printf("sysroutines.departure3(): 
+\backslash
+t<%3.2f> One client left.
+\backslash
+n", clock);
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        // actualizar contadores estadisticos (tiempo de servicio)
+\end_layout
+
+\begin_layout Standard
+
+        rTSum3 += clock - getArrivalEL(eventList, D3);
+\end_layout
+
+\begin_layout Standard
+
+        served3++;
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        setDepartureEventEL(eventList, D3, NULLTIME, NULLTIME);
+\end_layout
+
+\begin_layout Standard
+
+        if (emptyAL(&arrivals3)) {
+\end_layout
+
+\begin_layout Standard
+
+                serverBusy3 = false;            
+\end_layout
+
+\begin_layout Standard
+
+        }
+\end_layout
+
+\begin_layout Standard
+
+        else {
+\end_layout
+
+\begin_layout Standard
+
+                // seleccionar el siguiente de la cola para entrar al servidor
+\end_layout
+
+\begin_layout Standard
+
+                setDepartureEventEL(eventList, D3, clock, clock + exponential(mu
+3));
+\end_layout
+
+\begin_layout Standard
+
+                // actualizar contadores estadisticos (tiempo de espera)
+\end_layout
+
+\begin_layout Standard
+
+                rTSum3 += clock - getArrivalAL(&arrivals3);            
+ 
+\end_layout
+
+\begin_layout Standard
+
+                // eliminarlo de la cola de espera
+\end_layout
+
+\begin_layout Standard
+
+                delArrivalAL(&arrivals3);
+\end_layout
+
+\begin_layout Standard
+
+        }
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+        // encaminar el cliente hacia la estacion 1 o hacia afuera del sistema
+\end_layout
+
+\begin_layout Standard
+
+        if (urand(SEG) < p30) {
+\end_layout
+
+\begin_layout Standard
+
+                if (DEBUG)
+\end_layout
+
+\begin_layout Standard
+
+                        printf("sysroutines.departure3(): The client will
+ go out of the system.
+\backslash
+n");
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+                // actualizar contadores estadisticos           
+\end_layout
+
+\begin_layout Standard
+
+                served++;
+\end_layout
+
+\begin_layout Standard
+
+        }
+\end_layout
+
+\begin_layout Standard
+
+        else {
+\end_layout
+
+\begin_layout Standard
+
+                if (DEBUG)
+\end_layout
+
+\begin_layout Standard
+
+                        printf("sysroutines.departure3(): The client will
+ go to station 1.
+\backslash
+n"); 
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+                // servidor libre
+\end_layout
+
+\begin_layout Standard
+
+                if (!serverBusy1) {
+\end_layout
+
+\begin_layout Standard
+
+                        serverBusy1 = true;
+\end_layout
+
+\begin_layout Standard
+
+                        // marcar su instante de salida
+\end_layout
+
+\begin_layout Standard
+
+                        setDepartureEventEL(eventList, D1, clock, clock
+ + exponential(mu1));
+\end_layout
+
+\begin_layout Standard
+
+                }
+\end_layout
+
+\begin_layout Standard
+
+                // poner el cliente nuevamente en cola
+\end_layout
+
+\begin_layout Standard
+
+                else {
+\end_layout
+
+\begin_layout Standard
+
+                        addArrivalAL(&arrivals1, clock);
+\end_layout
+
+\begin_layout Standard
+
+                }               
+\end_layout
+
+\begin_layout Standard
+
+        }
+\end_layout
+
+\begin_layout Standard
+
+        
+\end_layout
+
+\begin_layout Standard
+
+        lastEvent = clock;              
+\end_layout
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+Systypes.h
+\begin_inset listings
+lstparams "breaklines=true,language=C,numbers=left"
+inline false
+status collapsed
+
+\begin_layout Standard
+
+// $LastChangedDate$
+\end_layout
+
+\begin_layout Standard
+
+// $LastChangedRevision$
+\end_layout
+
+\begin_layout Standard
+
+// $LastChangedBy$
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+// Contiene la definición de tipos usados en el sistema
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+#ifndef _SYSTYPES_H_
+\end_layout
+
+\begin_layout Standard
+
+#define _SYSTYPES_H_
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+#include <stdbool.h>
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+// Debug
+\end_layout
+
+\begin_layout Standard
+
+bool DEBUG;
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+// Tiempo
+\end_layout
+
+\begin_layout Standard
+
+typedef double TIME;
+\end_layout
+
+\begin_layout Standard
+
+#define NULLTIME -1.0
+\end_layout
+
+\begin_layout Standard
+
+#define INITIALTIME 0.0
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+// Error relativo
+\end_layout
+
+\begin_layout Standard
+
+#define ERRORLEVEL 0.1                                  // por defecto del
+ 10%
+\end_layout
+
+\begin_layout Standard
+
+#define RELATIVEERROR ERRORLEVEL / (1.0 + ERRORLEVEL)   // error corregido
+\end_layout
+
+\begin_layout Standard
+
+#define MINREPLICATIONS 1                               // numero minimo
+ inicial 
+\end_layout
+
+\begin_layout Standard
+
+                                                        //para el metodo
+ secuencial
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+#endif // _SYSTYPES_H_
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
 
 \end_layout
 
@@ -94,6 +5590,18 @@ Adjuntar el código fuente del simulador diseñado con un lenguaje de propósito
 Adjuntar el fichero o ficheros de resultados obtenidos al ejecutar el modelo
  en QNAP2.
  
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+A continuación mostramos los resultados arrojados por QNAP en función de
+ valor de lambda utilizado:
+\newline
+
+\begin_inset Formula $\lambda=0.002$
+\end_inset
+
+
 \end_layout
 
 \end_body
