@@ -83,6 +83,12 @@ Adjuntar el código fuente del simulador diseñado con un lenguaje de propósito
  general, que incluya comentarios que faciliten su comprensión.
 \end_layout
 
+\begin_deeper
+\begin_layout Standard
+
+\end_layout
+
+\end_deeper
 \begin_layout Enumerate
 \noindent
 Adjuntar el fichero o ficheros de resultados obtenidos al ejecutar el modelo
