@@ -52,7 +52,7 @@ Anexos – Código Fuente del Simulador y Ficheros de Ejecución de QNAP2
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Standard
 $LastChangedDate$ 
@@ -69,6 +69,11 @@ $LastChangedBy$
 \end_inset
 
 
+\begin_inset LatexCommand tableofcontents
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -77,15 +82,22 @@ $LastChangedBy$
 
 \end_layout
 
-\begin_layout Enumerate
+\begin_layout Section
+Código fuente del simulador
+\end_layout
+
+\begin_layout Standard
 \noindent
 Adjuntar el código fuente del simulador diseñado con un lenguaje de propósito
  general, que incluya comentarios que faciliten su comprensión.
 \end_layout
 
-\begin_deeper
-\begin_layout Subsection*
-Arrivals.h / Arrivals.c
+\begin_layout Subsection
+Arrivalslist.h / Arrivalslist.c
+\end_layout
+
+\begin_layout Standard
+Implementación de las listas de llegadas.
 \end_layout
 
 \begin_layout Standard
@@ -263,9 +275,6 @@ void showAL (ARRIVALSLIST *l);
 \end_inset
 
 
-\end_layout
-
-\begin_layout Subsection*
 \begin_inset listings
 lstparams "breaklines=true,language=C,numbers=left"
 inline false
@@ -745,7 +754,15 @@ n", p->t);
 
 \end_inset
 
+
+\end_layout
+
+\begin_layout Subsection
 Eventlist.h / Eventlist.c
+\end_layout
+
+\begin_layout Standard
+Implementación de la lista de eventos que usaremos en el simulador.
 \end_layout
 
 \begin_layout Standard
@@ -935,7 +952,7 @@ void showEL (EVENTLIST l);
 
 \end_layout
 
-\begin_layout Subsection*
+\begin_layout Standard
 \begin_inset listings
 lstparams "breaklines=true,language=C,numbers=left"
 inline false
@@ -1595,10 +1612,14 @@ n", l[i]);
 
 \end_inset
 
+
+\end_layout
+
+\begin_layout Subsection
 Main.c
 \end_layout
 
-\begin_layout Subsection*
+\begin_layout Standard
 \begin_inset listings
 lstparams "breaklines=true,language=C,numbers=left"
 inline false
@@ -1814,7 +1835,15 @@ n");
 
 \end_inset
 
+
+\end_layout
+
+\begin_layout Subsection
 Rand.h / Rand.c
+\end_layout
+
+\begin_layout Standard
+Generador de números aleatorios.
 \end_layout
 
 \begin_layout Standard
@@ -1907,7 +1936,7 @@ double exponential(double lambda);
 
 \end_layout
 
-\begin_layout Subsection*
+\begin_layout Standard
 \begin_inset listings
 lstparams "breaklines=true,language=C,numbers=left"
 inline false
@@ -2497,7 +2526,17 @@ double exponential(double lambda)
 
 \end_inset
 
+
+\end_layout
+
+\begin_layout Subsection
 Report.h / Report.c
+\end_layout
+
+\begin_layout Standard
+Libreria de soporte a la presentación del informe estadístico.
+ Contiene todas las funciones auxiliares necesarias para poder presentar
+ al usuario los resultados obtenidos en términos del intervalo de confianza.
 \end_layout
 
 \begin_layout Standard
@@ -2590,7 +2629,7 @@ bool largeRelativeError (int n);
 
 \end_layout
 
-\begin_layout Subsection*
+\begin_layout Standard
 \begin_inset listings
 lstparams "breaklines=true,language=C,numbers=left"
 inline false
@@ -3399,7 +3438,16 @@ n", CIRTS);
 
 \end_inset
 
+
+\end_layout
+
+\begin_layout Subsection
 Sysroutines.h / Sysroutines.c
+\end_layout
+
+\begin_layout Standard
+Contiene las rutinas necesarias para procesar los eventos considerados en
+ el sistema.
 \end_layout
 
 \begin_layout Standard
@@ -3523,7 +3571,7 @@ void departure3 (void);
 
 \end_layout
 
-\begin_layout Subsection*
+\begin_layout Standard
 \begin_inset listings
 lstparams "breaklines=true,language=C,numbers=left"
 inline false
@@ -5443,7 +5491,18 @@ n");
 
 \end_inset
 
+
+\end_layout
+
+\begin_layout Subsection
 Systypes.h
+\end_layout
+
+\begin_layout Standard
+Definición de algunos tipos usados en el sistema
+\end_layout
+
+\begin_layout Standard
 \begin_inset listings
 lstparams "breaklines=true,language=C,numbers=left"
 inline false
@@ -5584,21 +5643,2003 @@ typedef double TIME;
 
 \end_layout
 
-\end_deeper
-\begin_layout Enumerate
+\begin_layout Section
+Resultados obtenidos con QNAP
+\end_layout
+
+\begin_layout Standard
 \noindent
-Adjuntar el fichero o ficheros de resultados obtenidos al ejecutar el modelo
- en QNAP2.
+A continuación mostramos los diferentes ficheros de resultados arrojados
+ por QNAP en función del valor de 
+\begin_inset Formula $\lambda$
+\end_inset
+
+ (tráfico medio de entrada) utilizado:
+\end_layout
+
+\begin_layout Subsection
+Lambda = 0.002
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "breaklines=true,numbers=left"
+inline false
+status collapsed
+
+\begin_layout Standard
+
  
 \end_layout
 
-\begin_deeper
 \begin_layout Standard
-A continuación mostramos los resultados arrojados por QNAP en función de
- valor de lambda utilizado:
-\newline
 
-\begin_inset Formula $\lambda=0.002$
+  SIMULOG   ***  QNAP2  ***  ( 15-09-2000  ) V 9.4   
+\end_layout
+
+\begin_layout Standard
+
+  (C)  COPYRIGHT BY CII HONEYWELL BULL AND INRIA, 1986
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+ 
+\end_layout
+
+\begin_layout Standard
+
+ ***SIMULATION WITH SPECTRAL METHOD ***
+\end_layout
+
+\begin_layout Standard
+
+ ...
+ TIME =     10000000.00 , NB SAMPLES =    512 , CONF.
+ LEVEL = 0.95
+\end_layout
+
+\begin_layout Standard
+
+ (0I0A03)  ==>WARNING (OUTPUT) : SOME CONFIDENCE INTERVALS ARE NOT AVAILABLE
+\end_layout
+
+\begin_layout Standard
+
+                                 FOR QUEUE ...
+ RT       .
+ 0 ASSUMED THEN
+\end_layout
+
+\begin_layout Standard
+
+ *******************************************************************
+\end_layout
+
+\begin_layout Standard
+
+ *   NAME   *  SERVICE * BUSY PCT *  CUST NB * RESPONSE *  SERV NB *
+\end_layout
+
+\begin_layout Standard
+
+ *******************************************************************
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *SOURCE1   * 509.6    * 1.000    * 1.000    * 509.6    *     19624*
+\end_layout
+
+\begin_layout Standard
+
+ *   +/-    * 6.925    *0.0000E+00*0.0000E+00* 6.925    *          *
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *STATION1  * 10.07    *0.7124E-01*0.7676E-01* 10.85    *     70766*
+\end_layout
+
+\begin_layout Standard
+
+ *   +/-    *0.7711E-01*0.1831E-02*0.2050E-02*0.1056    *          *
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *STATION2  * 15.28    *0.3291E-01*0.3414E-01* 15.85    *     21535*
+\end_layout
+
+\begin_layout Standard
+
+ *   +/-    *0.2134    *0.1298E-02*0.1436E-02*0.2801    *          *
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *STATION3  * 20.22    *0.9957E-01*0.1106    * 22.47    *     49231*
+\end_layout
+
+\begin_layout Standard
+
+ *   +/-    *0.1695    *0.2477E-02*0.3216E-02*0.3641    *          *
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *RT        *0.0000E+00*0.0000E+00*0.2215    * 112.9    *     19624*
+\end_layout
+
+\begin_layout Standard
+
+ *   +/-    *----------*0.0000E+00*0.6321E-02* 2.490    *          *
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *******************************************************************
+\end_layout
+
+\begin_layout Standard
+
+ ...
+ END OF SIMULATION ...
+\end_layout
+
+\begin_layout Standard
+
+ 
+\end_layout
+
+\begin_layout Standard
+
+ 
+\end_layout
+
+\begin_layout Standard
+
+              MEMORY USED:       9123 WORDS OF 4 BYTES
+\end_layout
+
+\begin_layout Standard
+
+               (  0.06  % OF TOTAL MEMORY)
+\end_layout
+
+\begin_layout Standard
+
+     62 /END/
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Lambda = 0.004
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "breaklines=true,numbers=left"
+inline false
+status collapsed
+
+\begin_layout Standard
+
+ 
+\end_layout
+
+\begin_layout Standard
+
+  SIMULOG   ***  QNAP2  ***  ( 15-09-2000  ) V 9.4   
+\end_layout
+
+\begin_layout Standard
+
+  (C)  COPYRIGHT BY CII HONEYWELL BULL AND INRIA, 1986
+\end_layout
+
+\begin_layout Standard
+
+ 
+\end_layout
+
+\begin_layout Standard
+
+ 
+\end_layout
+
+\begin_layout Standard
+
+ ***SIMULATION WITH SPECTRAL METHOD ***
+\end_layout
+
+\begin_layout Standard
+
+ ...
+ TIME =     10000000.00 , NB SAMPLES =    512 , CONF.
+ LEVEL = 0.95
+\end_layout
+
+\begin_layout Standard
+
+ (0I0A03)  ==>WARNING (OUTPUT) : SOME CONFIDENCE INTERVALS ARE NOT AVAILABLE
+\end_layout
+
+\begin_layout Standard
+
+                                 FOR QUEUE ...
+ RT       .
+ 0 ASSUMED THEN
+\end_layout
+
+\begin_layout Standard
+
+ *******************************************************************
+\end_layout
+
+\begin_layout Standard
+
+ *   NAME   *  SERVICE * BUSY PCT *  CUST NB * RESPONSE *  SERV NB *
+\end_layout
+
+\begin_layout Standard
+
+ *******************************************************************
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *SOURCE1   * 251.5    * 1.000    * 1.000    * 251.5    *     39765*
+\end_layout
+
+\begin_layout Standard
+
+ *   +/-    * 3.138    *0.0000E+00*0.0000E+00* 3.138    *          *
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *STATION1  * 10.03    *0.1447    *0.1685    * 11.69    *    144230*
+\end_layout
+
+\begin_layout Standard
+
+ *   +/-    *0.6940E-01*0.2647E-02*0.3876E-02*0.1170    *          *
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *STATION2  * 15.16    *0.6644E-01*0.7083E-01* 16.17    *     43809*
+\end_layout
+
+\begin_layout Standard
+
+ *   +/-    *0.1216    *0.1406E-02*0.1702E-02*0.1802    *          *
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *STATION3  * 20.10    *0.2018    *0.2528    * 25.17    *    100421*
+\end_layout
+
+\begin_layout Standard
+
+ *   +/-    *0.1588    *0.3655E-02*0.5737E-02*0.2792    *          *
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *RT        *0.0000E+00*0.0000E+00*0.4921    * 123.8    *     39765*
+\end_layout
+
+\begin_layout Standard
+
+ *   +/-    *----------*0.0000E+00*0.9686E-02* 1.390    *          *
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *******************************************************************
+\end_layout
+
+\begin_layout Standard
+
+ ...
+ END OF SIMULATION ...
+\end_layout
+
+\begin_layout Standard
+
+ 
+\end_layout
+
+\begin_layout Standard
+
+ 
+\end_layout
+
+\begin_layout Standard
+
+              MEMORY USED:       8875 WORDS OF 4 BYTES
+\end_layout
+
+\begin_layout Standard
+
+               (  0.06  % OF TOTAL MEMORY)
+\end_layout
+
+\begin_layout Standard
+
+     62 /END/
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Lambda = 0.006
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "breaklines=true,numbers=left"
+inline false
+status collapsed
+
+\begin_layout Standard
+
+ 
+\end_layout
+
+\begin_layout Standard
+
+  SIMULOG   ***  QNAP2  ***  ( 15-09-2000  ) V 9.4   
+\end_layout
+
+\begin_layout Standard
+
+  (C)  COPYRIGHT BY CII HONEYWELL BULL AND INRIA, 1986
+\end_layout
+
+\begin_layout Standard
+
+ 
+\end_layout
+
+\begin_layout Standard
+
+ 
+\end_layout
+
+\begin_layout Standard
+
+ ***SIMULATION WITH SPECTRAL METHOD ***
+\end_layout
+
+\begin_layout Standard
+
+ ...
+ TIME =     10000000.00 , NB SAMPLES =    512 , CONF.
+ LEVEL = 0.95
+\end_layout
+
+\begin_layout Standard
+
+ (0I0A03)  ==>WARNING (OUTPUT) : SOME CONFIDENCE INTERVALS ARE NOT AVAILABLE
+\end_layout
+
+\begin_layout Standard
+
+                                 FOR QUEUE ...
+ RT       .
+ 0 ASSUMED THEN
+\end_layout
+
+\begin_layout Standard
+
+ *******************************************************************
+\end_layout
+
+\begin_layout Standard
+
+ *   NAME   *  SERVICE * BUSY PCT *  CUST NB * RESPONSE *  SERV NB *
+\end_layout
+
+\begin_layout Standard
+
+ *******************************************************************
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *SOURCE1   * 167.6    * 1.000    * 1.000    * 167.6    *     59656*
+\end_layout
+
+\begin_layout Standard
+
+ *   +/-    * 1.414    *0.0000E+00*0.0000E+00* 1.414    *          *
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *STATION1  * 10.04    *0.2157    *0.2749    * 12.80    *    214716*
+\end_layout
+
+\begin_layout Standard
+
+ *   +/-    *0.4541E-01*0.2381E-02*0.4194E-02*0.1084    *          *
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *STATION2  * 14.98    *0.9657E-01*0.1066    * 16.54    *     64447*
+\end_layout
+
+\begin_layout Standard
+
+ *   +/-    *0.1414    *0.1931E-02*0.2375E-02*0.1768    *          *
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *STATION3  * 20.08    *0.3017    *0.4302    * 28.63    *    150268*
+\end_layout
+
+\begin_layout Standard
+
+ *   +/-    *0.1339    *0.3295E-02*0.7462E-02*0.3437    *          *
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *RT        *0.0000E+00*0.0000E+00*0.8117    * 136.1    *     59655*
+\end_layout
+
+\begin_layout Standard
+
+ *   +/-    *----------*0.0000E+00*0.1228E-01* 1.664    *          *
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *******************************************************************
+\end_layout
+
+\begin_layout Standard
+
+ ...
+ END OF SIMULATION ...
+\end_layout
+
+\begin_layout Standard
+
+ 
+\end_layout
+
+\begin_layout Standard
+
+ 
+\end_layout
+
+\begin_layout Standard
+
+              MEMORY USED:       9315 WORDS OF 4 BYTES
+\end_layout
+
+\begin_layout Standard
+
+               (  0.06  % OF TOTAL MEMORY)
+\end_layout
+
+\begin_layout Standard
+
+     62 /END/
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Lambda = 0.008
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "breaklines=true,numbers=left"
+inline false
+status collapsed
+
+\begin_layout Standard
+
+ 
+\end_layout
+
+\begin_layout Standard
+
+  SIMULOG   ***  QNAP2  ***  ( 15-09-2000  ) V 9.4   
+\end_layout
+
+\begin_layout Standard
+
+  (C)  COPYRIGHT BY CII HONEYWELL BULL AND INRIA, 1986
+\end_layout
+
+\begin_layout Standard
+
+ 
+\end_layout
+
+\begin_layout Standard
+
+ 
+\end_layout
+
+\begin_layout Standard
+
+ ***SIMULATION WITH SPECTRAL METHOD ***
+\end_layout
+
+\begin_layout Standard
+
+ ...
+ TIME =     10000000.00 , NB SAMPLES =    512 , CONF.
+ LEVEL = 0.95
+\end_layout
+
+\begin_layout Standard
+
+ (0I0A03)  ==>WARNING (OUTPUT) : SOME CONFIDENCE INTERVALS ARE NOT AVAILABLE
+\end_layout
+
+\begin_layout Standard
+
+                                 FOR QUEUE ...
+ RT       .
+ 0 ASSUMED THEN
+\end_layout
+
+\begin_layout Standard
+
+ *******************************************************************
+\end_layout
+
+\begin_layout Standard
+
+ *   NAME   *  SERVICE * BUSY PCT *  CUST NB * RESPONSE *  SERV NB *
+\end_layout
+
+\begin_layout Standard
+
+ *******************************************************************
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *SOURCE1   * 125.6    * 1.000    * 1.000    * 125.6    *     79647*
+\end_layout
+
+\begin_layout Standard
+
+ *   +/-    *0.9658    *0.0000E+00*0.0000E+00*0.9658    *          *
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *STATION1  * 10.05    *0.2868    *0.4017    * 14.07    *    285466*
+\end_layout
+
+\begin_layout Standard
+
+ *   +/-    *0.4364E-01*0.2971E-02*0.6583E-02*0.1480    *          *
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *STATION2  * 15.05    *0.1296    *0.1490    * 17.31    *     86061*
+\end_layout
+
+\begin_layout Standard
+
+ *   +/-    *0.1121    *0.2475E-02*0.3110E-02*0.1517    *          *
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *STATION3  * 20.13    *0.4013    *0.6714    * 33.67    *    199404*
+\end_layout
+
+\begin_layout Standard
+
+ *   +/-    *0.1099    *0.4348E-02*0.1346E-01*0.4988    *          *
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *RT        *0.0000E+00*0.0000E+00* 1.222    * 153.4    *     79646*
+\end_layout
+
+\begin_layout Standard
+
+ *   +/-    *----------*0.0000E+00*0.2061E-01* 2.333    *          *
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *******************************************************************
+\end_layout
+
+\begin_layout Standard
+
+ ...
+ END OF SIMULATION ...
+\end_layout
+
+\begin_layout Standard
+
+ 
+\end_layout
+
+\begin_layout Standard
+
+ 
+\end_layout
+
+\begin_layout Standard
+
+              MEMORY USED:       9259 WORDS OF 4 BYTES
+\end_layout
+
+\begin_layout Standard
+
+               (  0.06  % OF TOTAL MEMORY)
+\end_layout
+
+\begin_layout Standard
+
+     62 /END/
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Lambda = 0.01
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "breaklines=true,numbers=left"
+inline false
+status collapsed
+
+\begin_layout Standard
+
+ 
+\end_layout
+
+\begin_layout Standard
+
+  SIMULOG   ***  QNAP2  ***  ( 15-09-2000  ) V 9.4   
+\end_layout
+
+\begin_layout Standard
+
+  (C)  COPYRIGHT BY CII HONEYWELL BULL AND INRIA, 1986
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+ 
+\end_layout
+
+\begin_layout Standard
+
+ ***SIMULATION WITH SPECTRAL METHOD ***
+\end_layout
+
+\begin_layout Standard
+
+ ...
+ TIME =     10000000.00 , NB SAMPLES =    512 , CONF.
+ LEVEL = 0.95
+\end_layout
+
+\begin_layout Standard
+
+ (0I0A03)  ==>WARNING (OUTPUT) : SOME CONFIDENCE INTERVALS ARE NOT AVAILABLE
+\end_layout
+
+\begin_layout Standard
+
+                                 FOR QUEUE ...
+ RT       .
+ 0 ASSUMED THEN
+\end_layout
+
+\begin_layout Standard
+
+ *******************************************************************
+\end_layout
+
+\begin_layout Standard
+
+ *   NAME   *  SERVICE * BUSY PCT *  CUST NB * RESPONSE *  SERV NB *
+\end_layout
+
+\begin_layout Standard
+
+ *******************************************************************
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *SOURCE1   * 100.5    * 1.000    * 1.000    * 100.5    *     99539*
+\end_layout
+
+\begin_layout Standard
+
+ *   +/-    *0.8096    *0.0000E+00*0.0000E+00*0.8096    *          *
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *STATION1  * 10.06    *0.3585    *0.5595    * 15.69    *    356520*
+\end_layout
+
+\begin_layout Standard
+
+ *   +/-    *0.3459E-01*0.4793E-02*0.8474E-02*0.1793    *          *
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *STATION2  * 15.07    *0.1618    *0.1933    * 18.01    *    107354*
+\end_layout
+
+\begin_layout Standard
+
+ *   +/-    *0.7734E-01*0.3221E-02*0.3356E-02*0.1568    *          *
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *STATION3  * 20.08    *0.5003    * 1.003    * 40.27    *    249165*
+\end_layout
+
+\begin_layout Standard
+
+ *   +/-    *0.1139    *0.5299E-02*0.2192E-01*0.6899    *          *
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *RT        *0.0000E+00*0.0000E+00* 1.756    * 176.4    *     99537*
+\end_layout
+
+\begin_layout Standard
+
+ *   +/-    *----------*0.0000E+00*0.3195E-01* 2.645    *          *
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *******************************************************************
+\end_layout
+
+\begin_layout Standard
+
+ ...
+ END OF SIMULATION ...
+\end_layout
+
+\begin_layout Standard
+
+ 
+\end_layout
+
+\begin_layout Standard
+
+ 
+\end_layout
+
+\begin_layout Standard
+
+              MEMORY USED:       9011 WORDS OF 4 BYTES
+\end_layout
+
+\begin_layout Standard
+
+               (  0.06  % OF TOTAL MEMORY)
+\end_layout
+
+\begin_layout Standard
+
+     62 /END/
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Lambda = 0.012
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "breaklines=true,numbers=left"
+inline false
+status collapsed
+
+\begin_layout Standard
+
+ 
+\end_layout
+
+\begin_layout Standard
+
+  SIMULOG   ***  QNAP2  ***  ( 15-09-2000  ) V 9.4   
+\end_layout
+
+\begin_layout Standard
+
+  (C)  COPYRIGHT BY CII HONEYWELL BULL AND INRIA, 1986
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+ 
+\end_layout
+
+\begin_layout Standard
+
+ ***SIMULATION WITH SPECTRAL METHOD ***
+\end_layout
+
+\begin_layout Standard
+
+ ...
+ TIME =     10000000.00 , NB SAMPLES =    512 , CONF.
+ LEVEL = 0.95
+\end_layout
+
+\begin_layout Standard
+
+ (0I0A03)  ==>WARNING (OUTPUT) : SOME CONFIDENCE INTERVALS ARE NOT AVAILABLE
+\end_layout
+
+\begin_layout Standard
+
+                                 FOR QUEUE ...
+ RT       .
+ 0 ASSUMED THEN
+\end_layout
+
+\begin_layout Standard
+
+ *******************************************************************
+\end_layout
+
+\begin_layout Standard
+
+ *   NAME   *  SERVICE * BUSY PCT *  CUST NB * RESPONSE *  SERV NB *
+\end_layout
+
+\begin_layout Standard
+
+ *******************************************************************
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *SOURCE1   * 83.83    * 1.000    * 1.000    * 83.83    *    119287*
+\end_layout
+
+\begin_layout Standard
+
+ *   +/-    *0.4617    *0.0000E+00*0.0000E+00*0.4617    *          *
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *STATION1  * 10.02    *0.4280    *0.7489    * 17.54    *    427002*
+\end_layout
+
+\begin_layout Standard
+
+ *   +/-    *0.4339E-01*0.3972E-02*0.1312E-01*0.2400    *          *
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *STATION2  * 15.04    *0.1929    *0.2399    * 18.70    *    128274*
+\end_layout
+
+\begin_layout Standard
+
+ *   +/-    *0.1014    *0.3470E-02*0.3833E-02*0.1889    *          *
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *STATION3  * 20.07    *0.5996    * 1.506    * 50.42    *    298726*
+\end_layout
+
+\begin_layout Standard
+
+ *   +/-    *0.9515E-01*0.5114E-02*0.4256E-01* 1.157    *          *
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *RT        *0.0000E+00*0.0000E+00* 2.495    * 209.2    *    119285*
+\end_layout
+
+\begin_layout Standard
+
+ *   +/-    *----------*0.0000E+00*0.5414E-01* 3.917    *          *
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *******************************************************************
+\end_layout
+
+\begin_layout Standard
+
+ ...
+ END OF SIMULATION ...
+\end_layout
+
+\begin_layout Standard
+
+ 
+\end_layout
+
+\begin_layout Standard
+
+ 
+\end_layout
+
+\begin_layout Standard
+
+              MEMORY USED:      10451 WORDS OF 4 BYTES
+\end_layout
+
+\begin_layout Standard
+
+               (  0.07  % OF TOTAL MEMORY)
+\end_layout
+
+\begin_layout Standard
+
+     62 /END/
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Lambda = 0.014
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "breaklines=true,numbers=left"
+inline false
+status collapsed
+
+\begin_layout Standard
+
+ 
+\end_layout
+
+\begin_layout Standard
+
+  SIMULOG   ***  QNAP2  ***  ( 15-09-2000  ) V 9.4   
+\end_layout
+
+\begin_layout Standard
+
+  (C)  COPYRIGHT BY CII HONEYWELL BULL AND INRIA, 1986
+\end_layout
+
+\begin_layout Standard
+
+ 
+\end_layout
+
+\begin_layout Standard
+
+ 
+\end_layout
+
+\begin_layout Standard
+
+ ***SIMULATION WITH SPECTRAL METHOD ***
+\end_layout
+
+\begin_layout Standard
+
+ ...
+ TIME =     10000000.00 , NB SAMPLES =    512 , CONF.
+ LEVEL = 0.95
+\end_layout
+
+\begin_layout Standard
+
+ (0I0A03)  ==>WARNING (OUTPUT) : SOME CONFIDENCE INTERVALS ARE NOT AVAILABLE
+\end_layout
+
+\begin_layout Standard
+
+                                 FOR QUEUE ...
+ RT       .
+ 0 ASSUMED THEN
+\end_layout
+
+\begin_layout Standard
+
+ *******************************************************************
+\end_layout
+
+\begin_layout Standard
+
+ *   NAME   *  SERVICE * BUSY PCT *  CUST NB * RESPONSE *  SERV NB *
+\end_layout
+
+\begin_layout Standard
+
+ *******************************************************************
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *SOURCE1   * 71.80    * 1.000    * 1.000    * 71.80    *    139271*
+\end_layout
+
+\begin_layout Standard
+
+ *   +/-    *0.3203    *0.0000E+00*0.0000E+00*0.3203    *          *
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *STATION1  * 10.01    *0.4981    *0.9938    * 19.98    *    497328*
+\end_layout
+
+\begin_layout Standard
+
+ *   +/-    *0.4522E-01*0.4783E-02*0.2962E-01*0.4670    *          *
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *STATION2  * 15.05    *0.2253    *0.2914    * 19.47    *    149630*
+\end_layout
+
+\begin_layout Standard
+
+ *   +/-    *0.7755E-01*0.5085E-02*0.8364E-02*0.2663    *          *
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *STATION3  * 20.05    *0.6973    * 2.320    * 66.72    *    347694*
+\end_layout
+
+\begin_layout Standard
+
+ *   +/-    *0.1013    *0.6335E-02*0.9670E-01* 2.461    *          *
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *RT        *0.0000E+00*0.0000E+00* 3.605    * 258.8    *    139266*
+\end_layout
+
+\begin_layout Standard
+
+ *   +/-    *----------*0.0000E+00*0.1152    * 11.72    *          *
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *******************************************************************
+\end_layout
+
+\begin_layout Standard
+
+ ...
+ END OF SIMULATION ...
+\end_layout
+
+\begin_layout Standard
+
+ 
+\end_layout
+
+\begin_layout Standard
+
+ 
+\end_layout
+
+\begin_layout Standard
+
+              MEMORY USED:      11467 WORDS OF 4 BYTES
+\end_layout
+
+\begin_layout Standard
+
+               (  0.08  % OF TOTAL MEMORY)
+\end_layout
+
+\begin_layout Standard
+
+     62 /END/
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Lambda = 0.016
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "breaklines=true,numbers=left"
+inline false
+status collapsed
+
+\begin_layout Standard
+
+ 
+\end_layout
+
+\begin_layout Standard
+
+  SIMULOG   ***  QNAP2  ***  ( 15-09-2000  ) V 9.4   
+\end_layout
+
+\begin_layout Standard
+
+  (C)  COPYRIGHT BY CII HONEYWELL BULL AND INRIA, 1986
+\end_layout
+
+\begin_layout Standard
+
+ 
+\end_layout
+
+\begin_layout Standard
+
+ 
+\end_layout
+
+\begin_layout Standard
+
+ ***SIMULATION WITH SPECTRAL METHOD ***
+\end_layout
+
+\begin_layout Standard
+
+ ...
+ TIME =     10000000.00 , NB SAMPLES =    512 , CONF.
+ LEVEL = 0.95
+\end_layout
+
+\begin_layout Standard
+
+ (0I0A03)  ==>WARNING (OUTPUT) : SOME CONFIDENCE INTERVALS ARE NOT AVAILABLE
+\end_layout
+
+\begin_layout Standard
+
+                                 FOR QUEUE ...
+ RT       .
+ 0 ASSUMED THEN
+\end_layout
+
+\begin_layout Standard
+
+ *******************************************************************
+\end_layout
+
+\begin_layout Standard
+
+ *   NAME   *  SERVICE * BUSY PCT *  CUST NB * RESPONSE *  SERV NB *
+\end_layout
+
+\begin_layout Standard
+
+ *******************************************************************
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *SOURCE1   * 62.77    * 1.000    * 1.000    * 62.77    *    159300*
+\end_layout
+
+\begin_layout Standard
+
+ *   +/-    *0.3067    *0.0000E+00*0.0000E+00*0.3067    *          *
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *STATION1  *10.000    *0.5703    * 1.334    * 23.39    *    570285*
+\end_layout
+
+\begin_layout Standard
+
+ *   +/-    *0.3805E-01*0.4304E-02*0.3496E-01*0.5257    *          *
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *STATION2  * 15.04    *0.2575    *0.3458    * 20.19    *    171249*
+\end_layout
+
+\begin_layout Standard
+
+ *   +/-    *0.7931E-01*0.2896E-02*0.5812E-02*0.2008    *          *
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *STATION3  * 19.99    *0.7976    * 3.863    * 96.82    *    399032*
+\end_layout
+
+\begin_layout Standard
+
+ *   +/-    *0.8934E-01*0.5281E-02*0.1751    * 3.891    *          *
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *RT        *0.0000E+00*0.0000E+00* 5.543    * 348.0    *    159294*
+\end_layout
+
+\begin_layout Standard
+
+ *   +/-    *----------*0.0000E+00*0.2048    * 11.96    *          *
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *******************************************************************
+\end_layout
+
+\begin_layout Standard
+
+ ...
+ END OF SIMULATION ...
+\end_layout
+
+\begin_layout Standard
+
+ 
+\end_layout
+
+\begin_layout Standard
+
+ 
+\end_layout
+
+\begin_layout Standard
+
+              MEMORY USED:      12003 WORDS OF 4 BYTES
+\end_layout
+
+\begin_layout Standard
+
+               (  0.08  % OF TOTAL MEMORY)
+\end_layout
+
+\begin_layout Standard
+
+     62 /END/
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Lambda = 0.018
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "breaklines=true,numbers=left"
+inline false
+status collapsed
+
+\begin_layout Standard
+
+ 
+\end_layout
+
+\begin_layout Standard
+
+  SIMULOG   ***  QNAP2  ***  ( 15-09-2000  ) V 9.4   
+\end_layout
+
+\begin_layout Standard
+
+  (C)  COPYRIGHT BY CII HONEYWELL BULL AND INRIA, 1986
+\end_layout
+
+\begin_layout Standard
+
+ 
+\end_layout
+
+\begin_layout Standard
+
+ 
+\end_layout
+
+\begin_layout Standard
+
+ ***SIMULATION WITH SPECTRAL METHOD ***
+\end_layout
+
+\begin_layout Standard
+
+ ...
+ TIME =     10000000.00 , NB SAMPLES =    512 , CONF.
+ LEVEL = 0.95
+\end_layout
+
+\begin_layout Standard
+
+ (0I0A03)  ==>WARNING (OUTPUT) : SOME CONFIDENCE INTERVALS ARE NOT AVAILABLE
+\end_layout
+
+\begin_layout Standard
+
+                                 FOR QUEUE ...
+ RT       .
+ 0 ASSUMED THEN
+\end_layout
+
+\begin_layout Standard
+
+ *******************************************************************
+\end_layout
+
+\begin_layout Standard
+
+ *   NAME   *  SERVICE * BUSY PCT *  CUST NB * RESPONSE *  SERV NB *
+\end_layout
+
+\begin_layout Standard
+
+ *******************************************************************
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *SOURCE1   * 55.56    * 1.000    * 1.000    * 55.56    *    179980*
+\end_layout
+
+\begin_layout Standard
+
+ *   +/-    *0.2837    *0.0000E+00*0.0000E+00*0.2837    *          *
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *STATION1  * 10.02    *0.6434    * 1.792    * 27.89    *    642394*
+\end_layout
+
+\begin_layout Standard
+
+ *   +/-    *0.5266E-01*0.5668E-02*0.4936E-01*0.6132    *          *
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *STATION2  * 15.02    *0.2895    *0.4064    * 21.09    *    192678*
+\end_layout
+
+\begin_layout Standard
+
+ *   +/-    *0.7921E-01*0.3570E-02*0.7108E-02*0.2122    *          *
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *STATION3  * 19.98    *0.8984    * 9.004    * 200.2    *    449715*
+\end_layout
+
+\begin_layout Standard
+
+ *   +/-    *0.7218E-01*0.7023E-02*0.8957    * 20.37    *          *
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *RT        *0.0000E+00*0.0000E+00* 11.20    * 622.4    *    179978*
+\end_layout
+
+\begin_layout Standard
+
+ *   +/-    *----------*0.0000E+00*0.9319    * 50.90    *          *
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *******************************************************************
+\end_layout
+
+\begin_layout Standard
+
+ ...
+ END OF SIMULATION ...
+\end_layout
+
+\begin_layout Standard
+
+ 
+\end_layout
+
+\begin_layout Standard
+
+ 
+\end_layout
+
+\begin_layout Standard
+
+              MEMORY USED:      16131 WORDS OF 4 BYTES
+\end_layout
+
+\begin_layout Standard
+
+               (  0.11  % OF TOTAL MEMORY)
+\end_layout
+
+\begin_layout Standard
+
+     62 /END/
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Lambda = 0.019
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "breaklines=true,numbers=left"
+inline false
+status collapsed
+
+\begin_layout Standard
+
+ 
+\end_layout
+
+\begin_layout Standard
+
+  SIMULOG   ***  QNAP2  ***  ( 15-09-2000  ) V 9.4   
+\end_layout
+
+\begin_layout Standard
+
+  (C)  COPYRIGHT BY CII HONEYWELL BULL AND INRIA, 1986
+\end_layout
+
+\begin_layout Standard
+
+ 
+\end_layout
+
+\begin_layout Standard
+
+ 
+\end_layout
+
+\begin_layout Standard
+
+ ***SIMULATION WITH SPECTRAL METHOD ***
+\end_layout
+
+\begin_layout Standard
+
+ ...
+ TIME =     10000000.00 , NB SAMPLES =    512 , CONF.
+ LEVEL = 0.95
+\end_layout
+
+\begin_layout Standard
+
+ (0I0A03)  ==>WARNING (OUTPUT) : SOME CONFIDENCE INTERVALS ARE NOT AVAILABLE
+\end_layout
+
+\begin_layout Standard
+
+                                 FOR QUEUE ...
+ RT       .
+ 0 ASSUMED THEN
+\end_layout
+
+\begin_layout Standard
+
+ *******************************************************************
+\end_layout
+
+\begin_layout Standard
+
+ *   NAME   *  SERVICE * BUSY PCT *  CUST NB * RESPONSE *  SERV NB *
+\end_layout
+
+\begin_layout Standard
+
+ *******************************************************************
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *SOURCE1   * 52.72    * 1.000    * 1.000    * 52.72    *    189698*
+\end_layout
+
+\begin_layout Standard
+
+ *   +/-    *0.2644    *0.0000E+00*0.0000E+00*0.2644    *          *
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *STATION1  * 10.00    *0.6784    * 2.115    * 31.18    *    678296*
+\end_layout
+
+\begin_layout Standard
+
+ *   +/-    *0.3564E-01*0.4126E-02*0.4135E-01*0.5228    *          *
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *STATION2  * 15.01    *0.3059    *0.4416    * 21.67    *    203807*
+\end_layout
+
+\begin_layout Standard
+
+ *   +/-    *0.7516E-01*0.3263E-02*0.7010E-02*0.1877    *          *
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *STATION3  * 20.00    *0.9491    * 17.24    * 363.3    *    474480*
+\end_layout
+
+\begin_layout Standard
+
+ *   +/-    *0.6769E-01*0.7140E-02* 2.709    * 58.54    *          *
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *RT        *0.0000E+00*0.0000E+00* 19.79    * 1043.
+    *    189687*
+\end_layout
+
+\begin_layout Standard
+
+ *   +/-    *----------*0.0000E+00* 2.742    * 144.3    *          *
+\end_layout
+
+\begin_layout Standard
+
+ *          *          *          *          *          *          *
+\end_layout
+
+\begin_layout Standard
+
+ *******************************************************************
+\end_layout
+
+\begin_layout Standard
+
+ ...
+ END OF SIMULATION ...
+\end_layout
+
+\begin_layout Standard
+
+ 
+\end_layout
+
+\begin_layout Standard
+
+ 
+\end_layout
+
+\begin_layout Standard
+
+              MEMORY USED:      18915 WORDS OF 4 BYTES
+\end_layout
+
+\begin_layout Standard
+
+               (  0.13  % OF TOTAL MEMORY)
+\end_layout
+
+\begin_layout Standard
+
+     62 /END/
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
 \end_inset
 
 

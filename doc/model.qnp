@@ -11,8 +11,8 @@
 		REAL P13 = 0.7;
 		REAL P31 = 0.6;
 		
-		INTEGER I;
 		REAL T;
+		& trafico medio de llegadas
 		REAL LAMBDA = 0.002;
 		REF CUSTOMER C;
 
@@ -50,14 +50,8 @@
 		ACCURACY = ALL QUEUE;
 
 /EXEC/		BEGIN
-			 & FOR I:=1 STEP 1 UNTIL 10 DO
-			 & BEGIN
-				& IF I=10 THEN LAMBDA := 0.019;
-				& ELSE LAMBDA := 0.002 * I;
-				PRINT;
-				& PRINT("LAMBDA =",LAMBDA);
-				SIMUL;
-			 & END;
+			PRINT;
+			SIMUL;
 		END;
 /END/
 

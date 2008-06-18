@@ -106,7 +106,8 @@ La simulación
 \newline
 
 \newline
-?
+El
+ método de las réplicas.
 \end_layout
 
 \begin_layout Enumerate
@@ -869,7 +870,7 @@ Rutina de simulación de réplicas
 placement H
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Standard
 REPLICAS 
@@ -2014,7 +2015,7 @@ Mostrar la curva de tiempo de respuesta solicitada.
 placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Standard
 \align center
@@ -2054,7 +2055,7 @@ Curva de evolución del tiempo medio de respuesta del sistema en fución de
 placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Standard
 \align center
@@ -2301,8 +2302,8 @@ status collapsed
 
 \begin_layout Standard
 Datos obtenidos para 10 simulaciones.
- Diferentes valores de tiempo medio de respuesta del sistema frente a diversos
- valores del tráfico global de entrada
+ Diferentes valores de tiempo medio de respuesta del sistema (ordenadas)
+ frente a diversos valores del tráfico global de entrada (abcisas).
 \end_layout
 
 \end_inset
@@ -2326,7 +2327,7 @@ Cómo es lógico el tiempo medio de respuesta aumenta a medida que aumenta
 \begin_inset Formula $0<\lambda<0.02$
 \end_inset
 
- y en la gráfica vemos claramente que al acercarnos a ese valor límite el
+ y en la gráfica vemos cláramente que al acercarnos a ese valor límite el
  tiempo medio de respuesta crece exponencialmente.
  
 \end_layout

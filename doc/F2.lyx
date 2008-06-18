@@ -82,6 +82,301 @@ $LastChangedBy$
 Especificar el modelo QNAP2 diseñado.
 \end_layout
 
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "breaklines=true,numbers=left"
+inline false
+status collapsed
+
+\begin_layout Standard
+
+& $LastChangedDate$
+\end_layout
+
+\begin_layout Standard
+
+& $LastChangedRevision$
+\end_layout
+
+\begin_layout Standard
+
+& $LastChangedBy$
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+/DECLARE/       QUEUE SOURCE1;
+\end_layout
+
+\begin_layout Standard
+
+                QUEUE STATION1, STATION2, STATION3, RT;
+\end_layout
+
+\begin_layout Standard
+
+                & la cola RT nos permitira determinar el IC global
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+                & probabilidades de ramificacion                
+\end_layout
+
+\begin_layout Standard
+
+                REAL P12 = 0.3;
+\end_layout
+
+\begin_layout Standard
+
+                REAL P13 = 0.7;
+\end_layout
+
+\begin_layout Standard
+
+                REAL P31 = 0.6;
+\end_layout
+
+\begin_layout Standard
+
+                
+\end_layout
+
+\begin_layout Standard
+
+                REAL T;
+\end_layout
+
+\begin_layout Standard
+
+                & trafico medio de llegadas
+\end_layout
+
+\begin_layout Standard
+
+                REAL LAMBDA = 0.002;
+\end_layout
+
+\begin_layout Standard
+
+                REF CUSTOMER C;
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+/STATION/       NAME = STATION1;
+\end_layout
+
+\begin_layout Standard
+
+                SERVICE = EXP(10); & tiempos medios de servicio
+\end_layout
+
+\begin_layout Standard
+
+                TRANSIT = STATION2, P12, STATION3, P13;
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+/STATION/       NAME = STATION2;
+\end_layout
+
+\begin_layout Standard
+
+                SERVICE = EXP(15);
+\end_layout
+
+\begin_layout Standard
+
+                TRANSIT = STATION1;
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+/STATION/       NAME = STATION3;
+\end_layout
+
+\begin_layout Standard
+
+                SERVICE = BEGIN
+\end_layout
+
+\begin_layout Standard
+
+                                EXP(20);
+\end_layout
+
+\begin_layout Standard
+
+                                T := RANDU;
+\end_layout
+
+\begin_layout Standard
+
+                                IF T < P31 THEN TRANSIT(STATION1);
+\end_layout
+
+\begin_layout Standard
+
+                                & salimos del sistema
+\end_layout
+
+\begin_layout Standard
+
+                                C := RT.FIRST;
+\end_layout
+
+\begin_layout Standard
+
+                                WHILE C.FATHER <> CUSTOMER DO C := C.NEXT;
+\end_layout
+
+\begin_layout Standard
+
+                                TRANSIT(C, OUT);                       
+ 
+\end_layout
+
+\begin_layout Standard
+
+                                TRANSIT(OUT);                          
+ 
+\end_layout
+
+\begin_layout Standard
+
+                          END;
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+/STATION/       NAME = SOURCE1;
+\end_layout
+
+\begin_layout Standard
+
+                TYPE = SOURCE;
+\end_layout
+
+\begin_layout Standard
+
+                SERVICE = BEGIN
+\end_layout
+
+\begin_layout Standard
+
+                                EXP(1.0/LAMBDA);
+\end_layout
+
+\begin_layout Standard
+
+                                C := NEW(CUSTOMER);
+\end_layout
+
+\begin_layout Standard
+
+                                TRANSIT(C, RT);
+\end_layout
+
+\begin_layout Standard
+
+                                TRANSIT(STATION1);
+\end_layout
+
+\begin_layout Standard
+
+                          END;
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+/CONTROL/       TMAX = 10000000;
+\end_layout
+
+\begin_layout Standard
+
+                CLASS = ALL QUEUE;
+\end_layout
+
+\begin_layout Standard
+
+                ACCURACY = ALL QUEUE;
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+/EXEC/          BEGIN
+\end_layout
+
+\begin_layout Standard
+
+                        PRINT;
+\end_layout
+
+\begin_layout Standard
+
+                        SIMUL;
+\end_layout
+
+\begin_layout Standard
+
+                END;
+\end_layout
+
+\begin_layout Standard
+
+/END/
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
 \begin_layout Enumerate
 \noindent
 Mostrar la curva de tiempo de respuesta obtenida por medio de QNAP2, superponién
@@ -100,7 +395,7 @@ dola a la curva de tiempos de respuesta presentada en el formulario F1.
 placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Standard
 \align center
@@ -516,7 +811,11 @@ Datos obtenidos para 10 simulaciones.
 \begin_layout Standard
 \noindent
 Para realizar la simulación tanto en nuestro simulador cómo en QNAP hemos
- utilizado un tiempo de réplica de 
+ utilizado un 
+\series bold
+tiempo de réplica
+\series default
+ de 
 \begin_inset Formula $10^{7}$
 \end_inset
 
@@ -887,6 +1186,29 @@ Valores de los intervalos de confianza para el modelo QNAP y el simulador
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+\noindent
+Cómo conclusiones finales podemos decir lo siguiente:
+\end_layout
+
+\begin_layout Enumerate
+Los valores medios obtenidos por nuestro simulador son muy similares a los
+ del modelo QNAP.
+\end_layout
+
+\begin_layout Enumerate
+La diferencia más apreciable se produce en la estimación con un valor 
+\begin_inset Formula $\lambda=0.019$
+\end_inset
+
+, valor muy próximo al límite para el cual la red sigue siendo estable (recordem
+os que 
+\begin_inset Formula $\lambda<0.02$
+\end_inset
+
+).
 \end_layout
 
 \end_body
