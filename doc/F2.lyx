@@ -1195,7 +1195,7 @@ Cómo conclusiones finales podemos decir lo siguiente:
 
 \begin_layout Enumerate
 Los valores medios obtenidos por nuestro simulador son muy similares a los
- del modelo QNAP.
+ del modelo QNAP, con lo cual la estimación parece correcta.
 \end_layout
 
 \begin_layout Enumerate
